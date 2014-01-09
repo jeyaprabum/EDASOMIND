@@ -1,0 +1,82 @@
+FUNCTION_BLOCK UniversityDecision
+
+VAR_INPUT
+	contact2students 	: REAL;
+	reputation			: REAL;
+	costofliving 		: REAL;
+END_VAR
+
+VAR_OUTPUT
+	decision : REAL;
+END_VAR
+
+DEFUZZIFY decision
+	TERM con     := ( 0,1) (30,1) ( 40,0);
+	TERM neutral := (30,0) (50,1) ( 70,0);
+	TERM pro     := (60,1) (70,1) (100,1);
+	METHOD : COG; 
+	DEFAULT := 50;
+END_DEFUZZIFY
+
+FUZZIFY contact2students
+	TERM good := (1    ,1) (2 ,1) (3.5  ,0);
+	TERM okay := (2.25 ,0) (3 ,1) (4.75 ,0);
+	TERM bad  := (3.5  ,0) (5 ,1) (6    ,1);
+END_FUZZIFY
+
+FUZZIFY reputation
+	TERM good := (1    ,1) (2 ,1) (3.5  ,0);
+	TERM okay := (2.25 ,0) (3 ,1) (4.75 ,0);
+	TERM bad  := (3.5  ,0) (5 ,1) (6    ,1);
+END_FUZZIFY
+
+FUZZIFY costofliving
+	TERM cheap 			:= (200,1)	(330,1) (400,0);
+	TERM normal 		:= (330,0)	(400,1) (470,0);
+	TERM expensive		:= (400,0)	(470,1) (600,0);
+END_FUZZIFY
+
+
+RULEBLOCK No1
+	AND : MIN;
+	ACT : MIN;
+	ACCU : MAX;
+	
+	RULE 1: 
+	IF	 costofliving     IS normal 
+	AND  reputation		  IS okay
+	AND  contact2students IS okay
+	THEN decision		  IS neutral;
+	
+	RULE 2: 
+	IF	 costofliving     IS cheap 
+	AND  reputation		  IS okay
+	AND  contact2students IS okay
+	THEN decision		  IS pro;
+
+	RULE 3: 
+	IF	 costofliving     IS expensive
+	THEN decision		  IS con;
+	
+	RULE 4: 
+	IF   reputation		  IS good
+	AND  contact2students IS good
+	THEN decision		  IS pro;
+	
+	RULE 5: 
+	IF   reputation		  IS bad
+	AND  contact2students IS bad
+	THEN decision		  IS con;
+	
+	RULE 6: 
+	IF	 costofliving     IS cheap 
+	AND  reputation		  IS good
+	AND  contact2students IS good
+	THEN decision		  IS pro;
+
+	
+	
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
+
