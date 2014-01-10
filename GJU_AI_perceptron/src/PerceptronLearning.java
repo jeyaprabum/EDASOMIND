@@ -101,8 +101,8 @@ public class PerceptronLearning {
       dWeightY = dWeightY + dDeltaY;
       
       // DEBUG
-      System.out.println("Weight X: "+(dWeightX-dDeltaX)+" + "+dDeltaX+" = "+dWeightX);
-      System.out.println("Weight Y: "+(dWeightY-dDeltaY)+" + "+dDeltaY+" = "+dWeightY);
+//      System.out.println("Weight X: "+(dWeightX-dDeltaX)+" + "+dDeltaX+" = "+dWeightX);
+//      System.out.println("Weight Y: "+(dWeightY-dDeltaY)+" + "+dDeltaY+" = "+dWeightY);
    }
    
 }
