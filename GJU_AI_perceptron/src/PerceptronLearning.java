@@ -1,6 +1,5 @@
 
 
-import java.sql.NClob;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -14,11 +13,6 @@ public class PerceptronLearning {
    double dLearningRate = 0.2;
    
    public void startPerceptron(String sTrainingData, String sTestdata1, String sTestdata2, Double dWX, Double dWY) {
-      // Read Files
-      HashSet<Point> setTraining = DataSet.readSet(sTrainingData);
-      HashSet<Point> setTest1    = DataSet.readSet(sTestdata1);
-      HashSet<Point> setTest2    = DataSet.readSet(sTestdata2);
-   
       // If given, take given Weights
       // else Random value for Weights between -0,5 and 0.5
       if(dWX!=null) dWeightX = dWX;
@@ -27,10 +21,26 @@ public class PerceptronLearning {
       if(dWY!=null) dWeightY = dWY;
       else          dWeightY = random.nextDouble()-0.5;
       
+      
+      
+      System.out.println("Files: "+sTrainingData+", "+sTestdata1+", "+sTestdata2);
+      if(dWX == null)
+         System.out.print("Random-Value for Weight: ");
+      
+      System.out.println("Weight X:"+dWeightX+", Weight Y:"+dWeightY);
+      
+      // Read Files
+      HashSet<Point> setTraining = DataSet.readSet(sTrainingData);
+      HashSet<Point> setTest1    = DataSet.readSet(sTestdata1);
+      HashSet<Point> setTest2    = DataSet.readSet(sTestdata2);
+      
       learn(setTraining);
       
       System.out.println(test(setTest1)+" Fehler im Test-Set A");
       System.out.println(test(setTest2)+" Fehler im Test-Set B");
+      
+      System.out.println();
+      System.out.println();
    }
    
    public int test(Set<Point> setTest){
@@ -53,7 +63,7 @@ public class PerceptronLearning {
          bHasError = false;
          
          // Debugging
-         System.out.println("Iteration: "+nCounter);
+         // System.out.println("Iteration: "+nCounter);
          
          // Iterate through the Training-Set
          for(Point p:setTraining){
@@ -68,11 +78,11 @@ public class PerceptronLearning {
                bHasError = true;
             }
          }
-         System.out.println();
+         // System.out.println();
          nCounter++;
       }
-      System.out.println("STOP LEARNING");
-      System.out.println("FINAL WEIGHTS: X="+dWeightX+", Y="+dWeightY);
+      System.out.println("Stop Learning at Epoche "+nCounter);
+      System.out.println("Final Weights: X="+dWeightX+", Y="+dWeightY);
    }
    
    public int calculateValue(Point p) {
@@ -90,8 +100,9 @@ public class PerceptronLearning {
       double dDeltaY = dLearningRate * p.getY() * (p.getValue() - dValue);
       dWeightY = dWeightY + dDeltaY;
       
-      System.out.println("Weight X: "+(dWeightX-dDeltaX)+" + "+dDeltaX+" = "+dWeightX);
-      System.out.println("Weight Y: "+(dWeightY-dDeltaY)+" + "+dDeltaY+" = "+dWeightY);
+      // DEBUG
+//      System.out.println("Weight X: "+(dWeightX-dDeltaX)+" + "+dDeltaX+" = "+dWeightX);
+//      System.out.println("Weight Y: "+(dWeightY-dDeltaY)+" + "+dDeltaY+" = "+dWeightY);
    }
    
 }

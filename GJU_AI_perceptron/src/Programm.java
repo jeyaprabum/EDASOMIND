@@ -8,7 +8,7 @@ public class Programm {
 //      learning.startPerceptron("TrainingDataB", "TestDataB1", "TestDataB2", null, null);
 //      
       learning.startPerceptron("TrainingDataA", "TestDataA1", "TestDataA2", 0.5, -0.5);
-//      learning.startPerceptron("TrainingDataB", "TestDataB1", "TestDataB2", 0.5, -0.5);
+      learning.startPerceptron("TrainingDataB", "TestDataB1", "TestDataB2", 0.5, -0.5);
 
    }
 
