@@ -68,17 +68,17 @@ public class PerceptronLearning {
          // Iterate through the Training-Set
          for(Point p:setTraining){
             // Calculate the Error for one output
-            double dOutput = calculateValue(p);
+            double dValue = calculateValue(p);
             // Is there an error?
-            if((p.getValue()-dOutput) != 0){
+            Double dDesiredValue = (double) p.getValue();
+            if((dDesiredValue-dValue) != 0){
                // Yes?
                // -> Update Weights according the error
-               updateWeights(p, dOutput);
+               updateWeights(p, dValue);
                // Remember that there has been an error and we need to do more iterations
                bHasError = true;
             }
          }
-         // System.out.println();
          nCounter++;
       }
       System.out.println("Stop Learning at Epoche "+nCounter);
@@ -94,15 +94,15 @@ public class PerceptronLearning {
    }
    
    public void updateWeights(Point p, double dValue){
-      double dDeltaX = dLearningRate * p.getX() * (p.getValue() - dValue);
+      double dDeltaX = dLearningRate * p.getX() * (((double)p.getValue()) - dValue);
       dWeightX = dWeightX + dDeltaX;
       
-      double dDeltaY = dLearningRate * p.getY() * (p.getValue() - dValue);
+      double dDeltaY = dLearningRate * p.getY() * (((double)p.getValue()) - dValue);
       dWeightY = dWeightY + dDeltaY;
       
       // DEBUG
-//      System.out.println("Weight X: "+(dWeightX-dDeltaX)+" + "+dDeltaX+" = "+dWeightX);
-//      System.out.println("Weight Y: "+(dWeightY-dDeltaY)+" + "+dDeltaY+" = "+dWeightY);
+      System.out.println("Weight X: "+(dWeightX-dDeltaX)+" + "+dDeltaX+" = "+dWeightX);
+      System.out.println("Weight Y: "+(dWeightY-dDeltaY)+" + "+dDeltaY+" = "+dWeightY);
    }
    
 }
