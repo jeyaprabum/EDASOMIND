@@ -18,6 +18,7 @@ public class RouletteWheelSelection {
       Double randomValue = r.nextDouble();
       Pair<Chromosome, Chromosome> pair = new Pair<Chromosome, Chromosome>(null, null);
       
+      // Choose the first
       for(Chromosome chr:set){
          if(chr.getFitnessRatio()<randomValue)
             pair.setFirst(chr);

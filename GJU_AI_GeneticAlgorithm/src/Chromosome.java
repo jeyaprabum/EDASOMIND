@@ -3,8 +3,8 @@ import java.util.Random;
 
 public class Chromosome implements Comparable<Chromosome> {
    
+   private GeneticAlgorithm ga;
    private boolean[] Genes = null;
-   private Integer nFitness = null;
    private Double dFitnessRatio = null;
 
    public Double getFitnessRatio() {
@@ -16,13 +16,8 @@ public class Chromosome implements Comparable<Chromosome> {
    }
 
    public Integer getFitness() {
-      return nFitness;
+      return ga.getCnf().countTrueClauses(getGenes());
    }
-
-   public void setFitness(Integer fitness) {
-      this.nFitness = fitness;
-   }
-   
 
    public boolean[] getGenes() {
       return Genes;
@@ -32,11 +27,12 @@ public class Chromosome implements Comparable<Chromosome> {
       Genes = genes;
    }
 
-   public Chromosome(int nSize, Random r) {
+   public Chromosome(int nSize, GeneticAlgorithm ga) {
+      this.ga = ga;
       Genes = new boolean[nSize];
       
       for (int i = 0; i < Genes.length; i++) 
-         Genes[i] = r.nextBoolean();
+         Genes[i] = ga.getRandom().nextBoolean();
    }
    
    public Chromosome(boolean[] GivenGenes) {
