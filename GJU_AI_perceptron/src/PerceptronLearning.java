@@ -29,17 +29,18 @@ public class PerceptronLearning {
       
       learn(setTraining);
       
-      test(setTest1);
-      test(setTest2);
+      System.out.println(test(setTest1)+" Fehler im Test-Set A");
+      System.out.println(test(setTest2)+" Fehler im Test-Set B");
    }
    
-   public void test(Set<Point> setTest){
+   public int test(Set<Point> setTest){
       int nErrorCounter = 0;
       for(Point p:setTest){
          int nValue = calculateValue(p);
          if(p.getValue() != nValue)
             nErrorCounter++;
       }
+      return nErrorCounter;
    }
    
    public void learn(Set<Point> setTraining) {
