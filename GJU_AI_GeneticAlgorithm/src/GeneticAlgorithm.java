@@ -14,26 +14,17 @@ public class GeneticAlgorithm {
    private CNF cnf = null;
    
    public void init() throws Exception {
-      
+      // Read Input
       setCnf(InputReader.readInputFile("def.txt"));
-      
-      TreeSet<Chromosome> setChromosome = new TreeSet<Chromosome>();
+
+      Generation generation = new Generation();
       
       // Step #1: Create Chromosomes with randomized Genes
       for (int i = 0; i < getPopulationSize(); i++) {
          Chromosome chr = new Chromosome(cnf.getLength(), this);
          // Step #2: Caculate Fitness of each chromosome
-         setChromosome.add(chr);
+         generation.addChromosome(chr);
       }      
-      
-      int nTotalFitness = 0;
-      
-      // Step #3: Caculate Fitness-Ratio 
-      for(Chromosome chr:setChromosome)
-         nTotalFitness += chr.getFitness();
-      for(Chromosome chr:setChromosome)
-         chr.setFitnessRatio((double)(chr.getFitness()/nTotalFitness));
-      
       
       List<Pair<Chromosome, Chromosome>> listPair = new ArrayList<>();
       while(listPair.size()!=getPopulationSize()/2){

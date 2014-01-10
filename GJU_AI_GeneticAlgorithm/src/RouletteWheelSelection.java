@@ -5,7 +5,7 @@ import java.util.TreeSet;
 
 public class RouletteWheelSelection {
    
-   TreeSet<Chromosome> set = new TreeSet<Chromosome>();
+   TreeSet<ChromosomeWheel> set = new TreeSet<ChromosomeWheel>();
    Random r = null;
    
    public RouletteWheelSelection(List<Chromosome> listCHR, Random ran) {
