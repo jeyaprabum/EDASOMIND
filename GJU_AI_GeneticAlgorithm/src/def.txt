@@ -1,0 +1,9 @@
+a b c d e f g h
+a or c
+b or d
+not c or not d or not e
+f or g
+f or not h
+a or f
+e or not f
+h

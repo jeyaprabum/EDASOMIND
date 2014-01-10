@@ -1,0 +1,6 @@
+a b c d e f
+not a or c
+not a or c or not e
+not b or c or d or not e
+a or not b or c
+not e or f
