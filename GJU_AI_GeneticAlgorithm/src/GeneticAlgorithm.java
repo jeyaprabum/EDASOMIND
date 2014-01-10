@@ -29,13 +29,25 @@ public class GeneticAlgorithm {
       for(Chromosome chr:listChromosome)
          chr.setFitness(cnf.countTrueClauses(chr.getGenes()));
       
-      // Step #2: Caculate Fitness-Ratio 
+      // Step #3: Caculate Fitness-Ratio 
       for(Chromosome chr:listChromosome)
          nTotalFitness += chr.getFitness();
       for(Chromosome chr:listChromosome)
          chr.setFitnessRatio((double)(chr.getFitness()/nTotalFitness));
       
       
+      List<Pair<Chromosome, Chromosome>> listPair = new ArrayList<>();
+      while(listPair.size()!=nPopulationSize/2){
+         
+         Pair<Chromosome, Chromosome> pair = new Pair<Chromosome, Chromosome>(null, null);
+         
+         
+      }
+      
+   }
+   
+   private boolean hlpChoose(double dProbability){
+      return r.nextDouble() <= dProbability;
    }
 
 }
