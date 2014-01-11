@@ -11,6 +11,7 @@ public class GeneticAlgorithm {
    private double CrossoverProbebaility = 0.7;
    private Random r = new Random();
    private CNF cnf = null;
+   private int GenerationCounter = 0;
    
    public GeneticAlgorithm() {
       // Read Input
@@ -34,11 +35,12 @@ public class GeneticAlgorithm {
    }
    
    public void learn(Generation parentGeneration) throws Exception {
-      MaxGenerations--;
-      if(MaxGenerations==0) {
+      GenerationCounter++;
+      if(GenerationCounter == MaxGenerations) {
          System.out.println("MaxGenerations reached");
          return;
       }
+      
       for(Chromosome chr:parentGeneration.getChromosomes())
       if(cnf.countTrueClauses(chr.getGenes()) == cnf.getNbOfClauses()){
          System.out.println("Solution found");
@@ -46,6 +48,8 @@ public class GeneticAlgorithm {
       }
          
       Generation childGeneration = new Generation();
+      parentGeneration.setChildGeneration(childGeneration);
+      
       
       RouletteWheelSelection pairSelection = new RouletteWheelSelection(parentGeneration, getRandom(), this);
       List<Pair<Chromosome, Chromosome>> listPairs = pairSelection.getPairs();
@@ -62,7 +66,7 @@ public class GeneticAlgorithm {
       }
       
       
-      learn(childGeneration);
+      //learn(childGeneration);
    }
    
    private boolean hlpChoose(double dProbability){

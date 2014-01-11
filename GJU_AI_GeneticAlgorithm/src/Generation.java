@@ -3,14 +3,27 @@ import java.util.TreeSet;
 
 public class Generation implements Cloneable {
 
+   private TreeSet<Chromosome> Chromosomes = new TreeSet<Chromosome>();
+   private Generation childGeneration = null;
    
+   
+   
+   public Generation getChildGeneration() {
+      return childGeneration;
+   }
+
+
+   public void setChildGeneration(Generation childGeneration) {
+      this.childGeneration = childGeneration;
+   }
+
+
    public Generation clone() {
       Generation ga = new Generation();
       ga.setChromosomes((TreeSet<Chromosome>)getChromosomes().clone());
       return ga;
    };
    
-   private TreeSet<Chromosome> Chromosomes = new TreeSet<Chromosome>();
 
    public TreeSet<Chromosome> getChromosomes() {
       return Chromosomes;
