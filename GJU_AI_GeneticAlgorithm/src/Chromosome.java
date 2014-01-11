@@ -1,6 +1,6 @@
 
 
-public class Chromosome implements Comparable<Chromosome> {
+public class Chromosome implements Comparable<Chromosome>, Cloneable {
    
    private GeneticAlgorithm ga;
    private Generation generation;
@@ -8,6 +8,12 @@ public class Chromosome implements Comparable<Chromosome> {
 
    public void setGeneration(Generation gen){
       generation = gen;
+   }
+   
+   @Override
+   protected Chromosome clone() throws CloneNotSupportedException {
+      // TODO Auto-generated method stub
+      return (Chromosome) super.clone();
    }
    
    public double getFitnessRatio() {

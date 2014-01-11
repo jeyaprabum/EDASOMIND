@@ -53,7 +53,7 @@ public class RouletteWheelSelection {
          //System.out.println("COMPARE: "+randomValue+" < "+dAccu);
          if(randomValue < dAccu){
             gen.removeChromosome(chr);
-            return chr;
+            return chr.clone();
          }
       }
       

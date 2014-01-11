@@ -52,17 +52,21 @@ public class GeneticAlgorithm {
       
       
       RouletteWheelSelection pairSelection = new RouletteWheelSelection(parentGeneration, getRandom(), this);
-      List<Pair<Chromosome, Chromosome>> listPairs = pairSelection.getPairs();
+//      List<Pair<Chromosome, Chromosome>> listPairs = pairSelection.getPairs();
       
-      // Do Crossover?
-      if(hlpChoose(CrossoverProbebaility)){
-         // Crossover!
-      } {
-         // No? Just clonse
-      }
-      // Crossover?
-      if(hlpChoose(MutationProbability)){
+      
+      for(Pair<Chromosome, Chromosome> pair:pairSelection.getPairs()){
+         // Do Crossover?
+         if(hlpChoose(CrossoverProbebaility)){
+            // Crossover!
+         } {
+            // No? Just clonse
+         }
          
+         // Crossover?
+         if(hlpChoose(MutationProbability)){
+            
+         }
       }
       
       
