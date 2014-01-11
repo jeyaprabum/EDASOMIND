@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.TreeSet;
 
 
 public class RouletteWheelSelection {
@@ -12,7 +11,8 @@ public class RouletteWheelSelection {
    
    public RouletteWheelSelection(Generation generation, Random random, GeneticAlgorithm genalgo) {
       r   = random;
-      gen = generation;
+      // Klonen, damit Elemente entfernt werden können
+      gen = generation.clone();
       ga  = genalgo;
    }
    
@@ -28,9 +28,10 @@ public class RouletteWheelSelection {
    
 
    private Pair<Chromosome, Chromosome> getPair() {
+      // Instanciate Pair
       Pair<Chromosome, Chromosome> pair = new Pair<Chromosome, Chromosome>(null, null);
 
-      
+      // Create randomValue
       Double randomValue = r.nextDouble() * gen.getTotalFitness();
       
       // Choose the first
@@ -45,6 +46,10 @@ public class RouletteWheelSelection {
          if(chr.getFitnessRatio()<randomValue && !chr.equals(pair.getFirst()))
             pair.setSecond(chr);
       }
+      
+      // Remove Chromsomes from copied generation so that they cannot be choosen again for pairing
+      gen.removeChromosome(pair.getFirst());
+      gen.removeChromosome(pair.getSecond());
       
       return pair;
    }

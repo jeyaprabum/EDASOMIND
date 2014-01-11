@@ -1,8 +1,14 @@
 import java.util.TreeSet;
 
 
-public class Generation {
+public class Generation implements Cloneable {
 
+   
+   public Generation clone() {
+      Generation ga = new Generation();
+      ga.setChromosomes((TreeSet<Chromosome>)getChromosomes().clone());
+      return ga;
+   };
    
    TreeSet<Chromosome> Chromosomes = new TreeSet<Chromosome>();
 
@@ -16,6 +22,10 @@ public class Generation {
    
    public void addChromosome(Chromosome chr) {
       getChromosomes().add(chr);
+   }
+   
+   public void removeChromosome(Chromosome chr){
+     getChromosomes().remove(chr);
    }
    
    public int getTotalFitness(){
