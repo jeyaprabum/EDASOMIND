@@ -26,7 +26,7 @@ public class InputReader
         CNF cnf;
         String input;
 
-        BufferedReader in = new BufferedReader(new FileReader (fileName));
+        BufferedReader in = new BufferedReader(new InputStreamReader(InputReader.class.getResourceAsStream(fileName)));
         // read the names of the variables
         input = in.readLine();
         names = input.split("\\s");

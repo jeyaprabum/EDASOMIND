@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.TreeSet;
 
 
 public class GeneticAlgorithm {
@@ -13,10 +12,16 @@ public class GeneticAlgorithm {
    private Random r = new Random();
    private CNF cnf = null;
    
-   public void init() throws Exception {
+   public GeneticAlgorithm() {
       // Read Input
-      setCnf(InputReader.readInputFile("def.txt"));
-
+      try {
+         setCnf(InputReader.readInputFile("def.txt"));
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+   }
+   
+   public void learn() throws Exception {
       Generation generation = new Generation();
       
       // Step #1: Create Chromosomes with randomized Genes
@@ -25,14 +30,14 @@ public class GeneticAlgorithm {
          // Step #2: Caculate Fitness of each chromosome
          generation.addChromosome(chr);
       }      
-      
-      List<Pair<Chromosome, Chromosome>> listPair = new ArrayList<>();
-      while(listPair.size()!=getPopulationSize()/2){
-         
-         Pair<Chromosome, Chromosome> pair = new Pair<Chromosome, Chromosome>(null, null);
-         
-         
-      }
+//      
+//      List<Pair<Chromosome, Chromosome>> listPair = new ArrayList<>();
+//      while(listPair.size()!=getPopulationSize()/2){
+//         
+//         Pair<Chromosome, Chromosome> pair = new Pair<Chromosome, Chromosome>(null, null);
+//         
+//         
+//      }
       
    }
    
