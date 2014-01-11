@@ -21,7 +21,7 @@ public class GeneticAlgorithm {
       }
    }
    
-   public void learn() throws Exception {
+   public Generation createInitGeneration() throws Exception{
       Generation generation = new Generation();
       
       // Step #1: Create Chromosomes with randomized Genes
@@ -30,13 +30,21 @@ public class GeneticAlgorithm {
          // Step #2: Caculate Fitness of each chromosome
          generation.addChromosome(chr);
       }      
-      
-      
+      return generation;
+   }
+   
+   public void learn(Generation generation) throws Exception {
       RouletteWheelSelection pairSelection = new RouletteWheelSelection(generation, getRandom(), this);
-      
       List<Pair<Chromosome, Chromosome>> listPairs = pairSelection.getPairs();
       
-      System.out.println(listPairs.size());
+      // Crossover?
+      if(hlpChoose(CrossoverProbebaility)){
+         
+      }
+      // Crossover?
+      if(hlpChoose(MutationProbability)){
+         
+      }
       
    }
    
