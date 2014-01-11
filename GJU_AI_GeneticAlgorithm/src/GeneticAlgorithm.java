@@ -26,13 +26,11 @@ public class GeneticAlgorithm {
       
       // Step #1: Create Chromosomes with randomized Genes
       for (int i = 0; i < getPopulationSize(); i++) {
-         System.out.println("ADD");
          Chromosome chr = new Chromosome(cnf.getLength(), this);
          // Step #2: Caculate Fitness of each chromosome
          generation.addChromosome(chr);
       }      
       
-      System.out.println(generation.getChromosomes().size());
       
       RouletteWheelSelection pairSelection = new RouletteWheelSelection(generation, getRandom(), this);
       

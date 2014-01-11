@@ -49,7 +49,11 @@ public class Chromosome implements Comparable<Chromosome> {
       
       if(nFitness < n2Compare) return -1;
       else if(nFitness > n2Compare) return +1;
-      else return 0;
+      else {
+         // Special Behaviour for equal fitness
+         // Use Hashcode as second criteria otherwise the treeset won't accept chromosomes (returning zero means equal objects)
+         return Integer.compare(arg0.hashCode() , hashCode());
+      }
    }
    
 }
