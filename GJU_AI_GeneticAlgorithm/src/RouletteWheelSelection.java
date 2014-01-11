@@ -19,13 +19,10 @@ public class RouletteWheelSelection {
    public List<Pair<Chromosome, Chromosome>> getPairs() throws Exception{
       List<Pair<Chromosome, Chromosome>> listPairs = new ArrayList<>();
       
-      // Look as long for Pairs, so that a new generation with the same size can come into existence
-//      while(listPairs.size() < ga.getPopulationSize()/2){
-      for (int i = 0; i < ga.getPopulationSize()/2; i++) {
-         
+      // Create Pairs so that the new generation has the same size
+      for (int i = 1; i < ga.getPopulationSize()/2; i++) {
          Pair<Chromosome, Chromosome> pair = getPair();
-         if(pair!=null)
-            listPairs.add(getPair());
+         listPairs.add(getPair());
       }
       
       return listPairs;
@@ -33,8 +30,6 @@ public class RouletteWheelSelection {
    
 
    private Pair<Chromosome, Chromosome> getPair() throws Exception{
-      System.out.println("getPair");
-      
       // Instanciate Pair
       Pair<Chromosome, Chromosome> pair = new Pair<Chromosome, Chromosome>(null, null);
 
