@@ -10,7 +10,7 @@ public class Generation implements Cloneable {
       return ga;
    };
    
-   TreeSet<Chromosome> Chromosomes = new TreeSet<Chromosome>();
+   private TreeSet<Chromosome> Chromosomes = new TreeSet<Chromosome>();
 
    public TreeSet<Chromosome> getChromosomes() {
       return Chromosomes;

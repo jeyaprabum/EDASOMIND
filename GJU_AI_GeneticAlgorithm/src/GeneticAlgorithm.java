@@ -33,19 +33,36 @@ public class GeneticAlgorithm {
       return generation;
    }
    
-   public void learn(Generation generation) throws Exception {
-      RouletteWheelSelection pairSelection = new RouletteWheelSelection(generation, getRandom(), this);
+   public void learn(Generation parentGeneration) throws Exception {
+      MaxGenerations--;
+      if(MaxGenerations==0) {
+         System.out.println("MaxGenerations reached");
+         return;
+      }
+      for(Chromosome chr:parentGeneration.getChromosomes())
+      if(cnf.countTrueClauses(chr.getGenes()) == cnf.getNbOfClauses()){
+         System.out.println("Solution found");
+         return;
+      }
+         
+      Generation childGeneration = new Generation();
+      
+      RouletteWheelSelection pairSelection = new RouletteWheelSelection(parentGeneration, getRandom(), this);
       List<Pair<Chromosome, Chromosome>> listPairs = pairSelection.getPairs();
       
-      // Crossover?
+      // Do Crossover?
       if(hlpChoose(CrossoverProbebaility)){
-         
+         // Crossover!
+      } {
+         // No? Just clonse
       }
       // Crossover?
       if(hlpChoose(MutationProbability)){
          
       }
       
+      
+      learn(childGeneration);
    }
    
    private boolean hlpChoose(double dProbability){
