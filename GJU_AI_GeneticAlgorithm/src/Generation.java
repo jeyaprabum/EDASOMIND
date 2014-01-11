@@ -22,6 +22,7 @@ public class Generation implements Cloneable {
    
    public void addChromosome(Chromosome chr) {
       getChromosomes().add(chr);
+      chr.setGeneration(this);
    }
    
    public void removeChromosome(Chromosome chr){

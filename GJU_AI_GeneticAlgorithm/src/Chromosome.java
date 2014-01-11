@@ -10,8 +10,10 @@ public class Chromosome implements Comparable<Chromosome> {
       generation = gen;
    }
    
-   public Double getFitnessRatio() {
-      return (double) (getFitness()) / generation.getTotalFitness();
+   public double getFitnessRatio() {
+      double dFitness = (double) getFitness();
+      double dTotalFitness = (double) generation.getTotalFitness();
+      return dFitness / dTotalFitness;
    }
 
    public Integer getFitness() {

@@ -31,18 +31,17 @@ public class RouletteWheelSelection {
       // Instanciate Pair
       Pair<Chromosome, Chromosome> pair = new Pair<Chromosome, Chromosome>(null, null);
 
-      // Create randomValue
-      Double randomValue = r.nextDouble() * gen.getTotalFitness();
-      
       System.out.println(gen.getTotalFitness());
       for(Chromosome chr:gen.getChromosomes())
-      System.out.println(chr.getFitness());
+         System.out.println(chr.getFitness());
+
+      // Create randomValue
+      Double randomValue = r.nextDouble();
       
       // Choose the first
       for(Chromosome chr:gen.getChromosomes()){
-         double dFitnessRatio = (chr.getFitness()/gen.getTotalFitness()
-         System.out.println()+"<"+randomValue);
-         if(chr.getFitness()/gen.getTotalFitness() < randomValue){
+         System.out.println(chr.getFitnessRatio()+"<"+randomValue);
+         if(chr.getFitnessRatio() < randomValue){
             pair.setFirst(chr);
             break;
          }
@@ -53,8 +52,8 @@ public class RouletteWheelSelection {
       randomValue = r.nextDouble();
       
       for(Chromosome chr:gen.getChromosomes()){
-         System.out.println((chr.getFitness()/gen.getTotalFitness())+"<"+randomValue);
-         if(chr.getFitness()/gen.getTotalFitness() < randomValue  && !chr.equals(pair.getFirst())){
+         System.out.println(chr.getFitnessRatio()+"<"+randomValue);
+         if(chr.getFitnessRatio() < randomValue || gen.getChromosomes().size()==1){
             pair.setSecond(chr);
             break;
          }
