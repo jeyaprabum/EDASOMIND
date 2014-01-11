@@ -34,21 +34,30 @@ public class RouletteWheelSelection {
       // Create randomValue
       Double randomValue = r.nextDouble() * gen.getTotalFitness();
       
+      System.out.println(gen.getTotalFitness());
+      for(Chromosome chr:gen.getChromosomes())
+      System.out.println(chr.getFitness());
+      
       // Choose the first
       for(Chromosome chr:gen.getChromosomes()){
-         System.out.println(chr.getFitness()+"<"+randomValue);
-         if(chr.getFitness()<randomValue)
+         double dFitnessRatio = (chr.getFitness()/gen.getTotalFitness()
+         System.out.println()+"<"+randomValue);
+         if(chr.getFitness()/gen.getTotalFitness() < randomValue){
             pair.setFirst(chr);
+            break;
+         }
       }
       // Remove Chromsomes from copied generation so that they cannot be choosen again for pairing
       gen.removeChromosome(pair.getFirst());
       
-      randomValue = r.nextDouble() * gen.getTotalFitness();
+      randomValue = r.nextDouble();
       
       for(Chromosome chr:gen.getChromosomes()){
-         System.out.println(chr.getFitness()+"<"+randomValue);
-         if(chr.getFitness()<randomValue && !chr.equals(pair.getFirst()))
+         System.out.println((chr.getFitness()/gen.getTotalFitness())+"<"+randomValue);
+         if(chr.getFitness()/gen.getTotalFitness() < randomValue  && !chr.equals(pair.getFirst())){
             pair.setSecond(chr);
+            break;
+         }
       }
       
       // Remove Chromsomes from copied generation so that they cannot be choosen again for pairing

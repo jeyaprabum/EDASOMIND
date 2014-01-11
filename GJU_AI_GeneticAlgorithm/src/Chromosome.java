@@ -3,15 +3,15 @@
 public class Chromosome implements Comparable<Chromosome> {
    
    private GeneticAlgorithm ga;
+   private Generation generation;
    private boolean[] Genes = null;
-   private Double dFitnessRatio = null;
 
-   public Double getFitnessRatio() {
-      return dFitnessRatio;
+   public void setGeneration(Generation gen){
+      generation = gen;
    }
-
-   public void setFitnessRatio(Double fitnessRatio) {
-      dFitnessRatio = fitnessRatio;
+   
+   public Double getFitnessRatio() {
+      return (double) (getFitness()) / generation.getTotalFitness();
    }
 
    public Integer getFitness() {
