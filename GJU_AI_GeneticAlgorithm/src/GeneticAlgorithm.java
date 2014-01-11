@@ -26,18 +26,19 @@ public class GeneticAlgorithm {
       
       // Step #1: Create Chromosomes with randomized Genes
       for (int i = 0; i < getPopulationSize(); i++) {
+         System.out.println("ADD");
          Chromosome chr = new Chromosome(cnf.getLength(), this);
          // Step #2: Caculate Fitness of each chromosome
          generation.addChromosome(chr);
       }      
-//      
-//      List<Pair<Chromosome, Chromosome>> listPair = new ArrayList<>();
-//      while(listPair.size()!=getPopulationSize()/2){
-//         
-//         Pair<Chromosome, Chromosome> pair = new Pair<Chromosome, Chromosome>(null, null);
-//         
-//         
-//      }
+      
+      System.out.println(generation.getChromosomes().size());
+      
+      RouletteWheelSelection pairSelection = new RouletteWheelSelection(generation, getRandom(), this);
+      
+      List<Pair<Chromosome, Chromosome>> listPairs = pairSelection.getPairs();
+      
+      System.out.println(listPairs.size());
       
    }
    

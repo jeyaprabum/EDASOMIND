@@ -5,9 +5,9 @@ import java.util.Random;
 
 public class RouletteWheelSelection {
    
-   Random     r   = null;
-   Generation gen = null;
-   GeneticAlgorithm ga = null;
+   private Random     r   = null;
+   private Generation gen = null;
+   private GeneticAlgorithm ga = null;
    
    public RouletteWheelSelection(Generation generation, Random random, GeneticAlgorithm genalgo) {
       r   = random;
@@ -36,19 +36,22 @@ public class RouletteWheelSelection {
       
       // Choose the first
       for(Chromosome chr:gen.getChromosomes()){
-         if(chr.getFitnessRatio()<randomValue)
+         System.out.println(chr.getFitness()+"<"+randomValue);
+         if(chr.getFitness()<randomValue)
             pair.setFirst(chr);
       }
+      // Remove Chromsomes from copied generation so that they cannot be choosen again for pairing
+      gen.removeChromosome(pair.getFirst());
       
       randomValue = r.nextDouble() * gen.getTotalFitness();
       
       for(Chromosome chr:gen.getChromosomes()){
-         if(chr.getFitnessRatio()<randomValue && !chr.equals(pair.getFirst()))
+         System.out.println(chr.getFitness()+"<"+randomValue);
+         if(chr.getFitness()<randomValue && !chr.equals(pair.getFirst()))
             pair.setSecond(chr);
       }
       
       // Remove Chromsomes from copied generation so that they cannot be choosen again for pairing
-      gen.removeChromosome(pair.getFirst());
       gen.removeChromosome(pair.getSecond());
       
       return pair;
