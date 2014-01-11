@@ -13,6 +13,7 @@ public class Chromosome implements Comparable<Chromosome> {
    public double getFitnessRatio() {
       double dFitness = (double) getFitness();
       double dTotalFitness = (double) generation.getTotalFitness();
+      System.out.println(dFitness+" / "+dTotalFitness);
       return dFitness / dTotalFitness;
    }
 

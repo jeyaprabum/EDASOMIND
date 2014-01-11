@@ -16,53 +16,69 @@ public class RouletteWheelSelection {
       ga  = genalgo;
    }
    
-   public List<Pair<Chromosome, Chromosome>> getPairs() {
+   public List<Pair<Chromosome, Chromosome>> getPairs() throws Exception{
       List<Pair<Chromosome, Chromosome>> listPairs = new ArrayList<>();
       
       // Look as long for Pairs, so that a new generation with the same size can come into existence
-      while(listPairs.size() < ga.getPopulationSize()/2)
-         listPairs.add(getPair());
+//      while(listPairs.size() < ga.getPopulationSize()/2){
+      for (int i = 0; i < ga.getPopulationSize()/2; i++) {
+         
+         Pair<Chromosome, Chromosome> pair = getPair();
+         if(pair!=null)
+            listPairs.add(getPair());
+      }
       
       return listPairs;
    }
    
 
-   private Pair<Chromosome, Chromosome> getPair() {
+   private Pair<Chromosome, Chromosome> getPair() throws Exception{
+      System.out.println("getPair");
+      
       // Instanciate Pair
       Pair<Chromosome, Chromosome> pair = new Pair<Chromosome, Chromosome>(null, null);
 
-      System.out.println(gen.getTotalFitness());
-      for(Chromosome chr:gen.getChromosomes())
-         System.out.println(chr.getFitness());
-
-      // Create randomValue
-      Double randomValue = r.nextDouble();
+      //hlpOutputInfo();
+      pair.setFirst(chooseByProbability());
+      //hlpOutputInfo();
+      pair.setFirst(chooseByProbability());
       
-      // Choose the first
-      for(Chromosome chr:gen.getChromosomes()){
-         System.out.println(chr.getFitnessRatio()+"<"+randomValue);
-         if(chr.getFitnessRatio() < randomValue){
-            pair.setFirst(chr);
-            break;
-         }
-      }
-      // Remove Chromsomes from copied generation so that they cannot be choosen again for pairing
-      gen.removeChromosome(pair.getFirst());
-      
-      randomValue = r.nextDouble();
-      
-      for(Chromosome chr:gen.getChromosomes()){
-         System.out.println(chr.getFitnessRatio()+"<"+randomValue);
-         if(chr.getFitnessRatio() < randomValue || gen.getChromosomes().size()==1){
-            pair.setSecond(chr);
-            break;
-         }
-      }
-      
-      // Remove Chromsomes from copied generation so that they cannot be choosen again for pairing
-      gen.removeChromosome(pair.getSecond());
       
       return pair;
+   }
+   
+   private Chromosome chooseByProbability() throws Exception {
+      double dAccu = 0;
+      double randomValue = r.nextDouble();
+
+      for(Chromosome chr:gen.getChromosomes()){
+         double dFitness = chr.getFitness();
+         double dTotalFitness = gen.getTotalFitness();
+         dAccu += (dFitness / dTotalFitness) ;
+         //System.out.println("COMPARE: "+randomValue+" < "+dAccu);
+         if(randomValue < dAccu){
+            gen.removeChromosome(chr);
+            return chr;
+         }
+      }
+      
+      throw new Exception("Nothing choosen");
+   }
+   
+   private void hlpOutputInfo() {
+      System.out.print("TF: "+gen.getTotalFitness()+" = ");
+      for(Chromosome chr:gen.getChromosomes()){
+         System.out.print(chr.getFitness()+" + ");
+      }
+      System.out.println();
+      
+      double dAccu = 0;
+      for(Chromosome chr:gen.getChromosomes()){
+         dAccu += chr.getFitnessRatio();
+         System.out.println("FR: "+dAccu);
+      }
+      
+      
    }
    
 }
