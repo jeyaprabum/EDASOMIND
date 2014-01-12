@@ -4,17 +4,17 @@ import java.util.TreeSet;
 public class Generation implements Cloneable {
 
    private TreeSet<Chromosome> Chromosomes = new TreeSet<Chromosome>();
-   private Generation childGeneration = null;
+   private Generation parentGeneration = null;
    
    
    
-   public Generation getChildGeneration() {
-      return childGeneration;
+   public Generation getParentGeneration() {
+      return parentGeneration;
    }
 
 
-   public void setChildGeneration(Generation childGeneration) {
-      this.childGeneration = childGeneration;
+   public void setParentGeneration(Generation parentGeneration) {
+      this.parentGeneration = parentGeneration;
    }
 
 

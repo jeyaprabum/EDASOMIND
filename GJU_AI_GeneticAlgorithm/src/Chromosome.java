@@ -46,6 +46,14 @@ public class Chromosome implements Comparable<Chromosome>, Cloneable {
    public Chromosome(boolean[] GivenGenes) {
       Genes = GivenGenes;
    }
+   
+   @Override
+   public String toString() {
+      String sReturn = "";
+      for(boolean b:getGenes())
+         sReturn += b+" ";
+      return sReturn;
+   }
 
    
    // Compares this object with the specified object for order.
