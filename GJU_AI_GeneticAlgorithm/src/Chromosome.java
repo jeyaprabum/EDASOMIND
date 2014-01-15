@@ -2,20 +2,29 @@
 
 public class Chromosome implements Comparable<Chromosome>, Cloneable {
    
+   // members
    private GeneticAlgorithm ga;
    private Generation generation;
    private boolean[] Genes = null;
 
+   /**
+    * @param gen
+    */
    public void setGeneration(Generation gen){
       generation = gen;
    }
    
+   /* (non-Javadoc)
+    * @see java.lang.Object#clone()
+    */
    @Override
    protected Chromosome clone() throws CloneNotSupportedException {
-      // TODO Auto-generated method stub
       return (Chromosome) super.clone();
    }
    
+   /**
+    * @return
+    */
    public double getFitnessRatio() {
       double dFitness = (double) getFitness();
       double dTotalFitness = (double) generation.getTotalFitness();
@@ -23,18 +32,31 @@ public class Chromosome implements Comparable<Chromosome>, Cloneable {
       return dFitness / dTotalFitness;
    }
 
+   /**
+    * @return
+    */
    public Integer getFitness() {
       return ga.getCnf().countTrueClauses(getGenes());
    }
 
+   /**
+    * @return
+    */
    public boolean[] getGenes() {
       return Genes;
    }
 
+   /**
+    * @param genes
+    */
    public void setGenes(boolean[] genes) {
       Genes = genes;
    }
 
+   /**
+    * @param nSize
+    * @param ga
+    */
    public Chromosome(int nSize, GeneticAlgorithm ga) {
       this.ga = ga;
       Genes = new boolean[nSize];
@@ -43,10 +65,16 @@ public class Chromosome implements Comparable<Chromosome>, Cloneable {
          Genes[i] = ga.getRandom().nextBoolean();
    }
    
+   /**
+    * @param GivenGenes
+    */
    public Chromosome(boolean[] GivenGenes) {
       Genes = GivenGenes;
    }
    
+   /* (non-Javadoc)
+    * @see java.lang.Object#toString()
+    */
    @Override
    public String toString() {
       String sReturn = "";

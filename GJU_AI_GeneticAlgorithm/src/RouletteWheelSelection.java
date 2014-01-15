@@ -5,41 +5,49 @@ import java.util.Random;
 
 public class RouletteWheelSelection {
    
+   // members
    private Random     r   = null;
    private Generation gen = null;
    private GeneticAlgorithm ga = null;
    
+   /**
+    * @param generation
+    * @param random
+    * @param genalgo
+    */
    public RouletteWheelSelection(Generation generation, Random random, GeneticAlgorithm genalgo) {
       r   = random;
-      // Klonen, damit Elemente entfernt werden können
+      // Clone generation so that elements can be removed
       gen = generation.clone();
       ga  = genalgo;
    }
    
+   /**
+    * @return
+    * @throws Exception
+    */
    public List<Pair<Chromosome, Chromosome>> getPairs() throws Exception{
       List<Pair<Chromosome, Chromosome>> listPairs = new ArrayList<>();
       
-      // Create Pairs so that the new generation has the same size
-      for (int i = 0; i < ga.getPopulationSize()/2; i++) 
-         listPairs.add(getPair());
-      
+      // Create Pairs so that the new generation has the same size as the old
+      for (int i = 0; i < ga.getPopulationSize()/2; i++) {
+         // new Pair
+         Pair<Chromosome, Chromosome> pair = new Pair<Chromosome, Chromosome>(null, null);
+         //hlpOutputInfo();
+         pair.setFirst(chooseByProbability());
+         //hlpOutputInfo();
+         pair.setSecond(chooseByProbability());
+         // add to return list
+         listPairs.add(pair);
+      }
+      // return
       return listPairs;
    }
    
-
-   private Pair<Chromosome, Chromosome> getPair() throws Exception{
-      // Instanciate Pair
-      Pair<Chromosome, Chromosome> pair = new Pair<Chromosome, Chromosome>(null, null);
-
-      //hlpOutputInfo();
-      pair.setFirst(chooseByProbability());
-      //hlpOutputInfo();
-      pair.setSecond(chooseByProbability());
-      
-      
-      return pair;
-   }
-   
+   /**
+    * @return
+    * @throws Exception
+    */
    private Chromosome chooseByProbability() throws Exception {
       double dAccu = 0;
       double randomValue = r.nextDouble();
@@ -54,11 +62,13 @@ public class RouletteWheelSelection {
             return chr.clone();
          }
       }
-      
       throw new Exception("Nothing choosen");
    }
    
-   private void hlpOutputInfo() {
+   /**
+    * Debug-Output
+    */
+   private void hlpDebugInfo() {
       System.out.print("TF: "+gen.getTotalFitness()+" = ");
       for(Chromosome chr:gen.getChromosomes()){
          System.out.print(chr.getFitness()+" + ");
@@ -70,8 +80,5 @@ public class RouletteWheelSelection {
          dAccu += chr.getFitnessRatio();
          System.out.println("FR: "+dAccu);
       }
-      
-      
    }
-   
 }

@@ -4,18 +4,22 @@ import java.util.Random;
 public class GeneticAlgorithm {
    
    // members
-   private int PopulationSize = 4;
-   private int MaxGenerations = 50;
-   private double MutationProbability = 0.01;
-   private double CrossoverProbebaility = 0.7;
    private Random r = new Random();
-   private CNF cnf = null;
-   private int GenerationCounter = 0;
+   private CNF    cnf = null;
    
-   public GeneticAlgorithm(String sInputFile) {
-      // Read Input
+   private int    nGenerationCounter = 0;
+   private int    nPopulationSize    = 4;
+   private int    nMaxGenerations    = 50;
+   private double dMutationProbability   = 0.01;
+   private double dCrossoverProbebaility = 0.7;
+   
+   /**
+    * @param sCNFFile
+    */
+   public GeneticAlgorithm(String sCNFFile) {
       try {
-         setCnf(InputReader.readInputFile(sInputFile));
+         // Read Input
+         setCnf(InputReader.readInputFile(sCNFFile));
       } catch (Exception e) {
          e.printStackTrace();
       }
@@ -24,25 +28,29 @@ public class GeneticAlgorithm {
    public Generation createInitGeneration() throws Exception{
       Generation generation = new Generation();
       
-      // Step #1: Create Chromosomes with randomized Genes
-      for (int i = 0; i < getPopulationSize(); i++) {
-         Chromosome chr = new Chromosome(cnf.getLength(), this);
-         // Step #2: Caculate Fitness of each chromosome
-         generation.addChromosome(chr);
-      }      
+      // Create Chromosomes with randomized Genes
+      for (int i = 0; i < getPopulationSize(); i++)
+         // Add Chromsome to Generation
+         generation.addChromosome(new Chromosome(cnf.getLength(), this));
       return generation;
    }
    
+   /**
+    * @param parentGeneration
+    * @throws Exception
+    */
    public void learn(Generation parentGeneration) throws Exception {
-      GenerationCounter++;
-      if(GenerationCounter == MaxGenerations) {
+      nGenerationCounter++;
+      if(nGenerationCounter == nMaxGenerations) {
          System.out.println("MaxGenerations reached");
+         // Look for best result
          return;
       }
       
       for(Chromosome chr:parentGeneration.getChromosomes())
       if(cnf.countTrueClauses(chr.getGenes()) == cnf.getNbOfClauses()){
          System.out.println("Solution found");
+         // Print solution
          return;
       }
          
@@ -61,7 +69,7 @@ public class GeneticAlgorithm {
          // ###################################################################
          // Crossover?
          // ###################################################################
-         if(trueByProbability(CrossoverProbebaility)){
+         if(trueByProbability(dCrossoverProbebaility)){
             int nSplitPoint = r.nextInt(getPopulationSize());
             for (int i = 0; i < getPopulationSize(); i++) {
                boolean bFirst = firstChr.getGenes()[i];
@@ -73,13 +81,13 @@ public class GeneticAlgorithm {
          // ###################################################################
          // Mutation
          // ###################################################################
-         if(trueByProbability(MutationProbability)){
+         if(trueByProbability(dMutationProbability)){
             mutateChromosome(firstChr);
             mutateChromosome(seconChr);
          }
       }
       
-      learn(childGeneration);
+      //learn(childGeneration);
    }
    
    private void mutateChromosome(Chromosome chr){
@@ -92,35 +100,35 @@ public class GeneticAlgorithm {
    }
 
    public int getPopulationSize() {
-      return PopulationSize;
+      return nPopulationSize;
    }
 
    public void setPopulationSize(int populationSize) {
-      PopulationSize = populationSize;
+      nPopulationSize = populationSize;
    }
 
    public int getMaxGenerations() {
-      return MaxGenerations;
+      return nMaxGenerations;
    }
 
    public void setMaxGenerations(int maxGenerations) {
-      MaxGenerations = maxGenerations;
+      nMaxGenerations = maxGenerations;
    }
 
    public double getMutationProbability() {
-      return MutationProbability;
+      return dMutationProbability;
    }
 
    public void setMutationProbability(double mutationProbability) {
-      MutationProbability = mutationProbability;
+      dMutationProbability = mutationProbability;
    }
 
    public double getCrossoverProbebaility() {
-      return CrossoverProbebaility;
+      return dCrossoverProbebaility;
    }
 
    public void setCrossoverProbebaility(double crossoverProbebaility) {
-      CrossoverProbebaility = crossoverProbebaility;
+      dCrossoverProbebaility = crossoverProbebaility;
    }
 
    public Random getRandom() {
