@@ -75,4 +75,23 @@ public class Generation implements Cloneable {
    }
 
    
+   @Override
+   public String toString() {
+      System.out.println("---------------------------------");
+      for(Chromosome chr:getChromosomes()){
+         for(boolean b:chr.getGenes()){
+            if(b)
+               System.out.print("true ");
+            else
+               System.out.print("false");
+         }
+         
+         System.out.println();
+      }
+      System.out.println("---------------------------------");
+      
+      return super.toString();
+   }
+   
+   
 }

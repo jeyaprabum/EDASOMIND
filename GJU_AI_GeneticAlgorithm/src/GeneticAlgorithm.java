@@ -35,6 +35,7 @@ public class GeneticAlgorithm {
       return generation;
    }
    
+   
    /**
     * @param parentGeneration
     * @throws Exception
@@ -44,6 +45,10 @@ public class GeneticAlgorithm {
       if(nGenerationCounter == nMaxGenerations) {
          System.out.println("MaxGenerations reached");
          // Look for best result
+         System.out.println(parentGeneration.getChromosomes().first().getFitness());
+         System.out.println(parentGeneration.getChromosomes().last().getFitness());
+         Chromosome chrBest = parentGeneration.getChromosomes().first();
+         
          return;
       }
       
