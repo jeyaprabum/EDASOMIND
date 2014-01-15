@@ -20,9 +20,8 @@ public class RouletteWheelSelection {
       List<Pair<Chromosome, Chromosome>> listPairs = new ArrayList<>();
       
       // Create Pairs so that the new generation has the same size
-      for (int i = 0; i < ga.getPopulationSize()/2; i++) {
+      for (int i = 0; i < ga.getPopulationSize()/2; i++) 
          listPairs.add(getPair());
-      }
       
       return listPairs;
    }

@@ -46,19 +46,30 @@ public class GeneticAlgorithm {
       }
          
       Generation childGeneration = new Generation();
-      parentGeneration.setParentGeneration(childGeneration);
+      childGeneration.setParentGeneration(parentGeneration);
       
       
       RouletteWheelSelection pairSelection = new RouletteWheelSelection(parentGeneration, getRandom(), this);
-//      List<Pair<Chromosome, Chromosome>> listPairs = pairSelection.getPairs();
-      
-      
       for(Pair<Chromosome, Chromosome> pair:pairSelection.getPairs()){
+         // Add Chromosomes to Generation
+         Chromosome firstChr = pair.getFirst();
+         Chromosome seconChr = pair.getSecond();
+         childGeneration.addChromosome(firstChr);
+         childGeneration.addChromosome(seconChr);
+         
          // Do Crossover?
          if(hlpChoose(CrossoverProbebaility)){
             // Crossover!
+            int nSplitPoint = r.nextInt(getPopulationSize());
+            for (int i = 0; i < getPopulationSize(); i++) {
+               boolean bFirst = firstChr.getGenes()[i];
+               boolean bSecond = seconChr.getGenes()[i];
+               firstChr.getGenes()[i] = i < nSplitPoint ? bFirst : bSecond;
+               seconChr.getGenes()[i] = i < nSplitPoint ? bSecond : bFirst;
+            }
          } {
             // No? Just clonse
+            // Nothing to do because pair has already cloned chromosomes
          }
          
          // Crossover?
@@ -67,6 +78,7 @@ public class GeneticAlgorithm {
          }
       }
       
+      // set correct association (Chromosome to generation
       
       //learn(childGeneration);
    }
