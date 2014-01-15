@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 
@@ -13,10 +11,10 @@ public class GeneticAlgorithm {
    private CNF cnf = null;
    private int GenerationCounter = 0;
    
-   public GeneticAlgorithm() {
+   public GeneticAlgorithm(String sInputFile) {
       // Read Input
       try {
-         setCnf(InputReader.readInputFile("def.txt"));
+         setCnf(InputReader.readInputFile(sInputFile));
       } catch (Exception e) {
          e.printStackTrace();
       }
@@ -48,7 +46,7 @@ public class GeneticAlgorithm {
       }
          
       Generation childGeneration = new Generation();
-      parentGeneration.setChildGeneration(childGeneration);
+      parentGeneration.setParentGeneration(childGeneration);
       
       
       RouletteWheelSelection pairSelection = new RouletteWheelSelection(parentGeneration, getRandom(), this);
