@@ -3,6 +3,7 @@ import java.util.Random;
 
 public class GeneticAlgorithm {
    
+   // members
    private int PopulationSize = 4;
    private int MaxGenerations = 50;
    private double MutationProbability = 0.01;
@@ -57,9 +58,10 @@ public class GeneticAlgorithm {
          childGeneration.addChromosome(firstChr);
          childGeneration.addChromosome(seconChr);
          
-         // Do Crossover?
-         if(hlpChoose(CrossoverProbebaility)){
-            // Crossover!
+         // ###################################################################
+         // Crossover?
+         // ###################################################################
+         if(trueByProbability(CrossoverProbebaility)){
             int nSplitPoint = r.nextInt(getPopulationSize());
             for (int i = 0; i < getPopulationSize(); i++) {
                boolean bFirst = firstChr.getGenes()[i];
@@ -67,23 +69,25 @@ public class GeneticAlgorithm {
                firstChr.getGenes()[i] = i < nSplitPoint ? bFirst : bSecond;
                seconChr.getGenes()[i] = i < nSplitPoint ? bSecond : bFirst;
             }
-         } {
-            // No? Just clonse
-            // Nothing to do because pair has already cloned chromosomes
-         }
-         
-         // Crossover?
-         if(hlpChoose(MutationProbability)){
-            
+         } 
+         // ###################################################################
+         // Mutation
+         // ###################################################################
+         if(trueByProbability(MutationProbability)){
+            mutateChromosome(firstChr);
+            mutateChromosome(seconChr);
          }
       }
       
-      // set correct association (Chromosome to generation
-      
-      //learn(childGeneration);
+      learn(childGeneration);
    }
    
-   private boolean hlpChoose(double dProbability){
+   private void mutateChromosome(Chromosome chr){
+      int nMutationPoint = r.nextInt(getPopulationSize());
+      chr.getGenes()[nMutationPoint] = !chr.getGenes()[nMutationPoint];
+   }
+   
+   private boolean trueByProbability(double dProbability){
       return r.nextDouble() <= dProbability;
    }
 
