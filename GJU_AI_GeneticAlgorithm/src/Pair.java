@@ -3,6 +3,7 @@ public class Pair<First, Second> {
     private First first;
     private Second second;
 
+    public Pair() {}
     /**
     * @param first
     * @param second
