@@ -6,7 +6,26 @@ public class Generation implements Cloneable {
    // members
    private TreeSet<Chromosome> Chromosomes = new TreeSet<Chromosome>();
    private Generation parentGeneration = null;
+   private int nGenerationCounter = 0;
    
+   public int getGenerationCounter() {
+      return nGenerationCounter;
+   }
+   
+   public Generation(int nGenerationCounter) {
+      setGenerationCounter(nGenerationCounter);
+   }
+
+
+   public void setGenerationCounter(int generationCounter) {
+      nGenerationCounter = generationCounter;
+   }
+
+   
+   public void print() {
+      System.out.println(this);
+   }
+
    /**
     * @return
     */
@@ -27,7 +46,7 @@ public class Generation implements Cloneable {
     * @see java.lang.Object#clone()
     */
    public Generation clone() {
-      Generation ga = new Generation();
+      Generation ga = new Generation(getGenerationCounter());
       ga.setChromosomes((TreeSet<Chromosome>)getChromosomes().clone());
       return ga;
    };
@@ -77,20 +96,13 @@ public class Generation implements Cloneable {
    
    @Override
    public String toString() {
-      System.out.println("---------------------------------");
-      for(Chromosome chr:getChromosomes()){
-         for(boolean b:chr.getGenes()){
-            if(b)
-               System.out.print("true ");
-            else
-               System.out.print("false");
-         }
-         
-         System.out.println();
-      }
-      System.out.println("---------------------------------");
+      String s = "";
+      s+= "------------------------------------------------------------------\n";
+      for(Chromosome chr:getChromosomes())
+         s += chr.toString()+"\n";
+      s+= "------------------------------------------------------------------";
       
-      return super.toString();
+      return s;
    }
    
    

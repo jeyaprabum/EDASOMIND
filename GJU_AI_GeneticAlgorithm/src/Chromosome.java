@@ -22,6 +22,10 @@ public class Chromosome implements Comparable<Chromosome>, Cloneable {
       return (Chromosome) super.clone();
    }
    
+   public void print() {
+      System.out.println(this);
+   }
+   
    /**
     * @return
     */
@@ -77,10 +81,20 @@ public class Chromosome implements Comparable<Chromosome>, Cloneable {
     */
    @Override
    public String toString() {
-      String sReturn = "";
+      String s = getFitness()+": ";
+      s += toStringWOFitness();
+      return s;
+   }
+   
+   public String toStringWOFitness() {
+      String s = "";
       for(boolean b:getGenes())
-         sReturn += b+" ";
-      return sReturn;
+         if(b)
+            s+= "true  ";
+         else
+            s+= "false ";
+      
+      return s;
    }
 
    

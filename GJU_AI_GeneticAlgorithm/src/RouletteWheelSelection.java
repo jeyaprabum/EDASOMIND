@@ -8,6 +8,7 @@ public class RouletteWheelSelection {
    // members
    private Random     r   = null;
    private Generation gen = null;
+   private Generation genOriginal = null;
    private GeneticAlgorithm ga = null;
    
    /**
@@ -18,7 +19,7 @@ public class RouletteWheelSelection {
    public RouletteWheelSelection(Generation generation, Random random, GeneticAlgorithm genalgo) {
       r   = random;
       // Clone generation so that elements can be removed
-      gen = generation.clone();
+      genOriginal = generation.clone();
       ga  = genalgo;
    }
    
@@ -31,14 +32,18 @@ public class RouletteWheelSelection {
       
       // Create Pairs so that the new generation has the same size as the old
       for (int i = 0; i < ga.getPopulationSize()/2; i++) {
+         gen = genOriginal.clone();
+
          // new Pair
          Pair<Chromosome, Chromosome> pair = new Pair<Chromosome, Chromosome>(null, null);
          //hlpOutputInfo();
-         pair.setFirst(chooseByProbability());
+         pair.setFirst(chooseByProbability(null, null));
          //hlpOutputInfo();
-         pair.setSecond(chooseByProbability());
+         pair.setSecond(chooseByProbability(pair.getFirst(), listPairs));
          // add to return list
          listPairs.add(pair);
+         
+         ga.verbose("PAIR: "+pair.getFirst()+"\n      "+pair.getSecond());
       }
       // return
       return listPairs;
@@ -48,9 +53,15 @@ public class RouletteWheelSelection {
     * @return
     * @throws Exception
     */
-   private Chromosome chooseByProbability() throws Exception {
+   private Chromosome chooseByProbability(Chromosome chrFirst, List<Pair<Chromosome, Chromosome>> listPairs) throws Exception {
       double dAccu = 0;
       double randomValue = r.nextDouble();
+      
+      if(listPairs!=null && chrFirst!=null)
+      for(Pair<Chromosome, Chromosome> pair:listPairs){
+         if(pair.getFirst().equals(chrFirst))  gen.removeChromosome(pair.getSecond());
+         if(pair.getSecond().equals(chrFirst)) gen.removeChromosome(pair.getSecond());
+      }
 
       for(Chromosome chr:gen.getChromosomes()){
          double dFitness = chr.getFitness();
