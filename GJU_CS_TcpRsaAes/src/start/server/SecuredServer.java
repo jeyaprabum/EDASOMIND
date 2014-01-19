@@ -1,10 +1,10 @@
+package start.server;
 import java.io.*;
 import java.net.*;
 
-class Server
+public class SecuredServer
 {
-   public static void main(String argv[]) throws Exception
-      {
+   public static void main(String argv[]) throws Exception{
          String clientSentence;
          String capitalizedSentence;
 

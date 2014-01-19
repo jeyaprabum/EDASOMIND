@@ -1,13 +1,16 @@
+package start.client;
 import java.io.*;
 import java.net.*;
 
-class Client
-{
- public static void main(String argv[]) throws Exception{
+public class SecureTCPClient{
+   
+ public String send(String sMessage){
+    try {
+      
      String sentence;
      String modifiedSentence;
      
-     BufferedReader inFromUser = new BufferedReader( new InputStreamReader(System.in));
+     BufferedReader inFromUser = new BufferedReader( new StringReader(sMessage));
      Socket clientSocket = new Socket("localhost", 6789);
      
      DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
@@ -18,5 +21,10 @@ class Client
      modifiedSentence = inFromServer.readLine();
      System.out.println("FROM SERVER: " + modifiedSentence);
      clientSocket.close();
+     return modifiedSentence;
+    } catch (Exception e) {
+       e.printStackTrace();
+       return "FEHLER";
+    }
  }
 }
