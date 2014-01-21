@@ -39,14 +39,17 @@ public class RouletteWheelSelection {
          pair.setFirst(chooseByProbability(setChr));
          pair.setSecond(chooseSecondByProbability(setChr, listPairs, pair.getFirst()));
          
-         // CLONE
-         pair.set(pair.getFirst().clone(), pair.getSecond().clone());
-         
          // add to return list
          listPairs.add(pair);
          
          ga.verbose("PAIR: "+pair.getFirst()+"\n      "+pair.getSecond());
       }
+      
+      for(Pair<Chromosome, Chromosome> pair:listPairs)
+         // CLONE
+         pair.set(pair.getFirst().clone(), pair.getSecond().clone());
+      
+      
       // return
       return listPairs;
    }

@@ -1,5 +1,7 @@
 import java.util.Random;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
+
 
 public class GeneticAlgorithm {
    
@@ -57,47 +59,15 @@ public class GeneticAlgorithm {
       verbose("==========================================================================================================================================");
       verbose("Enter Generation "+getGenerationCounter());
       verbose("==========================================================================================================================================");
-      if(getGenerationCounter() == getMaxGenerations()) {
-         System.out.println("MaxGenerations ("+getMaxGenerations()+") reached");
-         System.out.println("------------------------------------------------------------------");
-         // Look for best result
-         Chromosome chrBest = parentGeneration.getChromosomes().last();
-         Generation genBest = parentGeneration;
-         
-         System.out.println("Last Generation");
-         parentGeneration.print();
-         
-         while(parentGeneration!=null){
-            Chromosome chr = parentGeneration.getChromosomes().last();
-            if(chr.getFitness() > chrBest.getFitness()){
-               chrBest = chr;
-               genBest = parentGeneration;
-            }
-            parentGeneration = parentGeneration.getParentGeneration();
-         }
-         
-         System.out.println("Best Solution is from Generation "+genBest.getGenerationCounter());
-         chrBest.print();
-         
-         
-         
-         return;
-      }
+
+      // Check Generation Counter
+      if(maxPopulationReached(parentGeneration)) return;
+      // Is there a solution?
+      if(isNeedMet           (parentGeneration)) return;
       
-      for(Chromosome chr:parentGeneration.getChromosomes())
-         if(getCnf().countTrueClauses(chr.getGenes()) == getCnf().getNbOfClauses()){
-            System.out.println("Solution found in Generation "+nGenerationCounter);
-            parentGeneration.print();
-            
-            System.out.println("Solution");
-            chr.print();
-            
-            return;
-         }
-         
+
       Generation childGeneration = new Generation(getGenerationCounter());
       childGeneration.setParentGeneration(parentGeneration);
-      
       
       RouletteWheelSelection pairSelection = new RouletteWheelSelection(parentGeneration, getRandom(), this);
       for(Pair<Chromosome, Chromosome> pair:pairSelection.getPairs()){
@@ -152,7 +122,48 @@ public class GeneticAlgorithm {
    private boolean trueByProbability(double dProbability){
       return r.nextDouble() <= dProbability;
    }
+   
+   private boolean isNeedMet(Generation parentGeneration){
+      for(Chromosome chr:parentGeneration.getChromosomes())
+         if(getCnf().countTrueClauses(chr.getGenes()) == getCnf().getNbOfClauses()){
+            System.out.println("Solution found in Generation "+nGenerationCounter);
+            parentGeneration.print();
+            
+            System.out.println("Solution");
+            chr.print();
+            
+            return true;
+         }
+      return false;
+   }
 
+   private boolean maxPopulationReached(Generation parentGeneration) {
+      if(getGenerationCounter() == getMaxGenerations()) {
+         System.out.println("MaxGenerations ("+getMaxGenerations()+") reached");
+         System.out.println("------------------------------------------------------------------");
+         // Look for best result
+         Chromosome chrBest = parentGeneration.getChromosomes().last();
+         Generation genBest = parentGeneration;
+         
+         System.out.println("Last Generation");
+         parentGeneration.print();
+         
+         while(parentGeneration!=null){
+            Chromosome chr = parentGeneration.getChromosomes().last();
+            if(chr.getFitness() > chrBest.getFitness()){
+               chrBest = chr;
+               genBest = parentGeneration;
+            }
+            parentGeneration = parentGeneration.getParentGeneration();
+         }
+         
+         System.out.println("Best Solution is from Generation "+genBest.getGenerationCounter());
+         chrBest.print();
+         return true;
+      }
+      return false;
+      
+   }
    
    
    

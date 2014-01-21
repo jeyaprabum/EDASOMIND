@@ -3,9 +3,9 @@ public class Program {
 
    public static void main(String[] args) throws Exception{
       doGenLearning("def.txt", true);
-//      doGenLearning("def.txt", false);
-//      doGenLearning("def1.txt", true);
-//      doGenLearning("def1.txt", false);
+      doGenLearning("def.txt", false);
+      doGenLearning("def1.txt", true);
+      doGenLearning("def1.txt", false);
    }
    
    private static void doGenLearning(String sFile, boolean bVerbose)  throws Exception{

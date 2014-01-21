@@ -1,3 +1,5 @@
+import java.util.Collections;
+
 
 
 public class Chromosome implements Comparable<Chromosome>, Cloneable {
@@ -19,7 +21,9 @@ public class Chromosome implements Comparable<Chromosome>, Cloneable {
     */
    @Override
    protected Chromosome clone() throws CloneNotSupportedException {
-      return (Chromosome) super.clone();
+      Chromosome cloned = (Chromosome) super.clone();
+      cloned.setGenes(this.getGenes().clone());
+      return cloned;
    }
    
    public void print() {
