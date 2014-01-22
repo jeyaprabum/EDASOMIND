@@ -4,14 +4,14 @@ import java.security.Key;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import com.maximilian_boehm.com.tcp.messages.MessageEncryptedByAES;
-import com.maximilian_boehm.com.tcp.messages.PublicRSAKey;
-import com.maximilian_boehm.com.tcp.messages.SymmetricAESKeyEncryptedByRSA;
+import com.maximilian_boehm.com.tcp.messages.Message;
+import com.maximilian_boehm.com.tcp.messages.MessageTyp;
 
 public class TCPClient {
    
    // member
    private byte[] AES_KEY = null;
+   private Client client  = null;
 
     /**
      * @param args
@@ -26,56 +26,50 @@ public class TCPClient {
     
     private void init() throws Exception {
        AES_KEY = AES.generateAESKey();
+       client = new Client();
+       client.start();
+       client.connect(5000, "localhost", 54555, 54777);
+       client.getKryo().register(Message.class);
+       client.getKryo().register(MessageTyp.class);
+       client.getKryo().register(byte[].class);
    }
     
     private void start()throws Exception{
        
        long l1 = System.nanoTime();
        
-       Client client = new Client();
-       client.start();
-       client.connect(5000, "localhost", 54555, 54777);
-       client.getKryo().register(PublicRSAKey.class);
-       client.getKryo().register(SymmetricAESKeyEncryptedByRSA.class);
-       client.getKryo().register(MessageEncryptedByAES.class);
-       client.getKryo().register(byte[].class);
-
-       
        // Request RSA-Public-Key
-       client.sendTCP(Codes.STATUS_RSA_KEY);
+       client.sendTCP(new Message(MessageTyp.C_RSA_PUBLIC_KEY, null));
        
        
        client.addListener(new Listener() {
           public void received (Connection connection, Object object) {
              try {
-                // RSA-PUBLIC-KEY?
-                if (object instanceof PublicRSAKey) {
-                   PublicRSAKey rsaKey = (PublicRSAKey)object;
-                   // RETRIEVE KEY
-                   Key publicKey = RSA.getKeyByBytes(rsaKey.getKey());
-                   // Send AES-Key encrypted by public RSA Key
-                   connection.sendTCP(new SymmetricAESKeyEncryptedByRSA(RSA.encrypt(AES_KEY, publicKey)));
-                   System.out.println("Send AES Key encrypted by RSA");
-                }
+                Message msg = (Message)object;
                 
-                
-                if (object instanceof Integer) {
-                   Integer nStatusCode = (Integer)object;
-                   
-                   // AES-Key accepted?
-                   if(nStatusCode.equals(Codes.STATUS_AES_KEY)){
-                      String sMessage = "Hello, my name is Maximilian Boehm and this text is encrypted by AES";
-                      connection.sendTCP(new MessageEncryptedByAES(AES.encrypt(sMessage.getBytes(), AES_KEY)));
-                      System.out.println("Message encrypted by AES sent");
-                   }
-                   
-                   // Message received?
-                   if(nStatusCode.equals(Codes.MESSAGE_RECEIVED)){
-                      System.out.println("STOP-Message received");
-                      connection.getEndPoint().stop();
-                   }
-                }
-                
+                switch (msg.getTyp()) {
+                  case C_RSA_PUBLIC_KEY:
+                     // RETRIEVE KEY
+                     Key publicKey = RSA.getKeyByBytes(msg.getData());
+                     // Send AES-Key encrypted by public RSA Key
+                     connection.sendTCP(new Message(MessageTyp.C_AES_KEY, RSA.encrypt(AES_KEY, publicKey)));
+                     System.out.println("Send AES Key encrypted by RSA");
+                     break;
+                     
+                  case AES_KEY_ACCEPTED:
+                     String sMessage = "Hello, my name is Maximilian Boehm and this text is encrypted by AES";
+                     connection.sendTCP(new Message(MessageTyp.C_AES_MESSAGE, AES.encrypt(sMessage.getBytes(), AES_KEY)));
+                     System.out.println("Message encrypted by AES sent");
+                     break;
+                     
+                  case MESSAGE_RECEIVED:
+                     System.out.println("STOP-Message received");
+                     connection.getEndPoint().stop();
+                     break;
+
+                  default:
+                     throw new Exception("Error");
+               }
                 
             } catch (Exception e) {
                e.printStackTrace();
@@ -83,6 +77,8 @@ public class TCPClient {
              
           }
        });
+       
+       client.run();
        
        System.out.println(System.nanoTime()-l1);
        
