@@ -1,4 +1,4 @@
-package com.maximilian_boehm.com.tcp;
+package com.maximilian_boehm.com.XXX;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -22,12 +22,10 @@ public class Client {
     private void start() {
        Socket sock = null;
        Key serverPubKey = null;
-       BufferedReader clientIn = null;
 
        // Initialise server connection
        try{
            sock = new Socket(InetAddress.getLocalHost(), Codes.Port);
-           clientIn = new BufferedReader(new InputStreamReader(sock.getInputStream()));
        } catch (UnknownHostException e) {
            System.out.println("Unknown host.");
            System.exit(1);
@@ -38,16 +36,17 @@ public class Client {
 
        // Get server pub key
        try{
-          Request req = new Request(clientIn, sock);
-          
-          
-          System.out.println(req.getStatusCode()+": "+new String(req.getData()));
-          X509EncodedKeySpec ks = new X509EncodedKeySpec(req.getData());
-          
-          
-           KeyFactory kf = KeyFactory.getInstance("RSA");
-           serverPubKey = kf.generatePublic(ks);
-           System.out.println(serverPubKey.getEncoded());
+          System.out.println("Beginn Connection");
+          TCPRequest req = new TCPRequest(Codes.STATUS_RSA_KEY, "OK".getBytes());
+          req.send(sock);
+          System.out.println("Request sent");
+          System.out.println("Waiting on Response");
+          TCPResponse res = new TCPResponse(sock);
+          System.out.println(req.getStatusCode()+": "+new String(res.getData()));
+          X509EncodedKeySpec ks = new X509EncodedKeySpec(res.getData());
+          KeyFactory kf = KeyFactory.getInstance("RSA");
+          serverPubKey = kf.generatePublic(ks);
+          System.out.println(serverPubKey.getEncoded());
        } catch (Exception e) {
            System.out.println("Error obtaining server public key 1.");
            e.printStackTrace();

@@ -1,4 +1,4 @@
-package com.maximilian_boehm.com.tcp;
+package com.maximilian_boehm.com.XXX;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -39,17 +39,17 @@ public class Server {
        // Initialise socket connection
        while(true){
           try(ServerSocket cServer = new ServerSocket(Codes.Port)){
-              Socket cClient = cServer.accept();
+             System.out.println("Waiting on connection"); 
+             Socket cClient = cServer.accept();
               
-//              BufferedReader input = new BufferedReader(new InputStreamReader(cClient.getInputStream()));
-//              input.readLine();
+              TCPResponse res = new TCPResponse(cClient);
+              System.out.println(res.getStatusCode());
+              System.out.println(new String(res.getData()));
               
-              cOut = new PrintWriter(cClient.getOutputStream(), true);
-              cOut.print(Codes.STATUS_RSA_KEY+",");
-              cOut.println(pubKey.getEncoded().length);
-              cClient.getOutputStream().write(pubKey.getEncoded());
-              cClient.getOutputStream().flush();
-          } catch (IOException e) {
+              TCPRequest req = new TCPRequest(Codes.STATUS_RSA_KEY, pubKey.getEncoded());
+              req.send(cClient);
+              System.out.println("Close connection");
+          } catch (Exception e) {
              e.printStackTrace();
           }
        }

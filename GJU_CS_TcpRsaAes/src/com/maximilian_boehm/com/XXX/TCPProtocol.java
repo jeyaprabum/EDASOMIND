@@ -1,10 +1,10 @@
-package com.maximilian_boehm.com.tcp;
+package com.maximilian_boehm.com.XXX;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.net.Socket;
 
-public class Protocol {
+public class TCPProtocol {
    
    private int StatusCode;
    private int length;
