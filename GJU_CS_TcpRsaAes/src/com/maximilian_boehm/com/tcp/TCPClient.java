@@ -11,7 +11,7 @@ public class TCPClient extends TCP{
    protected void init() throws Exception {
       client = new Client();
       client.start();
-      client.connect(15000, "mbtest.auctores.biz", 54555, 54777);
+      client.connect(60000, sHost, nPortRangeFrom, nPortRangeTo);
       registerClasses(client.getKryo());
   }
    
