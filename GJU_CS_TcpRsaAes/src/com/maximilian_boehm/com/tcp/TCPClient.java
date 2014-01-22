@@ -78,8 +78,6 @@ public class TCPClient {
           }
        });
        
-       client.run();
-       
        System.out.println(System.nanoTime()-l1);
        
     }
