@@ -13,7 +13,7 @@ public class AES {
    
    public static byte[] generateAESKey() throws Exception{
       KeyGenerator keyGen = KeyGenerator.getInstance("AES");
-      SecureRandom random = new SecureRandom(); // cryptograph. secure random 
+      SecureRandom random = new SecureRandom();
       keyGen.init(random); 
       SecretKey secretKey = keyGen.generateKey();
       
