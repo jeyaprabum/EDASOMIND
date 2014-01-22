@@ -61,6 +61,16 @@ public class TCPServer {
          public void received (Connection connection, Object object) {
             try {
                
+
+               // PLAIN COMMUNICATION
+               if (object instanceof String) {
+                  String sMessage = (String)object;
+                  System.out.println(sMessage);
+                  connection.sendTCP(Codes.MESSAGE_RECEIVED);
+               }
+               
+               
+               
                // GET PUBLIC RSA KEY
                if (object instanceof Integer) {
                   Integer nStatusCode = (Integer)object;

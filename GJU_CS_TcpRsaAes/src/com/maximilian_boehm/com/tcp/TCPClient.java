@@ -41,15 +41,19 @@ public class TCPClient {
        client.getKryo().register(byte[].class);
 
        
+       // Request RSA-Public-Key
        client.sendTCP(Codes.STATUS_RSA_KEY);
        
        
        client.addListener(new Listener() {
           public void received (Connection connection, Object object) {
              try {
+                // RSA-PUBLIC-KEY?
                 if (object instanceof PublicRSAKey) {
                    PublicRSAKey rsaKey = (PublicRSAKey)object;
+                   // RETRIEVE KEY
                    Key publicKey = RSA.getKeyByBytes(rsaKey.getKey());
+                   // Send AES-Key encrypted by public RSA Key
                    connection.sendTCP(new SymmetricAESKeyEncryptedByRSA(RSA.encrypt(AES_KEY, publicKey)));
                    System.out.println("Send AES Key encrypted by RSA");
                 }
@@ -58,12 +62,14 @@ public class TCPClient {
                 if (object instanceof Integer) {
                    Integer nStatusCode = (Integer)object;
                    
+                   // AES-Key accepted?
                    if(nStatusCode.equals(Codes.STATUS_AES_KEY)){
                       String sMessage = "Hello, my name is Maximilian Boehm and this text is encrypted by AES";
                       connection.sendTCP(new MessageEncryptedByAES(AES.encrypt(sMessage.getBytes(), AES_KEY)));
                       System.out.println("Message encrypted by AES sent");
                    }
                    
+                   // Message received?
                    if(nStatusCode.equals(Codes.MESSAGE_RECEIVED)){
                       System.out.println("STOP-Message received");
                       connection.getEndPoint().stop();

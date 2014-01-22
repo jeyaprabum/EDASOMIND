@@ -13,9 +13,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import start.client.PlainTCPClient;
-import start.client.SecureTCPClient;
-
 
 /**
  * @author max
@@ -96,7 +93,7 @@ public class ClientGUI extends Applet {
 	
 	class SendPlain implements ActionListener{
 		public void actionPerformed(ActionEvent ae) {
-		   textfieldOutput.setText(new PlainTCPClient().send(textfieldInput.getText()));
+		   //textfieldOutput.setText(new PlainTCPClient().send(textfieldInput.getText()));
 		}
 	}
 }
