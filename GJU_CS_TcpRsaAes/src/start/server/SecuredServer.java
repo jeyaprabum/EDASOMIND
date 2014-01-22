@@ -1,91 +1,67 @@
 package start.server;
-import java.io.BufferedReader;
+
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.InputStreamReader;
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.security.Key;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 
-public class SecuredServer{
-   
-   
-   
-   public static void main(String argv[]) throws Exception{
-      new SecuredServer();
+import javax.crypto.Cipher;
+
+import start.Common;
+
+class SecuredServer extends Common {
+   public static void main(String argv[]) throws Exception {
+      SecuredServer ss = new SecuredServer();
+      ss.initServer();
+      ss.start();
    }
-   
    
    // members
    Key publicKey = null;
    Key privateKey = null;
-   
-   
-   
-   public SecuredServer() {
-      // init
-      
-      initServer();
-      // start
-      start();
-   }
-   private void start() {
-      try {
-         
-         String clientSentence;
-         String capitalizedSentence;
 
-         try (ServerSocket welcomeSocket = new ServerSocket(6789);){
-            while(true){
-               Socket connectionSocket = welcomeSocket.accept();
-               BufferedReader   inFromClient = new BufferedReader  (new InputStreamReader(connectionSocket.getInputStream()));
-               DataOutputStream outToClient  = new DataOutputStream(connectionSocket.getOutputStream());
-               clientSentence = inFromClient.readLine();
-               
-               
-               
-               capitalizedSentence = handleRequest(clientSentence) + '\n';
-               outToClient.writeBytes(capitalizedSentence);
+   private void start() throws Exception{
+      try(ServerSocket welcomeSocket = new ServerSocket(23073)){
+
+         System.out.println("Server waiting for connections");
+         while (true) {
+            // Connection alive?
+            Socket connectionSocket = welcomeSocket.accept();
+            // Client here!
+            System.out.println("Client "+connectionSocket.getRemoteSocketAddress()+" connected");
+            DataInputStream  dis = new DataInputStream (connectionSocket.getInputStream());
+            DataOutputStream dos = new DataOutputStream(connectionSocket.getOutputStream());
+   
+            byte[] arr = null;
+            while ((arr = readBytes(dis)) != null) {
+               String sRequest = new String(arr);
+               System.out.println(sRequest);
+               //System.out.println(new String(rsaDecrypt(arr)));
             }
-         } 
-      } catch (Exception e) {
-         e.printStackTrace();
-      }
-   }
-   
-   private String handleRequest(String sRequest){
-      if(sRequest.startsWith("REQ_RSA_PUB_KEY"))
-         return new String(publicKey.getEncoded());
-      else if(sRequest.startsWith("REQ_AES_KEY"))
-         return retrieveAESKeyByRSACipher(sRequest);
-      else if(sRequest.startsWith("REQ_AES_CONTENT"))
-         return encryptAndDescryptRequest(sRequest);
-      else
-         return "ERROR";
-   }
-   
-   public String encryptAndDescryptRequest(String sReq) {
-      return sReq;
-   }
-   
-   public String retrieveAESKeyByRSACipher(String sReq){
-      return sReq;
-   }
-   
-   
-   private void initServer() {
-      try {
-         KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA");
-         kpg.initialize(2048);
-         KeyPair kp = kpg.genKeyPair();
-         publicKey = kp.getPublic();
-         privateKey = kp.getPrivate();
-         
-      } catch (Exception e) {
-         e.printStackTrace();
+            
+            sendBytes(publicKey.getEncoded(), dos);
+         }
       }
    }
    
    
-} 
+   private void initServer() throws Exception {
+      KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA");
+      kpg.initialize(2048);
+      KeyPair kp = kpg.genKeyPair();
+      publicKey  = kp.getPublic();
+      privateKey = kp.getPrivate();
+   }
+
+   private byte[] rsaDecrypt(byte[] data) throws Exception {
+      Cipher cipher = Cipher.getInstance("RSA");
+      cipher.init(Cipher.DECRYPT_MODE, privateKey);
+      byte[] cipherData = cipher.doFinal(data);
+      return cipherData;
+   }
+
+}

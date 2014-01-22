@@ -1,19 +1,30 @@
 package start.client;
+
 import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.InputStreamReader;
+import java.io.IOException;
 import java.io.StringReader;
 import java.net.Socket;
-import java.security.SecureRandom;
+import java.security.KeyFactory;
+import java.security.NoSuchAlgorithmException;
+import java.security.PublicKey;
+import java.security.spec.X509EncodedKeySpec;
 
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
+import javax.crypto.Cipher;
 
-public class SecureTCPClient{
+import start.Common;
+
+public class SecureTCPClient extends Common{
+   public static void main(String[] args) throws Exception {
+      SecureTCPClient stc = new SecureTCPClient();
+      stc.handleSecureMessage("TEST");
+      
+   }
    
-   public String handleSecureMessage(String sMessage) {
-      String sRSAPublicKey = send("REQ_RSA_PUB_KEY");
-      System.out.println(sRSAPublicKey);
+   public String handleSecureMessage(String sMessage) throws Exception {
+      getPublicRSAKey(send("REQ_RSA_PUB_KEY"));
+      System.out.println(pubKey);
       // generate AES key
       // send AES key encrypted by RSA
       // send message encrypted by AES
@@ -22,40 +33,35 @@ public class SecureTCPClient{
       
    }
    
- private String send(String sMessage){
+ private byte[] send(String sMessage){
     try {
-      
-     String sentence;
-     String modifiedSentence;
-     
-     BufferedReader inFromUser = new BufferedReader( new StringReader(sMessage));
-     Socket clientSocket = new Socket("localhost", 6789);
-     
-     DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
-     BufferedReader inFromServer  = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-     
-     sentence = inFromUser.readLine();
-     outToServer.writeBytes(sentence + '\n');
-     modifiedSentence = inFromServer.readLine();
-     System.out.println("FROM SERVER: " + modifiedSentence);
-     clientSocket.close();
-     return modifiedSentence;
+        BufferedReader inFromUser = new BufferedReader( new StringReader(sMessage));
+        Socket clientSocket = new Socket("localhost", 23073);
+        
+        DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
+        DataInputStream inFromServer  = new DataInputStream(clientSocket.getInputStream());
+        
+        String input = inFromUser.readLine();
+        sendBytes(input.getBytes(), outToServer);
+        byte[] answer = readBytes(inFromServer);
+        clientSocket.close();
+        return answer;
     } catch (Exception e) {
        e.printStackTrace();
-       return "FEHLER";
+       return new byte[]{0};
     }
-    
-    
  }
  
-public void getAES() {
-   try {
-      KeyGenerator keygen = KeyGenerator.getInstance("AES");
-      SecureRandom random = new SecureRandom();
-      keygen.init(random);
-      SecretKey key = keygen.generateKey();
-   } catch (Exception e) {
-      // TODO: handle exception
+   
+   PublicKey pubKey = null;
+   private void getPublicRSAKey(byte[] bytes) throws Exception {
+      pubKey = KeyFactory.getInstance("RSA").generatePublic(new X509EncodedKeySpec(bytes));
    }
-}
+
+   public byte[] rsaEncrypt(byte[] data) throws Exception {
+      Cipher cipher = Cipher.getInstance("RSA");
+      cipher.init(Cipher.ENCRYPT_MODE, pubKey);
+      byte[] cipherData = cipher.doFinal(data);
+      return cipherData;
+   }
 }

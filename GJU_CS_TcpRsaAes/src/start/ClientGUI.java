@@ -90,7 +90,7 @@ public class ClientGUI extends Applet {
 	
 	class SendSafe implements ActionListener{
 		public void actionPerformed(ActionEvent ae) {
-		   textfieldOutput.setText(new SecureTCPClient().handleSecureMessage(textfieldInput.getText()));
+		   //textfieldOutput.setText(new SecureTCPClient().handleSecureMessage(textfieldInput.getText()));
 		}
 	}
 	
