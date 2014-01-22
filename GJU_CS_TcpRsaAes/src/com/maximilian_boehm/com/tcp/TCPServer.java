@@ -18,9 +18,9 @@ import com.maximilian_boehm.com.tcp.messages.SymmetricAESKeyEncryptedByRSA;
 public class TCPServer {
    
    // members 
-   Key pubKey = null;
-   Key privKey = null;
-   byte[] AES_KEY = null;
+   Key publicRSAKey = null;
+   Key privateRSAKey = null;
+   byte[] symmAESKey = null;
 
    public static void main(String[] args) throws Exception{
       TCPServer server = new TCPServer();
@@ -38,8 +38,8 @@ public class TCPServer {
           KeyPairGenerator RSAKeyGen = KeyPairGenerator.getInstance("RSA");
           RSAKeyGen.initialize(RSAKeySize);
           KeyPair pair = RSAKeyGen.generateKeyPair();
-          pubKey = pair.getPublic();
-          privKey = pair.getPrivate();
+          publicRSAKey = pair.getPublic();
+          privateRSAKey = pair.getPrivate();
       } catch (GeneralSecurityException e) {
           System.out.println(e.getLocalizedMessage());
           System.out.println("Error initialising encryption. Exiting.\n");
@@ -60,39 +60,50 @@ public class TCPServer {
       server.addListener(new Listener() {
          public void received (Connection connection, Object object) {
             try {
+               
+               // GET PUBLIC RSA KEY
                if (object instanceof Integer) {
                   Integer nStatusCode = (Integer)object;
                   
-                  if(nStatusCode.equals(Codes.STATUS_RSA_KEY))
-                     connection.sendTCP(new PublicRSAKey(pubKey.getEncoded()));
+                  if(nStatusCode.equals(Codes.STATUS_RSA_KEY)){
+                     connection.sendTCP(new PublicRSAKey(publicRSAKey.getEncoded()));
+                     System.out.println("SENT Public RSA Key");
+                  }
                }
                
+               
+               
+               
+               // I'VE GOT THE AES KEY
                if (object instanceof SymmetricAESKeyEncryptedByRSA) {
                   SymmetricAESKeyEncryptedByRSA aesKey = (SymmetricAESKeyEncryptedByRSA)object;
                   
-                  AES_KEY = RSA.decrypt(aesKey.getKey(), privKey);
+                  symmAESKey = RSA.decrypt(aesKey.getKey(), privateRSAKey);
                   
-                  System.out.println(new String(AES_KEY));
+                  //System.out.println(new String(symmAESKey));
                   
                   connection.sendTCP(Codes.STATUS_AES_KEY);
+                  
+                  System.out.println("SENT OK for AES Key");
+
                }
                
                
-               
+               // THANK YOU FOR YOUR MESSAGE
                if (object instanceof MessageEncryptedByAES) {
                   MessageEncryptedByAES msg = (MessageEncryptedByAES)object;
                   
-                  String sMessage = new String(AES.decrypt(msg.getKey(), AES_KEY));
+                  String sMessage = new String(AES.decrypt(msg.getKey(), symmAESKey));
                   
-                  System.out.println(AES_KEY);
-                  System.out.println(sMessage);
+                  //System.out.println(symmAESKey);
+                  System.out.println("Message received: "+sMessage);
                   
-                  connection.sendTCP(Codes.STATUS_OK);
+                  connection.sendTCP(Codes.MESSAGE_RECEIVED);
                }
                
                
             } catch (Exception e) {
-               // TODO: handle exception
+               e.printStackTrace();
             }
          }
       });

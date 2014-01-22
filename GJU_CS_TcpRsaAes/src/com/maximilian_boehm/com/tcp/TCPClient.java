@@ -29,6 +29,9 @@ public class TCPClient {
    }
     
     private void start()throws Exception{
+       
+       long l1 = System.nanoTime();
+       
        Client client = new Client();
        client.start();
        client.connect(5000, "localhost", 54555, 54777);
@@ -48,6 +51,7 @@ public class TCPClient {
                    PublicRSAKey rsaKey = (PublicRSAKey)object;
                    Key publicKey = RSA.getKeyByBytes(rsaKey.getKey());
                    connection.sendTCP(new SymmetricAESKeyEncryptedByRSA(RSA.encrypt(AES_KEY, publicKey)));
+                   System.out.println("Send AES Key encrypted by RSA");
                 }
                 
                 
@@ -57,10 +61,12 @@ public class TCPClient {
                    if(nStatusCode.equals(Codes.STATUS_AES_KEY)){
                       String sMessage = "Hello, my name is Maximilian Boehm and this text is encrypted by AES";
                       connection.sendTCP(new MessageEncryptedByAES(AES.encrypt(sMessage.getBytes(), AES_KEY)));
+                      System.out.println("Message encrypted by AES sent");
                    }
                    
-                   if(nStatusCode.equals(Codes.STATUS_OK)){
-                      System.exit(0);
+                   if(nStatusCode.equals(Codes.MESSAGE_RECEIVED)){
+                      System.out.println("STOP-Message received");
+                      connection.getEndPoint().stop();
                    }
                 }
                 
@@ -73,6 +79,8 @@ public class TCPClient {
        });
        
        client.run();
+       
+       System.out.println(System.nanoTime()-l1);
        
     }
     

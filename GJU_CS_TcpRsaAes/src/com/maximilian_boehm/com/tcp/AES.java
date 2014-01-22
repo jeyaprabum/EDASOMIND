@@ -31,7 +31,6 @@ public class AES {
           IvParameterSpec ivParams = new IvParameterSpec(iv);
           cipher.init(Cipher.ENCRYPT_MODE, skeySpec,ivParams);
           encrypted  = cipher.doFinal(value);
-          System.out.println("encrypted string:" + encrypted.length);
 
       } catch (Exception ex) {
           ex.printStackTrace();
