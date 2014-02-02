@@ -16,7 +16,9 @@ public class TCPClient extends TCP{
   }
    
    protected String getRandomMessage() {
-      return  "Hello, this is just a randomized message:  "+UUID.randomUUID().toString();
+      String s =  "Hello, this is just a randomized message:  "+UUID.randomUUID().toString();
+      System.out.println("SENDING: "+s);
+      return s;
    }
    
    private int nCounter = 0;
