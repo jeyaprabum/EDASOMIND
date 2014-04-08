@@ -7,6 +7,7 @@ import org.bson.types.ObjectId;
 
 import com.google.code.morphia.Key;
 import com.google.code.morphia.annotations.AlsoLoad;
+import com.google.code.morphia.annotations.Embedded;
 import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Id;
 import com.google.code.morphia.annotations.Indexed;
@@ -14,9 +15,10 @@ import com.google.code.morphia.annotations.NotSaved;
 import com.google.code.morphia.annotations.Property;
 import com.google.code.morphia.annotations.Reference;
 import com.google.code.morphia.annotations.Transient;
+import com.google.code.morphia.utils.IndexDirection;
 
 @Entity("employees")
-class Employee {
+public class Employee {
    
    
    public Employee(String firstName, String lastName, Key<Employee> manager, long salary) {
@@ -25,16 +27,14 @@ class Employee {
       this.manager = manager;
       this.salary = salary;
    }
-   public Employee() {
-      // TODO Auto-generated constructor stub
-   }
    
-  // auto-generated, if not set (see ObjectId)
+   public Employee() {}
+   
    @Id private ObjectId id;
 
-  // value types are automatically persisted
-   
   String firstName;
+
+  @AlsoLoad("name")
   String lastName;
 
   // only non-null values are stored
@@ -56,10 +56,18 @@ class Employee {
   //fields can loaded, but not saved
   @NotSaved String readButNotStored;
 
+  @Indexed(value=IndexDirection.ASC, name="upc", unique=true, dropDups=true)
+  private String upcSymbol;
+  
   //fields can be ignored (no load/save)
   @Transient int notStored;
 
   //not @Transient, will be ignored by Serialization/GWT for example.
   transient boolean stored = true;
-
+  
+  @Embedded("AAAAAA")
+  public class Address {
+     private String City;
+  }
 }
+
