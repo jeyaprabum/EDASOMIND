@@ -2,27 +2,25 @@ package com.maximilianboehm.scheme4mongo.java;
 
 import java.io.File;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.sun.tools.javac.tree.JCTree.JCExpression;
+
 public class JavaClass {
-   
+
    public JavaClass(File f) {file = f;}
 
    private File file;
    private List<Member> listMember;
-   private List<Annotation> listAnnotations;
+   private List<JavaAnnotation> listAnnotations;
    private boolean entity;
    private String entityname;
-   
+
    public class Member{
       private String name;
-      private List<Annotation> listAnnotation;
-   }
-   
-   public class Annotation{
-      private String name;
-      private Map<String, String> mapAttr;
+      private List<JavaAnnotation> listAnnotation;
    }
 
    public File getFile() {
@@ -41,11 +39,11 @@ public class JavaClass {
       this.listMember = listMember;
    }
 
-   public List<Annotation> getListAnnotations() {
+   public List<JavaAnnotation> getListAnnotations() {
       return listAnnotations;
    }
 
-   public void setListAnnotations(List<Annotation> listAnnotations) {
+   public void setListAnnotations(List<JavaAnnotation> listAnnotations) {
       this.listAnnotations = listAnnotations;
    }
 
@@ -64,6 +62,6 @@ public class JavaClass {
    public void setEntityname(String entityname) {
       this.entityname = entityname;
    }
-   
-   
+
+
 }

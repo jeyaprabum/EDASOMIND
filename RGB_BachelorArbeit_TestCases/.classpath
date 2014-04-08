@@ -4,5 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="C:/Program Files/Java/jdk1.8.0/lib/tools.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/RGB_BachelorArbeit"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
