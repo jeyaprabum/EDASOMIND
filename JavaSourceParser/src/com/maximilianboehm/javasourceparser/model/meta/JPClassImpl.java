@@ -10,6 +10,7 @@ import com.maximilianboehm.javasourceparser.model.meta.base.JPAnnotationHolderIm
 public class JPClassImpl extends JPAnnotationHolderImpl implements JPClass{
    
    private String ClassName;
+   private String PackageName;
    private List<JPField>      listFields;
    
    public String getClassName() {
@@ -19,12 +20,21 @@ public class JPClassImpl extends JPAnnotationHolderImpl implements JPClass{
       ClassName = className;
    }
    
-   public void addDeclaredField(JPField field){
+   
+   public String getPackageName() {
+      return PackageName;
+   }
+   public void setPackageName(String packageName) {
+      PackageName = packageName;
+   }
+   
+   
+   public void addField(JPField field){
       if(listFields==null) listFields = new ArrayList<JPField>();
       listFields.add(field);
    }
    
-   public void setDeclaredFields(List<JPField> listFields) {
+   public void setFields(List<JPField> listFields) {
       this.listFields = listFields;
    }
    public List<JPField> getFields() throws Exception {

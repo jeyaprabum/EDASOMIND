@@ -28,5 +28,8 @@ public class JPAnnotationImpl implements JPAnnotation{
    public void setAttributes(Map<String, String> mapAttributes) {
       this.mapAttributes = mapAttributes;
    }
+   public boolean hasAttributes() {
+      return getAttributes()!=null;
+   }
 
 }

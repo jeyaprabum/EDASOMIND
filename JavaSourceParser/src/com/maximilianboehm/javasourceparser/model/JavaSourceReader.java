@@ -23,6 +23,7 @@ import com.sun.source.util.JavacTask;
 import com.sun.source.util.SimpleTreeVisitor;
 import com.sun.tools.javac.tree.JCTree.JCAnnotation;
 import com.sun.tools.javac.tree.JCTree.JCAssign;
+import com.sun.tools.javac.tree.JCTree.JCLiteral;
 import com.sun.tools.javac.tree.JCTree.JCVariableDecl;
 
 
@@ -43,10 +44,12 @@ public class JavaSourceReader {
    public JPClass parseJavaSourceFile(File f, JPClass jpClass) throws Exception {
       Iterable<? extends JavaFileObject> fileObjects = fileManager.getJavaFileObjects(f);
       JavacTask javac = (JavacTask) compiler.getTask(null, fileManager, null, null, null, fileObjects);
+      //javac.analyze()
       Iterable<? extends CompilationUnitTree> trees = javac.parse();
+      
       for (CompilationUnitTree tree : trees)
          tree.accept(new ClassVisitor(jpClass), null);
-
+      
       return jpClass;
    }
 
@@ -59,7 +62,9 @@ public class JavaSourceReader {
 
       @Override
       public Void visitCompilationUnit(CompilationUnitTree cut, Void p) {
-         System.out.println("Package name: " + cut.getPackageName());
+         jpClass.setPackageName(cut.getPackageName().toString());
+//         System.out.println("Package name: " + cut.getPackageName());
+         
          for (Tree t : cut.getTypeDecls()) {
             if (t instanceof ClassTree) {
                ClassTree ct = (ClassTree) t;
@@ -76,8 +81,8 @@ public class JavaSourceReader {
          jpClass.setClassName(ct.getSimpleName().toString());
          jpClass.setAnnotations(getAnnotations(ct.getModifiers().getAnnotations()));
 
-         System.out.println(ct.getSimpleName().toString());
-         System.out.println(ct.getModifiers().getAnnotations());
+//         System.out.println(ct.getSimpleName().toString());
+//         System.out.println(ct.getModifiers().getAnnotations());
 
 
          for (Tree t : ct.getMembers()) {
@@ -88,20 +93,21 @@ public class JavaSourceReader {
                field.setName(var.getName().toString());
                field.setType(var.getType().toString());
                field.setAnnotations(getAnnotations(var.getModifiers().getAnnotations()));
+               jpClass.addField(field);
+
+//               System.out.println("Typ: "+var.getTag()); // VARDEF means definition of a variable
+//               System.out.println("Variablennamen: "+var.getName()); // Name der Variablen
+//               System.out.println("Datentyp: "+var.getType()); // Datentyp (e.g. List<Employee> oder Date)
+//               for(JCAnnotation ann:var.getModifiers().getAnnotations()){
+//                  System.out.println("Annotation-Type: "+ann.getAnnotationType());
+//                  System.out.println("Annotation-Argumente: "+ann.getArguments());
+//               }
+//               System.out.println("---------");
 
 
-               System.out.println("Typ: "+var.getTag()); // VARDEF means definition of a variable
-               System.out.println("Variablennamen: "+var.getName()); // Name der Variablen
-               System.out.println("Datentyp: "+var.getType()); // Datentyp (e.g. List<Employee> oder Date)
-               for(JCAnnotation ann:var.getModifiers().getAnnotations()){
-                  System.out.println("Annotation-Type: "+ann.getAnnotationType());
-                  System.out.println("Annotation-Argumente: "+ann.getArguments());
-               }
-               System.out.println("---------");
-
-
-            } else
-               System.err.println(t.getClass());
+            } 
+//               else
+//               System.err.println(t.getClass());
          }
          return super.visitClass(ct, p);
       }
@@ -109,18 +115,26 @@ public class JavaSourceReader {
    private List<JPAnnotation> getAnnotations(List<? extends AnnotationTree> listAnnotation){
       List<JPAnnotation> listAnno = new ArrayList<JPAnnotation>();
       for(AnnotationTree ann:listAnnotation){
-         System.out.println("Annotation-Type: "+ann.getAnnotationType());
-         System.out.println("Annotation-Argumente: "+ann.getArguments());
+//         System.out.println("Annotation-Type: "+ann.getAnnotationType());
+//         System.out.println("Annotation-Argumente: "+ann.getArguments());
+//         System.out.println("----------------");
 
          JPAnnotation anno = JPFactory.createJPAnnotation();
          anno.setType(ann.getAnnotationType().toString());
 
          for(ExpressionTree expr:ann.getArguments()){
-            //          mapAttr.put(expr., arg1)
-            JCAssign assign = (JCAssign)expr;
-            System.out.println(expr.getClass());
-            System.out.println(expr);
+            if(expr instanceof JCAssign){
+               JCAssign assign = (JCAssign)expr;
+               anno.addAttribute(assign.lhs.toString(), assign.rhs.toString());
+//               System.out.println("ASSIGN: "+assign.lhs+"="+assign.rhs);
+            } else if(expr instanceof JCLiteral){
+               JCLiteral lit = (JCLiteral)expr;
+               anno.addAttribute(null, lit.value.toString());
+//               System.out.println("LITERAL: "+lit.value);
+            } else{}
+//               System.err.println("Error: "+expr);
          }
+         
          listAnno.add(anno);
       }
       return listAnno.isEmpty() ? null : listAnno;

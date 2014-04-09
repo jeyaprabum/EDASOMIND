@@ -18,8 +18,12 @@ public class JPAnnotationHolderImpl {
       this.listAnnotations = listAnnotations;
    }
    
-   public List<JPAnnotation> getAnnotations() throws Exception {
+   public List<JPAnnotation> getAnnotations() {
       return listAnnotations;
+   }
+   
+   public boolean hasAnnotations(){
+      return getAnnotations()!=null;
    }
 
 
