@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.maximilianboehm.javasourceparser.access.struct.JPAnnotation;
 
-public class JPAnnotationHolder {
+public class JPAnnotationHolderImpl {
    
    private List<JPAnnotation> listAnnotations;
    

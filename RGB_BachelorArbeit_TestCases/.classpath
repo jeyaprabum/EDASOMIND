@@ -5,5 +5,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="C:/Program Files/Java/jdk1.8.0/lib/tools.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/RGB_BachelorArbeit"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/GitAccess"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/JavaSourceParser"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

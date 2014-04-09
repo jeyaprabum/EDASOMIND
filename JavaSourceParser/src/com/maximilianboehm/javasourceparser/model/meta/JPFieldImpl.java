@@ -1,9 +1,9 @@
 package com.maximilianboehm.javasourceparser.model.meta;
 
 import com.maximilianboehm.javasourceparser.access.struct.JPField;
-import com.maximilianboehm.javasourceparser.model.meta.base.JPAnnotationHolder;
+import com.maximilianboehm.javasourceparser.model.meta.base.JPAnnotationHolderImpl;
 
-public class JPFieldImpl extends JPAnnotationHolder implements JPField{
+public class JPFieldImpl extends JPAnnotationHolderImpl implements JPField{
 
    private String name;
    private String type;

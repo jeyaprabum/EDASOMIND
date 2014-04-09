@@ -1,12 +1,14 @@
 package com.maximilianboehm.javasourceparser.access.struct;
 
-import java.util.List;
+import com.maximilianboehm.javasourceparser.access.struct.base.JPAnnotationHolder;
 
-public interface JPField {
+public interface JPField extends JPAnnotationHolder{
    
    public String getName();
    public String getType();
-   public List<JPAnnotation> getAnnotations() throws Exception;
-
-
+   
+   
+   public void setName(String name);
+   public void setType(String type);
+   
 }

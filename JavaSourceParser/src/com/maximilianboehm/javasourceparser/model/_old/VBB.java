@@ -1,4 +1,4 @@
-package com.maximilianboehm.javasourceparser.model;
+package com.maximilianboehm.javasourceparser.model._old;
 
 
 import java.io.File;

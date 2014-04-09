@@ -4,8 +4,8 @@ import java.io.File;
 
 import com.maximilianboehm.javasourceparser.access.struct.JPClass;
 
-public interface JavaSourceParserHome {
+public interface JPHome {
    
-   public JPClass getClass(File f) throws Exception;
+   public JPClass getParsedClass(File f) throws Exception;
 
 }

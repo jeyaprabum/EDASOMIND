@@ -5,9 +5,9 @@ import java.util.List;
 
 import com.maximilianboehm.javasourceparser.access.struct.JPClass;
 import com.maximilianboehm.javasourceparser.access.struct.JPField;
-import com.maximilianboehm.javasourceparser.model.meta.base.JPAnnotationHolder;
+import com.maximilianboehm.javasourceparser.model.meta.base.JPAnnotationHolderImpl;
 
-public class JPClassImpl extends JPAnnotationHolder implements JPClass{
+public class JPClassImpl extends JPAnnotationHolderImpl implements JPClass{
    
    private String ClassName;
    private List<JPField>      listFields;
