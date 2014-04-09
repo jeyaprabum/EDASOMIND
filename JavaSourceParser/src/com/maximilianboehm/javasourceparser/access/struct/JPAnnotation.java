@@ -1,7 +1,5 @@
 package com.maximilianboehm.javasourceparser.access.struct;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public interface JPAnnotation {

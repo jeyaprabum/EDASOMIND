@@ -21,7 +21,6 @@ import com.sun.source.tree.ExpressionTree;
 import com.sun.source.tree.Tree;
 import com.sun.source.util.JavacTask;
 import com.sun.source.util.SimpleTreeVisitor;
-import com.sun.tools.javac.tree.JCTree.JCAnnotation;
 import com.sun.tools.javac.tree.JCTree.JCAssign;
 import com.sun.tools.javac.tree.JCTree.JCLiteral;
 import com.sun.tools.javac.tree.JCTree.JCVariableDecl;
@@ -44,7 +43,10 @@ public class JavaSourceReader {
    public JPClass parseJavaSourceFile(File f, JPClass jpClass) throws Exception {
       Iterable<? extends JavaFileObject> fileObjects = fileManager.getJavaFileObjects(f);
       JavacTask javac = (JavacTask) compiler.getTask(null, fileManager, null, null, null, fileObjects);
-      //javac.analyze()
+      
+      // TODO: Compare behaviour of analyze and parse
+      // javac.analyze
+      
       Iterable<? extends CompilationUnitTree> trees = javac.parse();
       
       for (CompilationUnitTree tree : trees)
