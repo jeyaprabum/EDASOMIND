@@ -17,7 +17,7 @@ import com.google.code.morphia.annotations.Reference;
 import com.google.code.morphia.annotations.Transient;
 import com.google.code.morphia.utils.IndexDirection;
 
-@Entity("employees")
+@Entity(value="hotels", noClassnameStored=true)
 public class Employee {
    
    

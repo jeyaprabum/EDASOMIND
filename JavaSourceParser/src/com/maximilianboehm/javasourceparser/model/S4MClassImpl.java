@@ -1,4 +1,4 @@
-package com.maximilianboehm.scheme4mongo.java;
+package com.maximilianboehm.javasourceparser.model;
 
 import java.io.File;
 import java.net.URL;
@@ -8,19 +8,18 @@ import java.util.Map;
 
 import com.sun.tools.javac.tree.JCTree.JCExpression;
 
-public class JavaClass {
+public class S4MClassImpl {
 
-   public JavaClass(File f) {file = f;}
+   public S4MClassImpl(File f) {file = f;}
 
    private File file;
    private List<Member> listMember;
-   private List<JavaAnnotation> listAnnotations;
-   private boolean entity;
+   private List<S4MAnnotationImpl> listAnnotations;
    private String entityname;
 
    public class Member{
       private String name;
-      private List<JavaAnnotation> listAnnotation;
+      private List<S4MAnnotationImpl> listAnnotation;
    }
 
    public File getFile() {
@@ -39,20 +38,17 @@ public class JavaClass {
       this.listMember = listMember;
    }
 
-   public List<JavaAnnotation> getListAnnotations() {
+   public List<S4MAnnotationImpl> getListAnnotations() {
       return listAnnotations;
    }
 
-   public void setListAnnotations(List<JavaAnnotation> listAnnotations) {
+   public void setListAnnotations(List<S4MAnnotationImpl> listAnnotations) {
       this.listAnnotations = listAnnotations;
    }
 
    public boolean isEntity() {
-      return entity;
-   }
-
-   public void setEntity(boolean entity) {
-      this.entity = entity;
+      System.out.println("TODO");
+      return false;
    }
 
    public String getEntityname() {

@@ -1,4 +1,4 @@
-package com.maximilianboehm.scheme4mongo.java;
+package com.maximilianboehm.javasourceparser.model;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
