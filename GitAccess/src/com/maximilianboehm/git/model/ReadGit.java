@@ -1,4 +1,4 @@
-package com.maximilianboehm.scheme4mongo.git;
+package com.maximilianboehm.git.model;
 
 import java.io.File;
 import java.util.Map;

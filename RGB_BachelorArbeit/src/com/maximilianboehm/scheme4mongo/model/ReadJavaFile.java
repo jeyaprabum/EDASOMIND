@@ -1,4 +1,4 @@
-package com.maximilianboehm.javasourceparser.model;
+package com.maximilianboehm.scheme4mongo.model;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -32,7 +32,6 @@ public class ReadJavaFile {
 
       for(Field field:cls.getDeclaredFields()){
          Annotation[] annotations = field.getDeclaredAnnotations();
-         
          for(Annotation annotation : annotations){
             if(annotation instanceof AlsoLoad){
                AlsoLoad alsoLoad = (AlsoLoad) annotation;
