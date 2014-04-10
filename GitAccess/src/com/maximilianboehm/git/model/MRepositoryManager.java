@@ -15,10 +15,7 @@ public class MRepositoryManager implements AutoCloseable{
 
    public MRepositoryManager(File f) throws Exception {
       FileRepositoryBuilder builder = new FileRepositoryBuilder();
-      rep = builder.setGitDir(f)
-            .readEnvironment() // scan environment GIT_* variables
-            .findGitDir() // scan up the file system tree
-            .build();
+      rep = builder.findGitDir(f).build();
    }
 
    public static MRepositoryManager getManager(File f) throws Exception {
