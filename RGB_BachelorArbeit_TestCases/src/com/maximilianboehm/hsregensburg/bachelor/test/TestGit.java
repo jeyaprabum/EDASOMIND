@@ -1,14 +1,17 @@
 package com.maximilianboehm.hsregensburg.bachelor.test;
 
-import static org.junit.Assert.*;
+import java.io.File;
 
 import org.junit.Test;
+
+import com.maximilianboehm.git.access.GTAccessFactory;
 
 public class TestGit {
 
    @Test
-   public void test() {
-      fail("Not yet implemented");
+   public void test() throws Exception{
+      File f = new File("C:\\MBRepository\\MongoTestCase\\src\\main\\java\\com\\maximilianboehm\\hsregensburg\\bachelor\\Employee.java");
+      GTAccessFactory.getHome().getGitHistoryOfFile(f);
    }
 
 }

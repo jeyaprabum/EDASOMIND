@@ -1,6 +1,9 @@
 package com.maximilianboehm.git.model;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.nio.file.Files;
+import java.util.UUID;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.LogCommand;
@@ -15,43 +18,58 @@ import com.maximilianboehm.git.access.struct.GTHistory;
 
 public class MGitHistory {
 
-   String path = "MongoTestCase/src/main/java/com/maximilianboehm/hsregensburg/bachelor/Employee.java";
-
    public GTHistory getHistory(File f) throws Exception{
+      GTHistoryImpl gtHistory = GTModelFactory.createHistoryImpl();
+
       try(MRepositoryManager repManager = MRepositoryManager.getManager(f);){
          Repository repository = repManager.getRepository();
+
+         String sAbsolutePath2File = f.getAbsolutePath().replaceAll("\\\\", "/");
+         String sPathGitDirectory = repository.getDirectory().getParentFile().getAbsolutePath().replaceAll("\\\\", "/");
+         String sRelativePath2File = sAbsolutePath2File.replaceFirst(sPathGitDirectory, "");
+         if(sRelativePath2File.startsWith("/"))
+            sRelativePath2File = sRelativePath2File.substring(1);
+         System.out.println(sRelativePath2File);
 
          Git git = new Git(repository);
 
          LogCommand logCommand = git.log()
                .add(git.getRepository().resolve(Constants.HEAD))
-               .addPath(path);
+               .addPath(sRelativePath2File);
 
-         ObjectReader reader = null;
-         try {
-            reader = repository.newObjectReader();
-            for (RevCommit revCommit : logCommand.call()) {
-               System.out.println("AAA");
-               RevTree tree = revCommit.getTree();
 
-               // .. and narrow it down to the single file's path
-               TreeWalk treewalk = TreeWalk.forPath(reader, path, tree);
+         for (RevCommit revCommit : logCommand.call()) {
+            RevTree tree = revCommit.getTree();
 
-               if (treewalk != null) {
-                  // use the blob id to read the file's data
-                  byte[] data = reader.open(treewalk.getObjectId(0)).getBytes();
-                  //System.out.println(new String(data, "utf-8"));
-                  //               return new String(data, "utf-8");
-               } else {
-                  //sSystem.out.println("");
-                  //               return "";
-               }
+            // use the blob id to read the file's data
+            File fTMP = Files.createTempFile(UUID.randomUUID().toString(), ".java").toFile();
+            ObjectReader reader = null;
+            FileOutputStream fop = null;
+            try {
+               fop = new FileOutputStream(fTMP);
+               reader = repository.newObjectReader();
+
+               TreeWalk treewalk = TreeWalk.forPath(reader, sRelativePath2File, tree);
+
+               reader.open(treewalk.getObjectId(0)).copyTo(fop);
+
+               fop.flush();
+
+               GTHistoryFileImpl fileImpl = GTModelFactory.createHistoryFileImpl();
+               fileImpl.setFile(fTMP);
+               gtHistory.addHistoryFile(fileImpl);
+
+            } finally{
+               reader.release();
+               fop.close();
             }
-         } finally{
-            reader.release();
+            // byte[] data = reader.open(treewalk.getObjectId(0)).getBytes();
+            //System.out.println(new String(data, "utf-8"));
+            // return new String(data, "utf-8");
          }
       }
-      return null;
+
+      return gtHistory;
    }
 
 }
