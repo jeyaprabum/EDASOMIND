@@ -22,7 +22,6 @@ public class Employee {
 
 
    public Employee(String firstName, String lastName, Key<Employee> manager, long salary) {
-      this.firstName = firstName;
       this.lastName = lastName;
       this.manager = manager;
       this.salary = salary;
@@ -31,8 +30,6 @@ public class Employee {
    public Employee() {}
 
    @Id private ObjectId id;
-
-   String firstName;
 
    @AlsoLoad("name")
    String lastName;
