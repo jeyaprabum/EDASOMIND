@@ -6,8 +6,9 @@ import com.maximilianboehm.javasourceparser.access.struct.JPAnnotation;
 
 public interface JPAnnotationHolder {
    
-   public void setAnnotations(List<JPAnnotation> listAnnotations);
    public List<JPAnnotation> getAnnotations() throws Exception;
    public boolean hasAnnotations();
+   
+   //public void setAnnotations(List<JPAnnotation> listAnnotations);
 
 }

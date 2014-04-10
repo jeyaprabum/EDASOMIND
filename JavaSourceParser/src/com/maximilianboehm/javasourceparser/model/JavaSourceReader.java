@@ -14,6 +14,9 @@ import com.maximilianboehm.javasourceparser.access.JPFactory;
 import com.maximilianboehm.javasourceparser.access.struct.JPAnnotation;
 import com.maximilianboehm.javasourceparser.access.struct.JPClass;
 import com.maximilianboehm.javasourceparser.access.struct.JPField;
+import com.maximilianboehm.javasourceparser.model.meta.JPAnnotationImpl;
+import com.maximilianboehm.javasourceparser.model.meta.JPClassImpl;
+import com.maximilianboehm.javasourceparser.model.meta.JPFieldImpl;
 import com.sun.source.tree.AnnotationTree;
 import com.sun.source.tree.ClassTree;
 import com.sun.source.tree.CompilationUnitTree;
@@ -40,7 +43,7 @@ public class JavaSourceReader {
    }
 
 
-   public JPClass parseJavaSourceFile(File f, JPClass jpClass) throws Exception {
+   public JPClass parseJavaSourceFile(File f, JPClassImpl jpClass) throws Exception {
       Iterable<? extends JavaFileObject> fileObjects = fileManager.getJavaFileObjects(f);
       JavacTask javac = (JavacTask) compiler.getTask(null, fileManager, null, null, null, fileObjects);
       
@@ -56,9 +59,9 @@ public class JavaSourceReader {
    }
 
    class ClassVisitor extends SimpleTreeVisitor<Void, Void> {
-      JPClass jpClass;
+      JPClassImpl jpClass;
 
-      public ClassVisitor(JPClass jpClass) {
+      public ClassVisitor(JPClassImpl jpClass) {
          this.jpClass = jpClass;
       }
 
@@ -91,7 +94,7 @@ public class JavaSourceReader {
             if(t instanceof JCVariableDecl) {
                JCVariableDecl var = (JCVariableDecl)t;
 
-               JPField field = JPFactory.createJPField();
+               JPFieldImpl field = JPFactory.createJPField();
                field.setName(var.getName().toString());
                field.setType(var.getType().toString());
                field.setAnnotations(getAnnotations(var.getModifiers().getAnnotations()));
@@ -121,7 +124,7 @@ public class JavaSourceReader {
 //         System.out.println("Annotation-Argumente: "+ann.getArguments());
 //         System.out.println("----------------");
 
-         JPAnnotation anno = JPFactory.createJPAnnotation();
+         JPAnnotationImpl anno = JPFactory.createJPAnnotation();
          anno.setType(ann.getAnnotationType().toString());
 
          for(ExpressionTree expr:ann.getArguments()){
