@@ -20,6 +20,7 @@ public class MGitHistory {
 
    public GTHistory getHistory(File f) throws Exception{
       GTHistoryImpl gtHistory = GTModelFactory.createHistoryImpl();
+      gtHistory.setCurrentFile(f);
 
       try(MRepositoryManager repManager = MRepositoryManager.getManager(f);){
          Repository repository = repManager.getRepository();
