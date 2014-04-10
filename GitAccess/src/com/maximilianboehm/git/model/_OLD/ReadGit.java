@@ -1,4 +1,4 @@
-package com.maximilianboehm.git.model;
+package com.maximilianboehm.git.model._OLD;
 
 import java.io.File;
 import java.util.Map;
@@ -19,31 +19,22 @@ public class ReadGit {
       
       
       openRepository();
-      
+      System.out.println(rep.getClass());
       // DO STH
       Git git = new Git(rep);
-      
-      closeRepository();
-      
       // TODO Auto-generated method stub
+      RevWalk walk = new RevWalk(rep);
       
-      FileRepositoryBuilder builder = new FileRepositoryBuilder();
-      Repository repository = builder.setGitDir(new File(""))
-        .readEnvironment() // scan environment GIT_* variables
-        .findGitDir() // scan up the file system tree
-        .build();
-      
-      RevWalk walk = new RevWalk(repository);
-      
-      Map<String, Ref> mapX = repository.getAllRefs();
+      Map<String, Ref> mapX = rep.getAllRefs();
       for(String s:mapX.keySet()){
          System.out.println(s+": "+mapX.get(s));
       }
       
       
-      ObjectId head = repository.resolve("HEAD");
+      ObjectId head = rep.resolve("HEAD");
       System.out.println(head);
       
+      closeRepository();
       
    }
    
@@ -54,7 +45,7 @@ public class ReadGit {
    
    private static void openRepository()throws Exception {
       FileRepositoryBuilder builder = new FileRepositoryBuilder();
-      rep = builder.setGitDir(new File("C:/MBRepository/.git"))
+      rep = builder.setGitDir(new File("C:/MBRepository/"))
               .readEnvironment() // scan environment GIT_* variables
               .findGitDir() // scan up the file system tree
               .build();
