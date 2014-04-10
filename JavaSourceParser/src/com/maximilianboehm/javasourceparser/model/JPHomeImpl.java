@@ -2,7 +2,6 @@ package com.maximilianboehm.javasourceparser.model;
 
 import java.io.File;
 
-import com.maximilianboehm.javasourceparser.access.JPFactory;
 import com.maximilianboehm.javasourceparser.access.JPHome;
 import com.maximilianboehm.javasourceparser.access.struct.JPClass;
 
@@ -14,7 +13,7 @@ public class JPHomeImpl implements JPHome{
    public JPClass getParsedClass(File f) throws Exception {
       if(jsr==null)
          jsr = new JavaSourceReader();
-      return jsr.parseJavaSourceFile(f, JPFactory.createJPClass());
+      return jsr.parseJavaSourceFile(f, JPModelFactory.createJPClass());
    }
 
 }

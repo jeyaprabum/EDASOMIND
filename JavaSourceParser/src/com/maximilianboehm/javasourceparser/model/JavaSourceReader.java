@@ -10,10 +10,8 @@ import javax.tools.JavaFileObject;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
 
-import com.maximilianboehm.javasourceparser.access.JPFactory;
 import com.maximilianboehm.javasourceparser.access.struct.JPAnnotation;
 import com.maximilianboehm.javasourceparser.access.struct.JPClass;
-import com.maximilianboehm.javasourceparser.access.struct.JPField;
 import com.maximilianboehm.javasourceparser.model.meta.JPAnnotationImpl;
 import com.maximilianboehm.javasourceparser.model.meta.JPClassImpl;
 import com.maximilianboehm.javasourceparser.model.meta.JPFieldImpl;
@@ -94,7 +92,7 @@ public class JavaSourceReader {
             if(t instanceof JCVariableDecl) {
                JCVariableDecl var = (JCVariableDecl)t;
 
-               JPFieldImpl field = JPFactory.createJPField();
+               JPFieldImpl field = JPModelFactory.createJPField();
                field.setName(var.getName().toString());
                field.setType(var.getType().toString());
                field.setAnnotations(getAnnotations(var.getModifiers().getAnnotations()));
@@ -124,7 +122,7 @@ public class JavaSourceReader {
 //         System.out.println("Annotation-Argumente: "+ann.getArguments());
 //         System.out.println("----------------");
 
-         JPAnnotationImpl anno = JPFactory.createJPAnnotation();
+         JPAnnotationImpl anno = JPModelFactory.createJPAnnotation();
          anno.setType(ann.getAnnotationType().toString());
 
          for(ExpressionTree expr:ann.getArguments()){
