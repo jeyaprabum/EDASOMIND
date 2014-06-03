@@ -5,6 +5,6 @@ import com.google.code.morphia.annotations.Entity;
 @Entity
 public class TypeError {
 	
-	private int name;
+	private String name;
 
 }
