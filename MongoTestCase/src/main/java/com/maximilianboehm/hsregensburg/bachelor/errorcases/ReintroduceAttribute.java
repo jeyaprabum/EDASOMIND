@@ -6,5 +6,6 @@ import com.google.code.morphia.annotations.Entity;
 public class ReintroduceAttribute {
 
 	private String name;
+	private String lastname;
 	
 }
