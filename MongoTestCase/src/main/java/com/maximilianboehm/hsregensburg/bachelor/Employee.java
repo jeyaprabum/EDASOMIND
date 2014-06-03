@@ -21,7 +21,7 @@ import com.google.code.morphia.utils.IndexDirection;
 public class Employee {
 
 
-   public Employee(String firstName, String lastName, Key<Employee> manager, long salary) {
+   public Employee(String firstName, String lastName, Key<Employee> manager, boolean salary) {
       this.lastName = lastName;
       this.manager = manager;
       this.salary = salary;
@@ -33,9 +33,9 @@ public class Employee {
 
    @AlsoLoad("name")
    String lastName;
-
+   
    // only non-null values are stored
-   Long salary = null;
+   boolean salary = false;
 
    //references can be saved without automatic loading
    Key<Employee> manager;
