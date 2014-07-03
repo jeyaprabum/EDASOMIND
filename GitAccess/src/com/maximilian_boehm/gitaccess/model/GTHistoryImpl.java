@@ -23,7 +23,7 @@ public class GTHistoryImpl implements GTHistory {
    public List<GTHistoryFile> getHistoryFiles() {
       return listHistory;
    }
-   public void addHistoryFile(GTHistoryFileImpl historyFile){
+   public void addHistoryFile(GTHistoryFile historyFile){
       if(listHistory==null){
          listHistory = new ArrayList<>();
       }
