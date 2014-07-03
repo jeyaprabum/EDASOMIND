@@ -5,7 +5,7 @@ import java.lang.reflect.Field;
 
 import com.google.code.morphia.annotations.AlsoLoad;
 import com.google.code.morphia.annotations.Entity;
-import com.maximilianboehm.hsregensburg.bachelor.Employee;
+import com.maximilian_boehm.hsregensburg.bachelor.Employee;
 
 public class ReadJavaFile {
    
