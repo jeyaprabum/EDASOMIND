@@ -22,7 +22,7 @@ public class TestGitAccess {
 	 * @throws Exception
 	 */
 	@Test
-	public void test() throws Exception{
+	public void testGitAccess() throws Exception{
 		// Get the test-file
 		String sFile = TestGitAccess.class.getResource("testdata/test.txt").getFile();
 		

@@ -9,11 +9,11 @@ import com.maximilian_boehm.schemavalidator.test.TestSchemaValidator;
 public class TestEDASOMIND {
 
 	@Test
-	public void test() {
+	public void test() throws Exception{
 		// Tests all other Components
-		new TestGitAccess().test();
-		new TestJavaSourceParser().test();
-		new TestSchemaValidator().test();
+		new TestGitAccess().testGitAccess();
+		new TestJavaSourceParser().testJavaSourceParser();
+		new TestSchemaValidator().testSchemaValidator();
 	}
 
 }

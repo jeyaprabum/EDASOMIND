@@ -7,7 +7,7 @@ import org.junit.Test;
 public class TestSchemaValidator {
 
 	@Test
-	public void test() {
+	public void testSchemaValidator() {
 		fail("Not yet implemented");
 	}
 
