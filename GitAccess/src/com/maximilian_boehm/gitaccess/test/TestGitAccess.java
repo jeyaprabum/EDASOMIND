@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.Calendar;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.maximilian_boehm.gitaccess.access.GTAccessFactory;
@@ -14,6 +15,25 @@ import com.maximilian_boehm.gitaccess.access.struct.GTHistory;
 import com.maximilian_boehm.gitaccess.access.struct.GTHistoryFile;
 
 public class TestGitAccess {
+
+	// member
+	GTHistory history;
+
+	/**
+	 * Retrieve history of test-file
+	 * @throws Exception
+	 */
+	@Before
+	public void setUp() throws Exception { 
+		// Get the test-file
+		String sFile = TestGitAccess.class.getResource("testdata/test.txt").getFile();
+
+		// Workaround: Get path to src-directory
+		sFile = sFile.replace("GitAccess/bin/com/", "GitAccess/src/com/");
+
+		// Retrieve history
+		history = GTAccessFactory.getHome().getGitHistoryOfFile(new File(sFile));
+	}
 
 	/**
 	 * Retrieve all versions of a file
@@ -23,20 +43,11 @@ public class TestGitAccess {
 	 */
 	@Test
 	public void testGitAccess() throws Exception{
-		// Get the test-file
-		String sFile = TestGitAccess.class.getResource("testdata/test.txt").getFile();
-		
-		// Workaround: Get path to src-directory
-		sFile = sFile.replace("GitAccess/bin/com/", "GitAccess/src/com/");
-		
-		// Retrieve history
-		GTHistory history = GTAccessFactory.getHome().getGitHistoryOfFile(new File(sFile));
-
 		// Content starts at 0
 		int nStart =  0;
-		
+
 		Calendar cal = Calendar.getInstance();
-		
+
 		// Iterate through history
 		for(GTHistoryFile historyFile:history.getHistoryFiles()){
 			// Compare content to the counter
@@ -49,12 +60,12 @@ public class TestGitAccess {
 			Assert.assertTrue(historyFile.getCommitDate().getTimeInMillis() < cal.getTimeInMillis());
 			// set the new date for comparing in next iteration
 			cal = historyFile.getCommitDate();
-			
+
 			// Increment counter
 			nStart = nStart+1;
 		}
 	}
-	
+
 	/**
 	 * Retrieve the content from a given file as an integer
 	 * @param f
