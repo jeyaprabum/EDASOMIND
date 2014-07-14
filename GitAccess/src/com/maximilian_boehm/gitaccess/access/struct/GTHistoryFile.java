@@ -3,12 +3,31 @@ package com.maximilian_boehm.gitaccess.access.struct;
 import java.io.File;
 import java.util.Calendar;
 
+/**
+ * Represents one version in the history of a file
+ */
 public interface GTHistoryFile {
 
-	public File getFile() throws Exception;
-	public String getAuthor();
-	public String getComment();
-	public Calendar getCommitDate();
+    /**
+     * Get the file. The file is stored in the os-temp-directory
+     * @return file-handle to the actual file
+     * @throws Exception
+     */
+    public File getFile() throws Exception;
+
+    /**
+     * @return name of author
+     */
+    public String getAuthor();
+    /**
+     * @return comment entered by commit
+     */
+    public String getComment();
+
+    /**
+     * @return date of commit
+     */
+    public Calendar getCommitDate();
 
 
 }

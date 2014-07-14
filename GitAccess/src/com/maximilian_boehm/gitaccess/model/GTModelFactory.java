@@ -1,12 +1,22 @@
 package com.maximilian_boehm.gitaccess.model;
 
+/**
+ * Factory for creating the Model-Classes
+ *
+ */
 public class GTModelFactory {
 
-   public static GTHistoryImpl createHistoryImpl() {
-      return new GTHistoryImpl();
-   }
+    /**
+     * @return instance of History
+     */
+    public static GTHistoryImpl createHistoryImpl() {
+        return new GTHistoryImpl();
+    }
 
-   public static GTHistoryFileImpl createHistoryFileImpl() {
-      return new GTHistoryFileImpl();
-   }
+    /**
+     * @return instance of historyfile
+     */
+    public static GTHistoryFileImpl createHistoryFileImpl() {
+        return new GTHistoryFileImpl();
+    }
 }
