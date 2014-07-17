@@ -16,7 +16,7 @@ import com.maximilian_boehm.javasourceparser.test.testdata.fake_annotations.Refe
 import com.maximilian_boehm.javasourceparser.test.testdata.fake_annotations.Transient;
 
 @Entity(value="hotels", noClassnameStored=true)
-public class Test {
+public class TestClass {
 
 
    @Id private ObjectId id;
@@ -28,10 +28,10 @@ public class Test {
    boolean salary = false; 
 
    //references can be saved without automatic loading
-   Key<Test> manager;
+   Key<TestClass> manager;
 
    //refs are stored**, and loaded automatically
-   @Reference List<Test> underlings = new ArrayList<Test>();
+   @Reference List<TestClass> underlings = new ArrayList<TestClass>();
 
    //fields can be renamed
    @Property("started") Date startDate;
