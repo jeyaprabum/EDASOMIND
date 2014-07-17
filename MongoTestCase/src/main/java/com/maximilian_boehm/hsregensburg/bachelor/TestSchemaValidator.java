@@ -5,5 +5,6 @@ public class TestSchemaValidator {
 
     private String ABC;
     private String DEF;
+    private String GHI;
 
 }
