@@ -1,10 +1,12 @@
 package com.maximilian_boehm.schemavalidator.access.struct;
 
+import java.io.File;
+import java.util.Calendar;
+import java.util.List;
+
 public interface SVSchemaManager {
 
-
-    public SVSchema createInputSchema();
-    public SVSchema createSchema2Compare();
-    public SVCompareResult compare(SVSchema schema, SVSchema schemacompare);
+    public void addSchemaByFile(File f, Calendar date) throws Exception;
+    public List<SVCompareResultTable> compareSchemata() throws Exception;
 
 }
