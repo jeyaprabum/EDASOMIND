@@ -30,7 +30,7 @@ public class HelloWorld  {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Add the ubiquitous "Hello World" label.
-        JLabel label = new JLabel("Hello! This is EDASOMIND. EDASOMIND is a Tool for error detection for agile schema-evolution in nosql-Databases ");
+        JLabel label = new JLabel("Choose the file which should get analyzed");
 
         JButton button = new JButton("Select File");
         button.setSize(300, 100);

@@ -30,6 +30,9 @@ public class MGitHistory {
      * @throws Exception
      */
     public GTHistory getHistory(File f) throws Exception{
+        if(!f.exists())
+            throw new Exception("Datei "+f.getAbsolutePath()+" existiert nicht.");
+
         // Create new instance of history
         GTHistoryImpl gtHistory = GTModelFactory.createHistoryImpl();
         // set given file

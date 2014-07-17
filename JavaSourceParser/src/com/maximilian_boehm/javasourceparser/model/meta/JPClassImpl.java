@@ -10,70 +10,79 @@ import com.maximilian_boehm.javasourceparser.model.meta.base.JPAnnotationHolderI
 
 public class JPClassImpl extends JPAnnotationHolderImpl implements JPClass{
 
-   private String ClassName;
-   private String PackageName;
-   private List<JPField>      listFields;
+    private String ClassName;
+    private String PackageName;
+    private List<JPField>      listFields;
 
-   public String getClassName() {
-      return ClassName;
-   }
-   public void setClassName(String className) {
-      ClassName = className;
-   }
+    public JPClassImpl() {
+        listFields = new ArrayList<JPField>();
+    }
 
-
-   public String getPackageName() {
-      return PackageName;
-   }
-   public void setPackageName(String packageName) {
-      PackageName = packageName;
-   }
+    @Override
+    public String getClassName() {
+        return ClassName;
+    }
+    public void setClassName(String className) {
+        ClassName = className;
+    }
 
 
-   public void addField(JPField field){
-      if(listFields==null) listFields = new ArrayList<JPField>();
-      listFields.add(field);
-   }
+    @Override
+    public String getPackageName() {
+        return PackageName;
+    }
+    public void setPackageName(String packageName) {
+        PackageName = packageName;
+    }
 
-   public void setFields(List<JPField> listFields) {
-      this.listFields = listFields;
-   }
-   public List<JPField> getFields() throws Exception {
-      return listFields;
-   }
 
-   @Override
-   public String toString() {
-      StringBuilder sb = new StringBuilder();
-      try {
+    public void addField(JPField field){
+        listFields.add(field);
+    }
 
-         appendLB(sb, getPackageName());
+    public void setFields(List<JPField> listFields) {
+        this.listFields = listFields;
+    }
+    @Override
+    public List<JPField> getFields() throws Exception {
+        return listFields;
+    }
 
-         for(JPAnnotation anno:getAnnotations()){
-            appendLB(sb, "@"+anno.getType());
-            for(String s:anno.getAttributes().keySet())
-               appendLB(sb, "  "+s+"="+anno.getAttributes().get(s));
-         }
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        try {
 
-         appendLB(sb, getClassName()+"{");
+            appendLB(sb, getPackageName());
 
-         for(JPField field:getFields()){
-            if(field.hasAnnotations())
-               for(JPAnnotation anno:field.getAnnotations()){
-                  appendLB(sb, "   "+"@"+anno.getType());
-                  if(anno.hasAttributes())
-                     for(String s:anno.getAttributes().keySet())
-                        appendLB(sb, "   "+"  "+s+"="+anno.getAttributes().get(s));
-               }
-            appendLB(sb, "   "+field.getType()+" "+field.getName());
-         }
-         appendLB(sb, "}");
-      } catch (Exception e) {
-         e.printStackTrace();
-      }
-      return sb.toString();
-   }
+            if(hasAnnotations())
+                for(JPAnnotation anno:getAnnotations()){
+                    appendLB(sb, "@"+anno.getType());
+                    for(String s:anno.getAttributes().keySet())
+                        appendLB(sb, "  "+s+"="+anno.getAttributes().get(s));
+                }
 
-   private void append(StringBuilder sb, String s){sb.append(s);}
-   private void appendLB(StringBuilder sb, String s){sb.append(s+System.getProperty("line.separator"));}
+            appendLB(sb, getClassName()+"{");
+
+            for(JPField field:getFields()){
+                if(field.hasAnnotations())
+                    for(JPAnnotation anno:field.getAnnotations()){
+                        appendLB(sb, "   "+"@"+anno.getType());
+                        if(anno.hasAttributes())
+                            for(String s:anno.getAttributes().keySet())
+                                appendLB(sb, "   "+"  "+s+"="+anno.getAttributes().get(s));
+                    }
+                appendLB(sb, "   "+field.getType()+" "+field.getName());
+            }
+            appendLB(sb, "}");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return sb.toString();
+    }
+
+    private void append(StringBuilder sb, String s){sb.append(s);}
+    private void appendLB(StringBuilder sb, String s){sb.append(s+System.getProperty("line.separator"));}
+
+
 }
