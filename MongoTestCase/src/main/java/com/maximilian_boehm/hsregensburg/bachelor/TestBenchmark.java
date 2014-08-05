@@ -30,7 +30,6 @@ public class TestBenchmark {
     @AlsoLoad("XXX")
     private long l9;
     private char a2;
-    private char a3;
     private char a4;
     @AlsoLoad("AASD")
     private char a5;
