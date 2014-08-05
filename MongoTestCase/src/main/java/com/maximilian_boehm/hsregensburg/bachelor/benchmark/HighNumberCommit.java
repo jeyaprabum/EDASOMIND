@@ -7,7 +7,6 @@ public class HighNumberCommit {
 
     private String s0;
     private String s1;
-    private String s2;
 
 
 }
