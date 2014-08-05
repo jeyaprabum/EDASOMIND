@@ -6,7 +6,6 @@ import com.google.code.morphia.annotations.Entity;
 public class HighNumberCommit {
 
     private String s0;
-    private String s1;
 
 
 }
