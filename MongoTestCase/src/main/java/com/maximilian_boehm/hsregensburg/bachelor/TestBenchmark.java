@@ -23,7 +23,6 @@ public class TestBenchmark {
     private int n1;
     private int n3;
     private int n4;
-    private int n5;
     private int n6;
     private long l1;
     private long l2;
