@@ -32,7 +32,6 @@ public class TestBenchmark {
     private long l3;
     private long l4;
     private long l5;
-    private long l6;
     private long l8;
     private long l9;
     private char a1;
