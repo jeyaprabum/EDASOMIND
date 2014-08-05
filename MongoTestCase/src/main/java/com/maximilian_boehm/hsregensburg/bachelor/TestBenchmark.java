@@ -15,6 +15,6 @@ public class TestBenchmark {
     @AlsoLoad("ABC")
     private String GHI;
 
-
+    private String s1;
 
 }
