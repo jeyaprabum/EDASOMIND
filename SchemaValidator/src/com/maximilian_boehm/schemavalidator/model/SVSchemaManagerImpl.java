@@ -24,7 +24,7 @@ public class SVSchemaManagerImpl implements SVSchemaManager{
 
     // member
     private final List<SVSchema> listSchema = new ArrayList<SVSchema>();
-    private final boolean bDebug = true;
+    private final boolean bDebug = false;
 
     /* (non-Javadoc)
      * @see com.maximilian_boehm.schemavalidator.access.struct.SVSchemaManager#addSchemaByFile(java.io.File, java.util.Calendar)
