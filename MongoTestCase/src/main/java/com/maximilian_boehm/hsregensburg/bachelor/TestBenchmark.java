@@ -19,7 +19,6 @@ public class TestBenchmark {
     private String s1;
     private String s2;
     private String s3;
-    private String s4;
     private String s5;
     private String s6;
     private int n1;
@@ -28,14 +27,12 @@ public class TestBenchmark {
     private int n4;
     private int n5;
     private int n6;
-    private int n7;
     private long l1;
     private long l2;
     private long l3;
     private long l4;
     private long l5;
     private long l6;
-    private long l7;
     private long l8;
     private long l9;
     private char a1;
