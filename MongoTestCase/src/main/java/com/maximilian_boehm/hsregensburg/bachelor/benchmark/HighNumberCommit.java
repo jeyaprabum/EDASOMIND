@@ -16,5 +16,4 @@ public class HighNumberCommit {
     private Double d3;
 
     private Float f0;
-    private Float f1;
 }
