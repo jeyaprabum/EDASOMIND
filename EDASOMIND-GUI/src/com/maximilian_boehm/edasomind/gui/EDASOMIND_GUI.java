@@ -13,93 +13,23 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.table.TableCellRenderer;
 
 import com.maximilian_boehm.edasomind.access.EdasomindAccessFactory;
 import com.maximilian_boehm.edasomind.access.struct.EdasomindResultList;
+import com.maximilian_boehm.edasomind.gui.table.DataHolder;
+import com.maximilian_boehm.edasomind.gui.table.EDASOMINDTableCellRenderer;
+import com.maximilian_boehm.edasomind.gui.table.EDASOMINDTableModel;
 
 public class EDASOMIND_GUI  {
 
-    JTextArea field = null;
-    TableModel tm = null;
+    // members
     DataHolder dh = new DataHolder();
 
-    public DataHolder getDataHolder() {
-        return dh;
-    }
-
     /**
-     * Create the GUI and show it.  For thread safety,
-     * this method should be invoked from the
-     * event-dispatching thread.
+     * Starting point for GUI
+     * @param args
      */
-    private void createAndShowGUI() {
-        //Create and set up the window.
-        final JFrame frame = new JFrame("EDASOMIND");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        JButton button = new JButton("Select File");
-        button.setSize(300, 100);
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-
-                FileDialog dialog = new FileDialog(frame, "Load Java-File",FileDialog.LOAD);
-                dialog.setFile("*.java");
-                dialog.setVisible(true);
-
-                File f = new File(dialog.getDirectory() + dialog.getFile());
-                try {
-                    EdasomindResultList result = EdasomindAccessFactory.getHome().analyzeFile(f);
-                    dh.setResult(result);
-                    //field.setText(result.toString());
-                } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        GridLayout l = new GridLayout(2,1);
-        frame.setLayout(l);
-        Container c = frame.getContentPane();
-
-
-        tm = new TableModel(dh);
-        JTable table = new JTable(tm );
-        TableCellRenderer ren = new EDASOMINDTableCellRenderer(dh);
-        table.setDefaultRenderer( Object.class, ren );
-
-
-        c.add(button);
-        c.add( new JScrollPane( table ) );
-        //c.add(field);
-
-
-
-        String className = "com.apple.eawt.FullScreenUtilities";
-        String methodName = "setWindowCanFullScreen";
-
-        try {
-            Class<?> clazz = Class.forName(className);
-            Method method = clazz.getMethod(methodName, new Class<?>[] {
-                    Window.class, boolean.class });
-            method.invoke(null, frame, true);
-        } catch (Throwable t) {
-            System.err.println("Full screen mode is not supported");
-            t.printStackTrace();
-        }
-
-
-
-        //Display the window.
-        frame.pack();
-        frame.setVisible(true);
-    }
-
     public static void main(String[] args) {
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
@@ -110,4 +40,85 @@ public class EDASOMIND_GUI  {
             }
         });
     }
+
+    /**
+     * Create the GUI and show it.  For thread safety,
+     * this method should be invoked from the
+     * event-dispatching thread.
+     */
+    private void createAndShowGUI() {
+        // Create and set up the window.
+        final JFrame frame = new JFrame("EDASOMIND");
+        // Basic settings
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Create select-file-button
+        JButton button = new JButton("Select File");
+        button.setSize(300, 100);
+        // add action
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                // create native file dialogue
+                FileDialog dialog = new FileDialog(frame, "Load Java-File",FileDialog.LOAD);
+                // limit selection to .java-files
+                dialog.setFile("*.java");
+                // show dialogue
+                dialog.setVisible(true);
+
+                // retrieve file from dialogue
+                File f = new File(dialog.getDirectory() + dialog.getFile());
+                try {
+                    // try to retrieve results
+                    EdasomindResultList result = EdasomindAccessFactory.getHome().analyzeFile(f);
+                    // set the results to the data-holder
+                    dh.setResult(result);
+                } catch (Exception e) {
+                    // Exception? Print it!
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        // Create layout & append to frame
+        GridLayout l = new GridLayout(2,1);
+        frame.setLayout(l);
+        Container c = frame.getContentPane();
+
+        // Create table for displaying results
+        // create specific table-model and TableCellRenderer
+        EDASOMINDTableModel tm = new EDASOMINDTableModel(dh);
+        JTable table = new JTable(tm);
+        TableCellRenderer ren = new EDASOMINDTableCellRenderer(dh);
+        table.setDefaultRenderer(Object.class, ren);
+
+        // Add 'Select-File'-Button
+        c.add(button);
+        // Add Table
+        c.add( new JScrollPane( table ) );
+
+        // mac-osx-specific (possibility to 'fullscreen' an application)
+        String className = "com.apple.eawt.FullScreenUtilities";
+        String methodName = "setWindowCanFullScreen";
+        try {
+            Class<?> clazz = Class.forName(className);
+            Method method = clazz.getMethod(methodName, new Class<?>[] {Window.class, boolean.class });
+            method.invoke(null, frame, true);
+        } catch (Throwable t) {
+            System.err.println("Full screen mode is not supported");
+            t.printStackTrace();
+        }
+
+        //Display the window.
+        frame.pack();
+        frame.setVisible(true);
+    }
+
+    /**
+     * @return
+     */
+    public DataHolder getDataHolder() {return dh;}
+
 }

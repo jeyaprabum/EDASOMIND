@@ -12,8 +12,8 @@ public class GTHistoryFileImpl implements GTHistoryFile{
 
     // members
     private File file;
-    private String Author;
-    private String Comment;
+    private String sAuthor;
+    private String sComment;
     private Calendar commitDate;
 
     @Override
@@ -21,12 +21,12 @@ public class GTHistoryFileImpl implements GTHistoryFile{
     public void setFile(File file) {this.file = file;}
 
     @Override
-    public String getAuthor() {return Author;}
-    public void setAuthor(String author) {Author = author;}
+    public String getAuthor() {return sAuthor;}
+    public void setAuthor(String author) {sAuthor = author;}
 
     @Override
-    public String getComment() {return Comment;}
-    public void setComment(String comment) {Comment = comment;}
+    public String getComment() {return sComment;}
+    public void setComment(String comment) {sComment = comment;}
 
     @Override
     public Calendar getCommitDate() {return commitDate;}

@@ -9,11 +9,14 @@ import com.maximilian_boehm.javasourceparser.test.TestJavaSourceParser;
 import com.maximilian_boehm.schemavalidator.test.TestSchemaValidator;
 
 
+/**
+ * Class for Testing the Modules
+ *
+ */
 @RunWith(Suite.class)
 @SuiteClasses({
-	TestGitAccess.class,
-	TestJavaSourceParser.class,
-	TestSchemaValidator.class
+    TestGitAccess.class,
+    TestJavaSourceParser.class,
+    TestSchemaValidator.class
 })
-
 public class TestModules {}

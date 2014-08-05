@@ -7,11 +7,15 @@ import com.maximilian_boehm.javasourceparser.access.struct.JPClass;
 
 public class JPHomeImpl implements JPHome{
 
-   
-   private JPSourceReader jsr = new JPSourceReader();
-   
-   public JPClass getParsedClass(File f) throws Exception {
-      return jsr.parseJavaSourceFile(f, JPModelFactory.createJPClass());
-   }
+    // just one instance...
+    private final JPSourceReader jsr = new JPSourceReader();
+
+    /* (non-Javadoc)
+     * @see com.maximilian_boehm.javasourceparser.access.JPHome#getParsedClass(java.io.File)
+     */
+    @Override
+    public JPClass getParsedClass(File f) throws Exception {
+        return jsr.parseJavaSourceFile(f, JPModelFactory.createJPClass());
+    }
 
 }

@@ -27,49 +27,83 @@ import com.sun.tools.javac.tree.JCTree.JCLiteral;
 import com.sun.tools.javac.tree.JCTree.JCVariableDecl;
 
 
-// Taken from http://fw-geekycoder.blogspot.de/2012/09/how-to-parse-java-source-code-using.html
+// Inspired by http://fw-geekycoder.blogspot.de/2012/09/how-to-parse-java-source-code-using.html
 
+/**
+ * Extract information using AST
+ */
 public class JPSourceReader {
 
+    // members
     private final JavaCompiler compiler;
     private final StandardJavaFileManager fileManager;
+    private final boolean bDebug = false;
 
+    /**
+     * Constructor
+     */
     public JPSourceReader() {
         compiler = ToolProvider.getSystemJavaCompiler();
         fileManager = compiler.getStandardFileManager(null, null, null);
     }
 
 
+    /**
+     * Parse Source File and extract relevant information
+     * @param f
+     * @param jpClass
+     * @return
+     * @throws Exception
+     */
     public JPClass parseJavaSourceFile(File f, JPClassImpl jpClass) throws Exception {
+        // get File Objects of given file
         Iterable<? extends JavaFileObject> fileObjects = fileManager.getJavaFileObjects(f);
+        // Get Compilation Task
         JavacTask javac = (JavacTask) compiler.getTask(null, fileManager, null, null, null, fileObjects);
-
-        // TODO: Compare behaviour of analyze and parse
-        // javac.analyze
-
+        // Parse Source File
         Iterable<? extends CompilationUnitTree> trees = javac.parse();
 
+        // Start running through tree
         for (CompilationUnitTree tree : trees)
+            // use specifically implemented class-visitor
             tree.accept(new ClassVisitor(jpClass), null);
 
         return jpClass;
     }
 
+    /**
+     * Specifically implemented ClassVisitor
+     */
     class ClassVisitor extends SimpleTreeVisitor<Void, Void> {
+        // member
         JPClassImpl jpClass;
 
+        /**
+         * Constructor
+         * @param jpClass
+         */
         public ClassVisitor(JPClassImpl jpClass) {
             this.jpClass = jpClass;
         }
 
+        /* (non-Javadoc)
+         * @see com.sun.source.util.SimpleTreeVisitor#visitCompilationUnit(com.sun.source.tree.CompilationUnitTree, java.lang.Object)
+         */
         @Override
         public Void visitCompilationUnit(CompilationUnitTree cut, Void p) {
-            jpClass.setPackageName(cut.getPackageName().toString());
-            //         System.out.println("Package name: " + cut.getPackageName());
+            // Get Package-Name
+            String sPackageName = cut.getPackageName().toString();
+            // Set to JPClass
+            jpClass.setPackageName(sPackageName);
+            // Debug
+            debug("Package name: " + sPackageName);
 
+            // Iterate over TypeDeclarations
             for (Tree t : cut.getTypeDecls()) {
+                // Is it a ClassTree?
                 if (t instanceof ClassTree) {
                     ClassTree ct = (ClassTree) t;
+                    // Go on!
                     ct.accept(this, null);
                 }
             }
@@ -77,68 +111,108 @@ public class JPSourceReader {
         }
 
 
+        /* (non-Javadoc)
+         * @see com.sun.source.util.SimpleTreeVisitor#visitClass(com.sun.source.tree.ClassTree, java.lang.Object)
+         */
         @Override
         public Void visitClass(ClassTree ct, Void p) {
+            // Get ClassName
+            String sClassName = ct.getSimpleName().toString();
+            // Get and Convert Annotations
+            List<JPAnnotation> listAnnotations = getAnnotations(ct.getModifiers().getAnnotations());
 
-            jpClass.setClassName(ct.getSimpleName().toString());
-            jpClass.setAnnotations(getAnnotations(ct.getModifiers().getAnnotations()));
+            // Set Data
+            jpClass.setClassName(sClassName);
+            jpClass.setAnnotations(listAnnotations);
 
-            //         System.out.println(ct.getSimpleName().toString());
-            //         System.out.println(ct.getModifiers().getAnnotations());
+            // Debug
+            debug(sClassName);
+            debug(listAnnotations);
 
-
+            // Iterate over declarations
             for (Tree t : ct.getMembers()) {
+                // Is it a declaration of a variable?
                 if(t instanceof JCVariableDecl) {
+                    // yepp, cast it
                     JCVariableDecl var = (JCVariableDecl)t;
 
+                    // retrieve information
+                    String sName = var.getName().toString();
+                    String sType = var.getType().toString();
+                    List<JPAnnotation> listAnnoVar = getAnnotations(var.getModifiers().getAnnotations());
+
+                    // Create a new field and fill it with information
                     JPFieldImpl field = JPModelFactory.createJPField();
-                    field.setName(var.getName().toString());
-                    field.setType(var.getType().toString());
-                    field.setAnnotations(getAnnotations(var.getModifiers().getAnnotations()));
+                    field.setName(sName);
+                    field.setType(sType);
+                    field.setAnnotations(listAnnoVar);
                     jpClass.addField(field);
 
-                    //               System.out.println("Typ: "+var.getTag()); // VARDEF means definition of a variable
-                    //               System.out.println("Variablennamen: "+var.getName()); // Name der Variablen
-                    //               System.out.println("Datentyp: "+var.getType()); // Datentyp (e.g. List<Employee> oder Date)
-                    //               for(JCAnnotation ann:var.getModifiers().getAnnotations()){
-                    //                  System.out.println("Annotation-Type: "+ann.getAnnotationType());
-                    //                  System.out.println("Annotation-Argumente: "+ann.getArguments());
-                    //               }
-                    //               System.out.println("---------");
-
-
+                    // Debug
+                    debug("Typ: "+var.getTag()); // VARDEF means definition of a variable
+                    debug("Variablennamen: "+sName); // Name der Variablen
+                    debug("Datentyp: "+sType); // Datentyp (e.g. List<Employee> oder Date)
+                    debug(listAnnotations);
+                    debug("---------");
                 }
-                //               else
-                //               System.err.println(t.getClass());
+                else
+                    debug(t.getClass());
             }
             return super.visitClass(ct, p);
         }
     }
+    /**
+     * Convert to JPAnnotation-List
+     * @param listAnnotation
+     * @return
+     */
     private List<JPAnnotation> getAnnotations(List<? extends AnnotationTree> listAnnotation){
+        // create new list
         List<JPAnnotation> listAnno = new ArrayList<JPAnnotation>();
+        // iterate over annotations
         for(AnnotationTree ann:listAnnotation){
-            //         System.out.println("Annotation-Type: "+ann.getAnnotationType());
-            //         System.out.println("Annotation-Argumente: "+ann.getArguments());
-            //         System.out.println("----------------");
+            String sType = ann.getAnnotationType().toString();
 
+            // debug
+            debug("Annotation-Type: "+sType);
+            debug("Annotation-Argumente: "+ann.getArguments());
+            debug("----------------");
+
+            // create new annotation
             JPAnnotationImpl anno = JPModelFactory.createJPAnnotation();
-            anno.setType(ann.getAnnotationType().toString());
 
+            anno.setType(sType);
+            // Iterate over Arguments
             for(ExpressionTree expr:ann.getArguments()){
+                // Is it an assigment?
                 if(expr instanceof JCAssign){
                     JCAssign assign = (JCAssign)expr;
                     anno.addAttribute(assign.lhs.toString(), assign.rhs.toString());
-                    //               System.out.println("ASSIGN: "+assign.lhs+"="+assign.rhs);
-                } else if(expr instanceof JCLiteral){
+                    debug("ASSIGN: "+assign.lhs+"="+assign.rhs);
+                }
+                // or is it an Literal?
+                else if(expr instanceof JCLiteral){
                     JCLiteral lit = (JCLiteral)expr;
                     anno.addAttribute("value", lit.value.toString());
-                    //               System.out.println("LITERAL: "+lit.value);
-                } else{}
-                //               System.err.println("Error: "+expr);
+                    debug("LITERAL: "+lit.value);
+                } else{
+                    new Throwable().printStackTrace();
+                }
             }
-
+            // add annotation to list
             listAnno.add(anno);
         }
+        // no annotations? return null
         return listAnno.isEmpty() ? null : listAnno;
+    }
+
+    /**
+     * Debug
+     * @param o
+     */
+    private void debug(Object o){
+        if(bDebug){
+            System.out.println(o);
+        }
     }
 }

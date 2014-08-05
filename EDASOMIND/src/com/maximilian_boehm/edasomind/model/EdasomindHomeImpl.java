@@ -21,9 +21,13 @@ import com.maximilian_boehm.schemavalidator.access.struct.SVSchemaManager;
 
 public class EdasomindHomeImpl implements EdasomindHome{
 
+    // members
     JPHome homeJP = JPAccessFactory.getHome();
     GTHome homeGT = GTAccessFactory.getHome();
 
+    /* (non-Javadoc)
+     * @see com.maximilian_boehm.edasomind.access.EdasomindHome#analyzeFile(java.io.File)
+     */
     @Override
     public EdasomindResultList analyzeFile(File f) throws Exception {
         // Retrieve history
@@ -52,10 +56,12 @@ public class EdasomindHomeImpl implements EdasomindHome{
         for(SVCompareResultTable resultTable:listResultTable){
             // iterate over results from one comparison
             for(SVCompareResult result:resultTable.getResults()){
+                // Create result
                 EdasomindResultImpl edasoResult = (EdasomindResultImpl)list.createResult();
                 edasoResult.setCalendarFrom(resultTable.getDateOldFile());
-                edasoResult.setCalenderTo(resultTable.getDateNewFile());
+                edasoResult.setCalendarTo(resultTable.getDateNewFile());
 
+                // Set Significance and message according to type
                 switch (result.getType()) {
                 case CHANGE_FIELD:
                     edasoResult.setSignificance(EdasomindSignificance.HIGH);

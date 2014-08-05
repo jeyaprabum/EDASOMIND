@@ -5,10 +5,13 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 
+/**
+ * Class for Testing all necessary stuff
+ *
+ */
 @RunWith(Suite.class)
 @SuiteClasses({
-	TestModules.class,
-	TestEDASOMIND.class
+    TestModules.class,
+    TestEDASOMIND.class
 })
-
 public class TestAll {}
