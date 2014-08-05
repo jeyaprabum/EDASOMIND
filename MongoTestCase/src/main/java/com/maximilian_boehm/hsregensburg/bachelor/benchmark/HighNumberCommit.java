@@ -1,5 +1,6 @@
 package com.maximilian_boehm.hsregensburg.bachelor.benchmark;
 
+import com.google.code.morphia.annotations.AlsoLoad;
 import com.google.code.morphia.annotations.Entity;
 
 @Entity
@@ -19,5 +20,6 @@ public class HighNumberCommit {
     private Float f0;
     private Float f1;
     private Float f2;
+    @AlsoLoad("f4")
     private Float f3;
 }
