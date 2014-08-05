@@ -18,11 +18,13 @@ public class TestBenchmark {
 
     private String s1;
     private String s2;
+    @NotSaved
     private String s5;
     private String s6;
     private int n1;
     private int n3;
     private int n4;
+    @NotSaved
     private int n6;
     private long l1;
     private long l2;
@@ -32,6 +34,7 @@ public class TestBenchmark {
     private char a2;
     private char a3;
     private char a4;
+    @AlsoLoad("AASD")
     private char a5;
     private char a7;
 
