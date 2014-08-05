@@ -36,6 +36,5 @@ public class TestBenchmark {
     private char a4;
     @AlsoLoad("AASD")
     private char a5;
-    private char a7;
 
 }
