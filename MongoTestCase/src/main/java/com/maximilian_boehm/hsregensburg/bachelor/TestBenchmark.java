@@ -26,8 +26,8 @@ public class TestBenchmark {
     private int n6;
     private long l1;
     private long l2;
-    private long l3;
     private long l4;
+    @AlsoLoad("XXX")
     private long l9;
     private char a2;
     private char a3;
