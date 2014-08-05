@@ -22,7 +22,6 @@ public class TestBenchmark {
     private String s5;
     private String s6;
     private int n1;
-    private int n2;
     private int n3;
     private int n4;
     private int n5;
