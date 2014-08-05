@@ -48,10 +48,10 @@ public class TestSchemaValidator {
     public void testNewField() throws Exception {
         SVSchemaManager manager = home.createSchemaManager();
         manager.addSchemaByFile(new File(sPath+"Test_Add_After.java" ), Calendar.getInstance());
-        manager.addSchemaByFile(new File(sPath+"Test_Add_Before.java"), Calendar.getInstance());
+        manager.addSchemaByFile(new File(sPath+"Test_Add_Before.java"), getCalendar(1));
         for(SVCompareResultTable resultTable:manager.compareSchemata()){
             for(SVCompareResult result:resultTable.getResults()){
-                Assert.assertEquals(SVCompareResultType.NEW_FIELD, result.getType());
+                Assert.assertEquals(SVCompareResultType.ADD_FIELD, result.getType());
                 Assert.assertEquals("ABC",result.getFieldName());
             }
         }
@@ -64,7 +64,7 @@ public class TestSchemaValidator {
     public void testRemoveField() throws Exception {
         SVSchemaManager manager = home.createSchemaManager();
         manager.addSchemaByFile(new File(sPath+"Test_Delete_After.java" ), Calendar.getInstance());
-        manager.addSchemaByFile(new File(sPath+"Test_Delete_Before.java"), Calendar.getInstance());
+        manager.addSchemaByFile(new File(sPath+"Test_Delete_Before.java"), getCalendar(1));
         for(SVCompareResultTable resultTable:manager.compareSchemata()){
             for(SVCompareResult result:resultTable.getResults()){
                 Assert.assertEquals(SVCompareResultType.REMOVE_FIELD, result.getType());
@@ -80,7 +80,7 @@ public class TestSchemaValidator {
     public void testChangeDatatype() throws Exception {
         SVSchemaManager manager = home.createSchemaManager();
         manager.addSchemaByFile(new File(sPath+"Test_Datatype_After.java" ), Calendar.getInstance());
-        manager.addSchemaByFile(new File(sPath+"Test_Datatype_Before.java"), Calendar.getInstance());
+        manager.addSchemaByFile(new File(sPath+"Test_Datatype_Before.java"), getCalendar(1));
         for(SVCompareResultTable resultTable:manager.compareSchemata()){
             for(SVCompareResult result:resultTable.getResults()){
                 Assert.assertEquals(SVCompareResultType.CHANGE_FIELD, result.getType());
@@ -96,8 +96,8 @@ public class TestSchemaValidator {
     public void testReintroduceField() throws Exception {
         SVSchemaManager manager = home.createSchemaManager();
         manager.addSchemaByFile(new File(sPath+"Test_Reintroduce_After.java" ), Calendar.getInstance());
-        manager.addSchemaByFile(new File(sPath+"Test_Reintroduce_Middle.java" ), Calendar.getInstance());
-        manager.addSchemaByFile(new File(sPath+"Test_Reintroduce_Before.java" ), Calendar.getInstance());
+        manager.addSchemaByFile(new File(sPath+"Test_Reintroduce_Middle.java" ), getCalendar(1));
+        manager.addSchemaByFile(new File(sPath+"Test_Reintroduce_Before.java" ), getCalendar(2));
 
         List<SVCompareResultTable> listResult = manager.compareSchemata();
 
@@ -108,7 +108,7 @@ public class TestSchemaValidator {
 
     private List<SVCompareResult> getResultList0() {
         List<SVCompareResult> listResult = new ArrayList<SVCompareResult>();
-        listResult.add(new SVCompareResultImpl(SVCompareResultType.NEW_FIELD, "ABC"));
+        listResult.add(new SVCompareResultImpl(SVCompareResultType.ADD_FIELD, "ABC"));
         listResult.add(new SVCompareResultImpl(SVCompareResultType.REINTRODUCE, "ABC"));
         return listResult;
     }
@@ -116,6 +116,13 @@ public class TestSchemaValidator {
         List<SVCompareResult> listResult = new ArrayList<SVCompareResult>();
         listResult.add(new SVCompareResultImpl(SVCompareResultType.REMOVE_FIELD, "ABC"));
         return listResult;
+    }
+
+    private Calendar getCalendar(int nDayMinus){
+        Calendar cal = Calendar.getInstance();
+        for (int i = 0; i < nDayMinus; i++)
+            cal.roll(Calendar.DAY_OF_MONTH, false);
+        return cal;
     }
 
 }

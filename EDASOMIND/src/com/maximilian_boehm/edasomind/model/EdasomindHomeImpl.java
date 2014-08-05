@@ -67,7 +67,7 @@ public class EdasomindHomeImpl implements EdasomindHome{
                     edasoResult.setSignificance(EdasomindSignificance.HIGH);
                     edasoResult.setMessage("Changed Datatype of field "+result.getFieldName());
                     break;
-                case NEW_FIELD:
+                case ADD_FIELD:
                     edasoResult.setSignificance(EdasomindSignificance.NONE);
                     edasoResult.setMessage("Added field "+result.getFieldName());
 
