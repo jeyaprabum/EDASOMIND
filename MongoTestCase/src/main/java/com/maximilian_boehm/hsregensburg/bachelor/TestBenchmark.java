@@ -29,4 +29,14 @@ public class TestBenchmark {
     private int n5;
     private int n6;
     private int n7;
+    private long l1;
+    private long l2;
+    private long l3;
+    private long l4;
+    private long l5;
+    private long l6;
+    private long l7;
+    private long l8;
+    private long l9;
+
 }
