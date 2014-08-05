@@ -34,7 +34,6 @@ public class TestBenchmark {
     private long l5;
     private long l8;
     private long l9;
-    private char a1;
     private char a2;
     private char a3;
     private char a4;
