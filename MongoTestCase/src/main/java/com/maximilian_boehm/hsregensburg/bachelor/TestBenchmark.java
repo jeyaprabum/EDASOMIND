@@ -20,7 +20,6 @@ public class TestBenchmark {
     private String s2;
     @NotSaved
     private String s5;
-    private String s6;
     @AlsoLoad("n2")
     private int n1;
     private int n4;
