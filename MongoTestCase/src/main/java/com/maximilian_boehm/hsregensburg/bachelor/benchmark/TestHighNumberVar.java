@@ -5,56 +5,7 @@ import com.google.code.morphia.annotations.Entity;
 @Entity
 public class TestHighNumberVar {
 
-    private long l0;
-    private long l1;
-    private long l2;
-    private long l3;
-    private long l4;
-    private long l5;
-    private long l6;
-    private long l7;
-    private long l8;
-    private long l9;
-    private long l10;
-    private long l11;
-    private long l12;
-    private long l13;
-    private long l14;
-    private long l15;
-    private long l16;
-    private long l17;
-    private long l18;
-    private long l19;
-    private long l20;
-    private long l21;
-    private long l22;
-    private long l23;
-    private long l24;
-    private long l25;
-    private long l26;
-    private long l27;
-    private long l28;
-    private long l29;
-    private long l30;
-    private long l31;
-    private long l32;
-    private long l33;
-    private long l34;
-    private long l35;
-    private long l36;
-    private long l37;
-    private long l38;
-    private long l39;
-    private long l40;
-    private long l41;
-    private long l42;
-    private long l43;
-    private long l44;
-    private long l45;
-    private long l46;
-    private long l47;
-    private long l48;
-    private long l49;
+
 
     private String s0;
     private String s1;
@@ -157,6 +108,58 @@ public class TestHighNumberVar {
     private Double d47;
     private Double d48;
     private Double d49;
+
+
+    private Float f0;
+    private Float f1;
+    private Float f2;
+    private Float f3;
+    private Float f4;
+    private Float f5;
+    private Float f6;
+    private Float f7;
+    private Float f8;
+    private Float f9;
+    private Float f10;
+    private Float f11;
+    private Float f12;
+    private Float f13;
+    private Float f14;
+    private Float f15;
+    private Float f16;
+    private Float f17;
+    private Float f18;
+    private Float f19;
+    private Float f20;
+    private Float f21;
+    private Float f22;
+    private Float f23;
+    private Float f24;
+    private Float f25;
+    private Float f26;
+    private Float f27;
+    private Float f28;
+    private Float f29;
+    private Float f30;
+    private Float f31;
+    private Float f32;
+    private Float f33;
+    private Float f34;
+    private Float f35;
+    private Float f36;
+    private Float f37;
+    private Float f38;
+    private Float f39;
+    private Float f40;
+    private Float f41;
+    private Float f42;
+    private Float f43;
+    private Float f44;
+    private Float f45;
+    private Float f46;
+    private Float f47;
+    private Float f48;
+    private Float f49;
 
 
 
