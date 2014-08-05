@@ -21,8 +21,8 @@ public class TestBenchmark {
     @NotSaved
     private String s5;
     private String s6;
+    @AlsoLoad("n2")
     private int n1;
-    private int n3;
     private int n4;
     @NotSaved
     private int n6;
