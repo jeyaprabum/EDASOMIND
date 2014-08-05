@@ -70,15 +70,16 @@ public class EDASOMIND_GUI  {
 
                 // retrieve file from dialogue
                 File f = new File(dialog.getDirectory() + dialog.getFile());
-                try {
-                    // try to retrieve results
-                    EdasomindResultList result = EdasomindAccessFactory.getHome().analyzeFile(f);
-                    // set the results to the data-holder
-                    dh.setResult(result);
-                } catch (Exception e) {
-                    // Exception? Print it!
-                    e.printStackTrace();
-                }
+                if(f.exists())
+                    try {
+                        // try to retrieve results
+                        EdasomindResultList result = EdasomindAccessFactory.getHome().analyzeFile(f);
+                        // set the results to the data-holder
+                        dh.setResult(result);
+                    } catch (Exception e) {
+                        // Exception? Print it!
+                        e.printStackTrace();
+                    }
             }
         });
 
