@@ -16,7 +16,6 @@ public class HighNumberCommit {
     private Double d2;
     private Double d3;
 
-    @AlsoLoad("f7")
     private Float f0;
     @AlsoLoad("f6")
     private Float f1;
