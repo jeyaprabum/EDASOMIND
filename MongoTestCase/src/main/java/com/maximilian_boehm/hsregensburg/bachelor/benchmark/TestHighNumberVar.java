@@ -107,6 +107,57 @@ public class TestHighNumberVar {
     private String s48;
     private String s49;
 
+    private Double d0;
+    private Double d1;
+    private Double d2;
+    private Double d3;
+    private Double d4;
+    private Double d5;
+    private Double d6;
+    private Double d7;
+    private Double d8;
+    private Double d9;
+    private Double d10;
+    private Double d11;
+    private Double d12;
+    private Double d13;
+    private Double d14;
+    private Double d15;
+    private Double d16;
+    private Double d17;
+    private Double d18;
+    private Double d19;
+    private Double d20;
+    private Double d21;
+    private Double d22;
+    private Double d23;
+    private Double d24;
+    private Double d25;
+    private Double d26;
+    private Double d27;
+    private Double d28;
+    private Double d29;
+    private Double d30;
+    private Double d31;
+    private Double d32;
+    private Double d33;
+    private Double d34;
+    private Double d35;
+    private Double d36;
+    private Double d37;
+    private Double d38;
+    private Double d39;
+    private Double d40;
+    private Double d41;
+    private Double d42;
+    private Double d43;
+    private Double d44;
+    private Double d45;
+    private Double d46;
+    private Double d47;
+    private Double d48;
+    private Double d49;
+
 
 
 
