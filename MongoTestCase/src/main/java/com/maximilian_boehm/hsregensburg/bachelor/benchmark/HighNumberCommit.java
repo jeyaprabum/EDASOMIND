@@ -11,6 +11,5 @@ public class HighNumberCommit {
     private String s3;
 
     private Double d0;
-    private Double d1;
 
 }
