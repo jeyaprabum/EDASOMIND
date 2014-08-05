@@ -27,7 +27,6 @@ public class TestBenchmark {
     @NotSaved
     private int n6;
     private long l1;
-    private long l2;
     private long l4;
     @AlsoLoad("XXX")
     private long l9;
