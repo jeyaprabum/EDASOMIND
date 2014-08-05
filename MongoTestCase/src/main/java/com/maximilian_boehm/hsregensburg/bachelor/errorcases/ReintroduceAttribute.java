@@ -1,6 +1,7 @@
 package com.maximilian_boehm.hsregensburg.bachelor.errorcases;
 
 import com.google.code.morphia.annotations.Entity;
+import com.google.code.morphia.annotations.NotSaved;
 
 @Entity
 public class ReintroduceAttribute {
@@ -9,6 +10,7 @@ public class ReintroduceAttribute {
     private String firstname;
 
     // ERROR: Reintroduce name which was already existent but previously not listened any more
+    @NotSaved
     private String name;
 
 }

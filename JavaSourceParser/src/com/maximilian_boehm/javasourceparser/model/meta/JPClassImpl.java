@@ -81,7 +81,6 @@ public class JPClassImpl extends JPAnnotationHolderImpl implements JPClass{
         return sb.toString();
     }
 
-    private void append(StringBuilder sb, String s){sb.append(s);}
     private void appendLB(StringBuilder sb, String s){sb.append(s+System.getProperty("line.separator"));}
 
 

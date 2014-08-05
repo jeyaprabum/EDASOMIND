@@ -29,7 +29,11 @@ public class SVSchemaManagerImpl implements SVSchemaManager{
     @Override
     public void addSchemaByFile(File f, Calendar date) throws Exception {
         JPClass jpClass = JPAccessFactory.getHome().getParsedClass(f);
+        addSchemaByFile(jpClass, date);
+    }
 
+    @Override
+    public void addSchemaByFile(JPClass jpClass, Calendar date) throws Exception {
         SVSchema schema = new SVSchemaImpl();
         schema.setDate(date);
 
@@ -115,6 +119,5 @@ public class SVSchemaManagerImpl implements SVSchemaManager{
 
         return listResults;
     }
-
 
 }
