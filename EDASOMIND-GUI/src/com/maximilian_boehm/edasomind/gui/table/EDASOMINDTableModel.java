@@ -14,7 +14,6 @@ public class EDASOMINDTableModel extends AbstractTableModel implements DataHolde
     private final DataHolder dataholder;
     private final SimpleDateFormat fmt = new SimpleDateFormat();
 
-
     /**
      * @param dh
      */

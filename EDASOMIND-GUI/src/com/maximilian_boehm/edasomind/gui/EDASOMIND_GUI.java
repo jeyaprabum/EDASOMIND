@@ -21,6 +21,9 @@ import com.maximilian_boehm.edasomind.gui.table.DataHolder;
 import com.maximilian_boehm.edasomind.gui.table.EDASOMINDTableCellRenderer;
 import com.maximilian_boehm.edasomind.gui.table.EDASOMINDTableModel;
 
+/**
+ * Class for creating the GUI
+ */
 public class EDASOMIND_GUI  {
 
     // members
@@ -118,7 +121,7 @@ public class EDASOMIND_GUI  {
     }
 
     /**
-     * @return
+     * @return Holder for all Business-Data
      */
     public DataHolder getDataHolder() {return dh;}
 

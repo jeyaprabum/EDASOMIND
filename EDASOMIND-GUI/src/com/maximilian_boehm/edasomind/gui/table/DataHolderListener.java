@@ -7,5 +7,4 @@ public interface DataHolderListener {
      * e.g. a new file was analyzed
      */
     public void dataChanged();
-
 }

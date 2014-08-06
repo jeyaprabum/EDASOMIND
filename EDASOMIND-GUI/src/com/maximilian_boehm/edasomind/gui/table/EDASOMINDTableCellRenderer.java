@@ -14,7 +14,6 @@ public class EDASOMINDTableCellRenderer extends DefaultTableCellRenderer{
     private static final long serialVersionUID = 1L;
     private DataHolder dataholder = new DataHolder();
 
-
     /**
      * @param dh
      */
