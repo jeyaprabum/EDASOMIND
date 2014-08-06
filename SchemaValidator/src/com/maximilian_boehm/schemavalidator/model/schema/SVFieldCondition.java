@@ -18,14 +18,23 @@ public class SVFieldCondition{
         return field;
     }
 
+    /**
+     * @param field
+     */
     public void setField(JPField field) {
         this.field = field;
     }
 
+    /**
+     * @return
+     */
     public String getKey() {
         return key;
     }
 
+    /**
+     * @param key
+     */
     public void setKey(String key) {
         this.key = key;
     }

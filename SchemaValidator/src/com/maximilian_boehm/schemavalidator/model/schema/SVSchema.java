@@ -5,8 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author Max
- *
+ * Schema containing several conditions
  */
 public class SVSchema{
 
@@ -60,7 +59,7 @@ public class SVSchema{
     }
 
     /**
-     * 
+     * Print it
      */
     public void printConditions() {
         for(Map.Entry<String,SVFieldCondition> entry : map.entrySet()) {
