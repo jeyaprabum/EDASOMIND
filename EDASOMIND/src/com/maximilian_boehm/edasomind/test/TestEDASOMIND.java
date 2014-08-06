@@ -35,14 +35,14 @@ public class TestEDASOMIND {
      */
     public EdasomindResultList getExpectedResults(){
         EdasomindResultListImpl list = new EdasomindResultListImpl();
-        list.addTestResult(EdasomindSignificance.NONE,   1405603244000L, 1407225469000L, "Added field ABC");
-        list.addTestResult(EdasomindSignificance.NONE,   1405603244000L, 1407225469000L, "Added field DEF");
-        list.addTestResult(EdasomindSignificance.HIGH,   1405603244000L, 1407225469000L, "Reintroduced field ABC");
-        list.addTestResult(EdasomindSignificance.HIGH,   1405603244000L, 1407225469000L, "Reintroduced field DEF");
-        list.addTestResult(EdasomindSignificance.MIDDLE, 1405603238000L, 1405603244000L, "Removed field DEF");
-        list.addTestResult(EdasomindSignificance.MIDDLE, 1405603229000L, 1405603238000L, "Removed field ABC");
-        list.addTestResult(EdasomindSignificance.NONE,   1405603208000L, 1405603229000L, "Added field GHI");
         list.addTestResult(EdasomindSignificance.NONE,   1405603193000L, 1405603208000L, "Added field DEF");
+        list.addTestResult(EdasomindSignificance.NONE,   1405603208000L, 1405603229000L, "Added field GHI");
+        list.addTestResult(EdasomindSignificance.MIDDLE, 1405603229000L, 1405603238000L, "Removed field ABC");
+        list.addTestResult(EdasomindSignificance.MIDDLE, 1405603238000L, 1405603244000L, "Removed field DEF");
+        list.addTestResult(EdasomindSignificance.HIGH,   1405603244000L, 1407225469000L, "Reintroduced field ABC");
+        list.addTestResult(EdasomindSignificance.NONE,   1405603244000L, 1407225469000L, "Added field ABC");
+        list.addTestResult(EdasomindSignificance.HIGH,   1405603244000L, 1407225469000L, "Reintroduced field DEF");
+        list.addTestResult(EdasomindSignificance.NONE,   1405603244000L, 1407225469000L, "Added field DEF");
         return list;
     }
 }
