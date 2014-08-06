@@ -3,8 +3,6 @@ package com.maximilian_boehm.schemavalidator.model;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
@@ -18,6 +16,7 @@ import com.maximilian_boehm.schemavalidator.access.struct.SVCompareResultTable;
 import com.maximilian_boehm.schemavalidator.access.struct.SVCompareResultType;
 import com.maximilian_boehm.schemavalidator.access.struct.SVFieldCondition;
 import com.maximilian_boehm.schemavalidator.access.struct.SVSchema;
+import com.maximilian_boehm.schemavalidator.access.struct.SVSchemaCondition;
 import com.maximilian_boehm.schemavalidator.access.struct.SVSchemaManager;
 
 public class SVSchemaManagerImpl implements SVSchemaManager{
@@ -90,11 +89,10 @@ public class SVSchemaManagerImpl implements SVSchemaManager{
         List<SVCompareResultTable> listResults = new ArrayList<SVCompareResultTable>();
 
         // Get Iterator from the Schema-List
-        Iterator<SVSchema> it = listSchema.iterator();
+        ListIterator<SVSchema> it = listSchema.listIterator(listSchema.size());
 
         // ##################################################
         // ##################################################
-        // Step #1
         // Create Pairs of Schema for Comparison, e.g.
         //    Schema 1 & Schema 2
         //    Schema 2 & Schema 3
@@ -105,11 +103,11 @@ public class SVSchemaManagerImpl implements SVSchemaManager{
         // ##################################################
 
         // placeholder for prev. schema
-        SVSchema schemaprevious = null;
+        SVSchemaImpl schemaprevious = null;
         // as long, as there is a schema
-        while (it.hasNext()){
+        while (it.hasPrevious()){
             // set current schema
-            SVSchema schemaCurrent = it.next();
+            SVSchemaImpl schemaCurrent = (SVSchemaImpl)it.previous();
 
             // no previous schema yet?
             if(schemaprevious==null)
@@ -118,83 +116,117 @@ public class SVSchemaManagerImpl implements SVSchemaManager{
             else {
                 // Already a previous schema set?
                 // set a pair to compare (previous & current
-                listResults.add(schemaprevious.compare(schemaCurrent));
+                compare(schemaCurrent, schemaprevious, listResults);
                 // set previous schema to current
                 schemaprevious = schemaCurrent;
             }
         }
 
-
-        // ##################################################
-        // ##################################################
-        // Step #2: Recognize reintroduce of attributes
-        // 1) Iterate backwards over all results
-        // 2) Remember all fields which has been removed
-        // 3) Compare newly added fields with previously removed fields
-        // 4) Match? Add this to the results (but afterwards because of concurrency issues)
-        // ##################################################
-        // ##################################################
-
-        // list for storing previous deleted fields
-        List<String> listPrevDeleted = new ArrayList<>();
-
-        // Get Iterator
-        ListIterator<SVCompareResultTable> li = listResults.listIterator(listResults.size());
-
-        // Save the results to add afterwards concerning concurrency problems
-        Map<SVCompareResultTable, List<SVCompareResult>> mapAddAfterwards = new HashMap<>();
-
-        // Run through results in backward order
-        while (li.hasPrevious()){
-            // Get resultTable
-            SVCompareResultTable resultTable = li.previous();
-
-            // Debug
-            debug("COMPARE ");
-            debug(resultTable.getDateNewFile().getTime());
-            debug(resultTable.getDateOldFile().getTime());
-
-            // Iterate over single results
-            for(SVCompareResult result:resultTable.getResults()){
-                // Is it a remove-field?
-                if(result.getType() == SVCompareResultType.REMOVE_FIELD)
-                    // Remember it!
-                    listPrevDeleted.add(result.getFieldName());
-
-                // Are you a new field and have you been deleted previously?
-                if(result.getType() == SVCompareResultType.ADD_FIELD && listPrevDeleted.contains(result.getFieldName())){
-                    // Create new result
-                    SVCompareResultImpl resultReintroduce = new SVCompareResultImpl();
-                    // Set name of affected field
-                    resultReintroduce.setFieldName(result.getFieldName());
-                    // set type
-                    resultReintroduce.setType(SVCompareResultType.REINTRODUCE);
-
-                    // ResultTable doesn't exist yet in map? this is necessary because of concurrency problems
-                    if(mapAddAfterwards.get(resultTable)==null)
-                        // create it!
-                        mapAddAfterwards.put(resultTable, new ArrayList<SVCompareResult>());
-
-                    // add new result
-                    mapAddAfterwards.get(resultTable).add(resultReintroduce);
-
-                    debug("Reintroducing was detected: "+result.getFieldName());
-                }
-                debug(result.getType()+": "+result.getFieldName());
-            }
-            debug("=====================");
-        }
-
-        // Add new Results afterwards to main table
-        for(SVCompareResultTable tableResult:mapAddAfterwards.keySet())
-            tableResult.getResults().addAll(mapAddAfterwards.get(tableResult));
-
         // return list of tables with results
         return listResults;
     }
 
-    private void debug(Object o){
-        if(bDebug)System.out.println(o);
+    /**
+     * @param schemaNEW
+     * @param schemaOLD
+     * @param listResults
+     */
+    public void compare(SVSchemaImpl schemaNEW, SVSchemaImpl schemaOLD, List<SVCompareResultTable> listResults) {
+        //System.out.println("schema "+schemaOLD.getDate().getTime() +" vs. "+schemaNEW.getDate().getTime());
+        SVCompareResultTableImpl tableImpl = new SVCompareResultTableImpl();
+        tableImpl.setDateNewFile(schemaNEW.getDate());
+        tableImpl.setDateOldFile(schemaOLD.getDate());
+
+        // Iterate over Conditions from the NEW Schema
+        for(Map.Entry<String,SVSchemaCondition> entry:schemaNEW.getMap().entrySet()) {
+            // Get Key
+            String sKey = entry.getKey();
+            // Get Condition
+            SVFieldCondition value = (SVFieldCondition)entry.getValue();
+
+            // Field not present in old schema?
+            if(!schemaOLD.hasCondition(sKey)){
+                // ######################################
+                // Case 3: Field got reintroduced
+                // ######################################
+                if(wasFieldPreviouslyRemoved(sKey, listResults)){
+                    // Create new result
+                    SVCompareResultImpl resultReintroduce = new SVCompareResultImpl();
+                    // Set name of affected field
+                    resultReintroduce.setFieldName(sKey);
+                    // set type
+                    resultReintroduce.setType(SVCompareResultType.REINTRODUCE);
+                    // Add to table
+                    tableImpl.addResult(resultReintroduce);
+                }
+
+                // ######################################
+                // Case 2: Field is new
+                // ######################################
+                SVCompareResultImpl result = new SVCompareResultImpl();
+                result.setType(SVCompareResultType.ADD_FIELD);
+                result.setFieldName(sKey);
+                result.setOldField(value.getField());
+                tableImpl.addResult(result);
+            }
+            // ######################################
+            // Case 2: Field is still here, maybe another data-type?
+            // ######################################
+            else {
+                SVFieldCondition valueCompare =  (SVFieldCondition)schemaNEW.getCondition(sKey);
+                // Is it another data-type?
+                if(!valueCompare.getField().getType().equals(value.getField().getType())){
+                    SVCompareResultImpl result = new SVCompareResultImpl();
+                    result.setType(SVCompareResultType.CHANGE_FIELD);
+                    result.setFieldName(sKey);
+                    result.setOldField(value.getField());
+                    result.setNewField(valueCompare.getField());
+                    tableImpl.addResult(result);
+                }
+            }
+        }
+
+        // Remove all entries from schemaNEW from schemaOLD because they already
+        // have been handled
+        schemaOLD.getMap().entrySet().removeAll(schemaNEW.getMap().entrySet());
+
+        // Iterate over Conditions from Schema #1
+        for(Map.Entry<String,SVSchemaCondition> entry:schemaOLD.getMap().entrySet()) {
+            String sKey = entry.getKey();
+            SVFieldCondition value = (SVFieldCondition)entry.getValue();
+            // ######################################
+            // Case 1: Field isn't here anymore
+            // ######################################
+            if(!schemaNEW.hasCondition(sKey)){
+                SVCompareResultImpl result = new SVCompareResultImpl();
+                result.setType(SVCompareResultType.REMOVE_FIELD);
+                result.setFieldName(sKey);
+                result.setOldField(value.getField());
+                tableImpl.addResult(result);
+            }
+        }
+
+        listResults.add(tableImpl);
+    }
+
+    /**
+     * Check if the field has been removed previously
+     * @param sField
+     * @param listResults
+     * @return
+     */
+    private boolean wasFieldPreviouslyRemoved(String sField, List<SVCompareResultTable> listResults) {
+        // Iterate over all result-tables
+        for(SVCompareResultTable resultTable:listResults)
+            // are there results in the table?
+            if(resultTable.hasResults())
+                // iterate over the results
+                for(SVCompareResult result:resultTable.getResults())
+                    // was the field removed?
+                    if(result.getFieldName().equals(sField) && result.getType() == SVCompareResultType.REMOVE_FIELD)
+                        return true;
+        return false;
+
     }
 
 }

@@ -106,13 +106,13 @@ public class TestSchemaValidator {
         Assert.assertThat(listResult.get(1).getResults(), equalTo(getResultList1()));
     }
 
-    private List<SVCompareResult> getResultList0() {
+    private List<SVCompareResult> getResultList1() {
         List<SVCompareResult> listResult = new ArrayList<SVCompareResult>();
-        listResult.add(new SVCompareResultImpl(SVCompareResultType.ADD_FIELD, "ABC"));
         listResult.add(new SVCompareResultImpl(SVCompareResultType.REINTRODUCE, "ABC"));
+        listResult.add(new SVCompareResultImpl(SVCompareResultType.ADD_FIELD, "ABC"));
         return listResult;
     }
-    private List<SVCompareResult> getResultList1() {
+    private List<SVCompareResult> getResultList0() {
         List<SVCompareResult> listResult = new ArrayList<SVCompareResult>();
         listResult.add(new SVCompareResultImpl(SVCompareResultType.REMOVE_FIELD, "ABC"));
         return listResult;
