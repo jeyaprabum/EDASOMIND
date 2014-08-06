@@ -6,8 +6,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 
 /**
- * Class for Testing all necessary stuff
- *
+ * Class for Testing all modules
  */
 @RunWith(Suite.class)
 @SuiteClasses({

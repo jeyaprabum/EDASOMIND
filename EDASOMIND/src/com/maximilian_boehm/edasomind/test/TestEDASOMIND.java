@@ -15,7 +15,6 @@ import com.maximilian_boehm.edasomind.model.EdasomindResultListImpl;
 
 /**
  * Class for Testing EDASOMIND
- *
  */
 public class TestEDASOMIND {
 

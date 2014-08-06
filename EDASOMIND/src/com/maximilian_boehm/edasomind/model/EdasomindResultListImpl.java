@@ -25,7 +25,7 @@ public class EdasomindResultListImpl extends ArrayList<EdasomindResult> implemen
     }
 
     /**
-     * Add a new result for testing purpose
+     * Specific method to ease testing
      * @param sig
      * @param calFrom
      * @param calTo
