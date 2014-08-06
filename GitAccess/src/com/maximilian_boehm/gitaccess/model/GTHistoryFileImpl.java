@@ -11,9 +11,9 @@ import com.maximilian_boehm.gitaccess.access.struct.GTHistoryFile;
 public class GTHistoryFileImpl implements GTHistoryFile{
 
     // members
-    private File file;
-    private String sAuthor;
-    private String sComment;
+    private File     file;
+    private String   sAuthor;
+    private String   sComment;
     private Calendar commitDate;
 
     @Override

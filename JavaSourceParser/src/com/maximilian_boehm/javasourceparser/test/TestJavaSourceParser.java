@@ -13,12 +13,12 @@ import org.junit.Before;
 
 import com.maximilian_boehm.javasourceparser.access.JPAccessFactory;
 import com.maximilian_boehm.javasourceparser.access.JPHome;
-import com.maximilian_boehm.javasourceparser.access.struct.JPAnnotation;
 import com.maximilian_boehm.javasourceparser.access.struct.JPClass;
 import com.maximilian_boehm.javasourceparser.access.struct.JPField;
+import com.maximilian_boehm.javasourceparser.access.struct.base.JPAnnotation;
 import com.maximilian_boehm.javasourceparser.model.JPModelFactory;
-import com.maximilian_boehm.javasourceparser.model.meta.JPAnnotationImpl;
 import com.maximilian_boehm.javasourceparser.model.meta.JPFieldImpl;
+import com.maximilian_boehm.javasourceparser.model.meta.base.JPAnnotationImpl;
 import com.maximilian_boehm.javasourceparser.test.testdata.TestClass;
 import com.maximilian_boehm.javasourceparser.test.testdata.fake_annotations.AlsoLoad;
 import com.maximilian_boehm.javasourceparser.test.testdata.fake_annotations.Embedded;

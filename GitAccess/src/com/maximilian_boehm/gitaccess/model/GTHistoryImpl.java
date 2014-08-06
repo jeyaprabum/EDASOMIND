@@ -23,6 +23,7 @@ public class GTHistoryImpl implements GTHistory {
     @Override
     public List<GTHistoryFile> getHistoryFiles() {return listHistory;}
     public void addHistoryFile(GTHistoryFile historyFile){
+        // create new list if it's not yet there
         if(listHistory==null) listHistory = new ArrayList<>();
         listHistory.add(historyFile);
     }

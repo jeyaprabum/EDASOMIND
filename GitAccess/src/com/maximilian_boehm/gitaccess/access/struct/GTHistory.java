@@ -10,16 +10,14 @@ public interface GTHistory {
 
 
     /**
-     * Get the most up2date file
-     * @return
+     * @return Get the most up2date file
      * @throws Exception
      */
     public File getCurrentFile() throws Exception;
 
 
     /**
-     * Get the full history.
-     * @return a sorted output
+     * @return Get the full history.
      * @throws Exception
      */
     public List<GTHistoryFile> getHistoryFiles() throws Exception;

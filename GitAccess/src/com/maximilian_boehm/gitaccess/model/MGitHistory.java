@@ -17,6 +17,13 @@ import org.eclipse.jgit.treewalk.TreeWalk;
 
 import com.maximilian_boehm.gitaccess.access.struct.GTHistory;
 
+/**
+ * Class for retrieving file history from GIT
+ * Inspired by
+ * http://wiki.eclipse.org/JGit/User_Guide
+ * http://stackoverflow.com/questions/1685228/how-to-cat-a-file-in-jgit
+ * http://www.programcreek.com/java-api-examples/index.php?api=org.eclipse.jgit.treewalk.TreeWalk
+ */
 public class MGitHistory {
 
     /**
@@ -100,7 +107,9 @@ public class MGitHistory {
             // open object
             reader.open(treewalk.getObjectId(0)).copyTo(fop);
 
-        } finally{reader.release();}
+        } finally{
+            reader.release();
+        }
 
         return f;
     }

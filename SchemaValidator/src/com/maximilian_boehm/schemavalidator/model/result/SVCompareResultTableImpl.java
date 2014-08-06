@@ -1,4 +1,4 @@
-package com.maximilian_boehm.schemavalidator.model;
+package com.maximilian_boehm.schemavalidator.model.result;
 
 import java.util.ArrayList;
 import java.util.Calendar;

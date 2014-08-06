@@ -2,13 +2,19 @@ package com.maximilian_boehm.javasourceparser.access.struct.base;
 
 import java.util.List;
 
-import com.maximilian_boehm.javasourceparser.access.struct.JPAnnotation;
-
+/**
+ * Interface for all types who can have one or more annotations (e.g. classes or fields)
+ */
 public interface JPAnnotationHolder {
-   
-   public List<JPAnnotation> getAnnotations() throws Exception;
-   public boolean hasAnnotations();
-   
-   //public void setAnnotations(List<JPAnnotation> listAnnotations);
 
+    /**
+     * @return the annotations
+     * @throws Exception
+     */
+    public List<JPAnnotation> getAnnotations() throws Exception;
+
+    /**
+     * @return true if this holder has one or more annotations
+     */
+    public boolean hasAnnotations();
 }

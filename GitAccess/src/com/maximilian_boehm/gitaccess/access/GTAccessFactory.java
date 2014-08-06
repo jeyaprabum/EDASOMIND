@@ -11,8 +11,7 @@ public class GTAccessFactory {
     private static GTHome home = null;
 
     /**
-     * Get GitAccess-Home
-     * @return
+     * @return Get GitAccess-Home
      */
     public static GTHome getHome(){
         if(home==null) home=new GTHomeImpl();

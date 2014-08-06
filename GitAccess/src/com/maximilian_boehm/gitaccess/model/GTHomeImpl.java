@@ -14,5 +14,4 @@ public class GTHomeImpl implements GTHome{
     public GTHistory getGitHistoryOfFile(File f) throws Exception{
         return new MGitHistory().getHistory(f);
     }
-
 }

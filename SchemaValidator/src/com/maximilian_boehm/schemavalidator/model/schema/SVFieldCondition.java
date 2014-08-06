@@ -1,11 +1,11 @@
-package com.maximilian_boehm.schemavalidator.access.struct;
+package com.maximilian_boehm.schemavalidator.model.schema;
 
 import com.maximilian_boehm.javasourceparser.access.struct.JPField;
 
 /**
  * One Condition in the schema
  */
-public class SVFieldCondition implements SVSchemaCondition{
+public class SVFieldCondition{
 
     // members
     private String key;
@@ -22,7 +22,6 @@ public class SVFieldCondition implements SVSchemaCondition{
         this.field = field;
     }
 
-    @Override
     public String getKey() {
         return key;
     }
@@ -30,7 +29,6 @@ public class SVFieldCondition implements SVSchemaCondition{
     public void setKey(String key) {
         this.key = key;
     }
-
 
     @Override
     public boolean equals(Object obj) {

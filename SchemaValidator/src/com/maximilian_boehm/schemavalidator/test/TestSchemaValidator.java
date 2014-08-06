@@ -16,7 +16,7 @@ import com.maximilian_boehm.schemavalidator.access.struct.SVCompareResult;
 import com.maximilian_boehm.schemavalidator.access.struct.SVCompareResultTable;
 import com.maximilian_boehm.schemavalidator.access.struct.SVCompareResultType;
 import com.maximilian_boehm.schemavalidator.access.struct.SVSchemaManager;
-import com.maximilian_boehm.schemavalidator.model.SVCompareResultImpl;
+import com.maximilian_boehm.schemavalidator.model.result.SVCompareResultImpl;
 public class TestSchemaValidator {
 
     private SVHome home;

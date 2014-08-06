@@ -72,9 +72,8 @@ public class TestGitAccess {
     }
 
     /**
-     * Retrieve the content from a given file as an integer
      * @param f
-     * @return
+     * @return content from a given file as an integer
      * @throws IOException
      */
     private int getIntFromFile(File f) throws IOException{

@@ -1,4 +1,4 @@
-package com.maximilian_boehm.schemavalidator.model;
+package com.maximilian_boehm.schemavalidator.model.result;
 
 import com.maximilian_boehm.javasourceparser.access.struct.JPField;
 import com.maximilian_boehm.schemavalidator.access.struct.SVCompareResult;

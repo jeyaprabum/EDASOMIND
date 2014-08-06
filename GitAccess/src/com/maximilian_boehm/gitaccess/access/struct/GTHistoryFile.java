@@ -9,8 +9,7 @@ import java.util.Calendar;
 public interface GTHistoryFile {
 
     /**
-     * Get the file. The file is stored in the os-temp-directory
-     * @return file-handle to the actual file
+     * @return Get the file. The file is stored in the os-temp-directory
      * @throws Exception
      */
     public File getFile() throws Exception;

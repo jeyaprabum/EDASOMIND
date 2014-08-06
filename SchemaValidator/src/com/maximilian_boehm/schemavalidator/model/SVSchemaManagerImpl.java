@@ -14,10 +14,11 @@ import com.maximilian_boehm.javasourceparser.access.struct.base.JPAnnotation;
 import com.maximilian_boehm.schemavalidator.access.struct.SVCompareResult;
 import com.maximilian_boehm.schemavalidator.access.struct.SVCompareResultTable;
 import com.maximilian_boehm.schemavalidator.access.struct.SVCompareResultType;
-import com.maximilian_boehm.schemavalidator.access.struct.SVFieldCondition;
-import com.maximilian_boehm.schemavalidator.access.struct.SVSchema;
-import com.maximilian_boehm.schemavalidator.access.struct.SVSchemaCondition;
 import com.maximilian_boehm.schemavalidator.access.struct.SVSchemaManager;
+import com.maximilian_boehm.schemavalidator.model.result.SVCompareResultImpl;
+import com.maximilian_boehm.schemavalidator.model.result.SVCompareResultTableImpl;
+import com.maximilian_boehm.schemavalidator.model.schema.SVFieldCondition;
+import com.maximilian_boehm.schemavalidator.model.schema.SVSchema;
 
 public class SVSchemaManagerImpl implements SVSchemaManager{
 
@@ -40,7 +41,7 @@ public class SVSchemaManagerImpl implements SVSchemaManager{
     @Override
     public void addSchemaByFile(JPClass jpClass, Calendar date) throws Exception {
         // Create new Schema
-        SVSchema schema = new SVSchemaImpl();
+        SVSchema schema = new SVSchema();
         // Set date
         schema.setDate(date);
 
@@ -103,11 +104,11 @@ public class SVSchemaManagerImpl implements SVSchemaManager{
         // ##################################################
 
         // placeholder for prev. schema
-        SVSchemaImpl schemaprevious = null;
+        SVSchema schemaprevious = null;
         // as long, as there is a schema
         while (it.hasPrevious()){
             // set current schema
-            SVSchemaImpl schemaCurrent = (SVSchemaImpl)it.previous();
+            SVSchema schemaCurrent = it.previous();
 
             // no previous schema yet?
             if(schemaprevious==null)
@@ -131,18 +132,18 @@ public class SVSchemaManagerImpl implements SVSchemaManager{
      * @param schemaOLD
      * @param listResults
      */
-    public void compare(SVSchemaImpl schemaNEW, SVSchemaImpl schemaOLD, List<SVCompareResultTable> listResults) {
+    public void compare(SVSchema schemaNEW, SVSchema schemaOLD, List<SVCompareResultTable> listResults) {
         //System.out.println("schema "+schemaOLD.getDate().getTime() +" vs. "+schemaNEW.getDate().getTime());
         SVCompareResultTableImpl tableImpl = new SVCompareResultTableImpl();
         tableImpl.setDateNewFile(schemaNEW.getDate());
         tableImpl.setDateOldFile(schemaOLD.getDate());
 
         // Iterate over Conditions from the NEW Schema
-        for(Map.Entry<String,SVSchemaCondition> entry:schemaNEW.getMap().entrySet()) {
+        for(Map.Entry<String,SVFieldCondition> entry:schemaNEW.getMap().entrySet()) {
             // Get Key
             String sKey = entry.getKey();
             // Get Condition
-            SVFieldCondition value = (SVFieldCondition)entry.getValue();
+            SVFieldCondition value = entry.getValue();
 
             // Field not present in old schema?
             if(!schemaOLD.hasCondition(sKey)){
@@ -162,7 +163,7 @@ public class SVSchemaManagerImpl implements SVSchemaManager{
             // Case 3: Field exists, but maybe another data-type?
             // ######################################
             else {
-                SVFieldCondition valueCompare =  (SVFieldCondition)schemaOLD.getCondition(sKey);
+                SVFieldCondition valueCompare =  schemaOLD.getCondition(sKey);
                 // Is it another data-type?
                 if(!valueCompare.getField().getType().equals(value.getField().getType()))
                     addResult(tableImpl, sKey, valueCompare.getField(), value.getField(), SVCompareResultType.CHANGE_FIELD);
@@ -174,9 +175,9 @@ public class SVSchemaManagerImpl implements SVSchemaManager{
         schemaOLD.getMap().entrySet().removeAll(schemaNEW.getMap().entrySet());
 
         // Iterate over Conditions from Schema #1
-        for(Map.Entry<String,SVSchemaCondition> entry:schemaOLD.getMap().entrySet()) {
+        for(Map.Entry<String,SVFieldCondition> entry:schemaOLD.getMap().entrySet()) {
             String sKey = entry.getKey();
-            SVFieldCondition value = (SVFieldCondition)entry.getValue();
+            SVFieldCondition value = entry.getValue();
             // ######################################
             // Case 4: Field isn't here anymore
             // ######################################

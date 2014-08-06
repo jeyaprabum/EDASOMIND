@@ -10,10 +10,9 @@ import com.maximilian_boehm.gitaccess.access.struct.GTHistory;
 public interface GTHome {
 
     /**
-     * Retrieve all previous versions of a file
      * Determins the information by using the path to find the GIT-Home
      * @param f, the current version
-     * @return
+     * @return Retrieve all previous versions of a file
      * @throws Exception
      */
     public GTHistory getGitHistoryOfFile(File f) throws Exception;

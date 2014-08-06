@@ -1,8 +1,8 @@
 package com.maximilian_boehm.javasourceparser.model;
 
-import com.maximilian_boehm.javasourceparser.model.meta.JPAnnotationImpl;
 import com.maximilian_boehm.javasourceparser.model.meta.JPClassImpl;
 import com.maximilian_boehm.javasourceparser.model.meta.JPFieldImpl;
+import com.maximilian_boehm.javasourceparser.model.meta.base.JPAnnotationImpl;
 
 public class JPModelFactory {
    

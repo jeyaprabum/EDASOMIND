@@ -3,51 +3,83 @@ package com.maximilian_boehm.javasourceparser.model.meta;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.maximilian_boehm.javasourceparser.access.struct.JPAnnotation;
 import com.maximilian_boehm.javasourceparser.access.struct.JPClass;
 import com.maximilian_boehm.javasourceparser.access.struct.JPField;
+import com.maximilian_boehm.javasourceparser.access.struct.base.JPAnnotation;
 import com.maximilian_boehm.javasourceparser.model.meta.base.JPAnnotationHolderImpl;
 
+/**
+ * Implementation of the meta-model of a class
+ */
 public class JPClassImpl extends JPAnnotationHolderImpl implements JPClass{
 
-    private String ClassName;
-    private String PackageName;
-    private List<JPField>      listFields;
+    // members
+    private String          sClassName;
+    private String          sPackageName;
+    private List<JPField>   listFields;
 
+    /**
+     * Constructor
+     */
     public JPClassImpl() {
         listFields = new ArrayList<JPField>();
     }
 
+    /* (non-Javadoc)
+     * @see com.maximilian_boehm.javasourceparser.access.struct.JPClass#getClassName()
+     */
     @Override
     public String getClassName() {
-        return ClassName;
+        return sClassName;
     }
+
+    /**
+     * @param className
+     */
     public void setClassName(String className) {
-        ClassName = className;
+        sClassName = className;
     }
 
-
+    /* (non-Javadoc)
+     * @see com.maximilian_boehm.javasourceparser.access.struct.JPClass#getPackageName()
+     */
     @Override
     public String getPackageName() {
-        return PackageName;
+        return sPackageName;
     }
+
+    /**
+     * @param packageName
+     */
     public void setPackageName(String packageName) {
-        PackageName = packageName;
+        sPackageName = packageName;
     }
 
-
+    /**
+     * @param field
+     */
     public void addField(JPField field){
         listFields.add(field);
     }
 
+    /**
+     * @param listFields
+     */
     public void setFields(List<JPField> listFields) {
         this.listFields = listFields;
     }
+
+    /* (non-Javadoc)
+     * @see com.maximilian_boehm.javasourceparser.access.struct.JPClass#getFields()
+     */
     @Override
     public List<JPField> getFields() throws Exception {
         return listFields;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

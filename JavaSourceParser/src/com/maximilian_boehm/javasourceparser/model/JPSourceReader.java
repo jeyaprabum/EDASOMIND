@@ -10,11 +10,11 @@ import javax.tools.JavaFileObject;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
 
-import com.maximilian_boehm.javasourceparser.access.struct.JPAnnotation;
 import com.maximilian_boehm.javasourceparser.access.struct.JPClass;
-import com.maximilian_boehm.javasourceparser.model.meta.JPAnnotationImpl;
+import com.maximilian_boehm.javasourceparser.access.struct.base.JPAnnotation;
 import com.maximilian_boehm.javasourceparser.model.meta.JPClassImpl;
 import com.maximilian_boehm.javasourceparser.model.meta.JPFieldImpl;
+import com.maximilian_boehm.javasourceparser.model.meta.base.JPAnnotationImpl;
 import com.sun.source.tree.AnnotationTree;
 import com.sun.source.tree.ClassTree;
 import com.sun.source.tree.CompilationUnitTree;
@@ -26,11 +26,9 @@ import com.sun.tools.javac.tree.JCTree.JCAssign;
 import com.sun.tools.javac.tree.JCTree.JCLiteral;
 import com.sun.tools.javac.tree.JCTree.JCVariableDecl;
 
-
-// Inspired by http://fw-geekycoder.blogspot.de/2012/09/how-to-parse-java-source-code-using.html
-
 /**
  * Extract information using AST
+ * Inspired by http://fw-geekycoder.blogspot.de/2012/09/how-to-parse-java-source-code-using.html
  */
 public class JPSourceReader {
 
@@ -46,7 +44,6 @@ public class JPSourceReader {
         compiler = ToolProvider.getSystemJavaCompiler();
         fileManager = compiler.getStandardFileManager(null, null, null);
     }
-
 
     /**
      * Parse Source File and extract relevant information
