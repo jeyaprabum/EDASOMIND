@@ -8,9 +8,9 @@ import java.util.ListIterator;
 import java.util.Map;
 
 import com.maximilian_boehm.javasourceparser.access.JPAccessFactory;
-import com.maximilian_boehm.javasourceparser.access.struct.JPAnnotation;
 import com.maximilian_boehm.javasourceparser.access.struct.JPClass;
 import com.maximilian_boehm.javasourceparser.access.struct.JPField;
+import com.maximilian_boehm.javasourceparser.access.struct.base.JPAnnotation;
 import com.maximilian_boehm.schemavalidator.access.struct.SVCompareResult;
 import com.maximilian_boehm.schemavalidator.access.struct.SVCompareResultTable;
 import com.maximilian_boehm.schemavalidator.access.struct.SVCompareResultType;
@@ -147,42 +147,25 @@ public class SVSchemaManagerImpl implements SVSchemaManager{
             // Field not present in old schema?
             if(!schemaOLD.hasCondition(sKey)){
                 // ######################################
-                // Case 3: Field got reintroduced
+                // Case 1: Field got reintroduced
                 // ######################################
-                if(wasFieldPreviouslyRemoved(sKey, listResults)){
-                    // Create new result
-                    SVCompareResultImpl resultReintroduce = new SVCompareResultImpl();
-                    // Set name of affected field
-                    resultReintroduce.setFieldName(sKey);
-                    // set type
-                    resultReintroduce.setType(SVCompareResultType.REINTRODUCE);
-                    // Add to table
-                    tableImpl.addResult(resultReintroduce);
-                }
+                if(wasFieldPreviouslyRemoved(sKey, listResults))
+                    addResult(tableImpl, sKey, null, null, SVCompareResultType.REINTRODUCE);
 
                 // ######################################
-                // Case 2: Field is new
+                // Case 2: Field got added
                 // ######################################
-                SVCompareResultImpl result = new SVCompareResultImpl();
-                result.setType(SVCompareResultType.ADD_FIELD);
-                result.setFieldName(sKey);
-                result.setOldField(value.getField());
-                tableImpl.addResult(result);
+                addResult(tableImpl, sKey, null, value.getField(), SVCompareResultType.ADD_FIELD);
+
             }
             // ######################################
-            // Case 2: Field is still here, maybe another data-type?
+            // Case 3: Field exists, but maybe another data-type?
             // ######################################
             else {
-                SVFieldCondition valueCompare =  (SVFieldCondition)schemaNEW.getCondition(sKey);
+                SVFieldCondition valueCompare =  (SVFieldCondition)schemaOLD.getCondition(sKey);
                 // Is it another data-type?
-                if(!valueCompare.getField().getType().equals(value.getField().getType())){
-                    SVCompareResultImpl result = new SVCompareResultImpl();
-                    result.setType(SVCompareResultType.CHANGE_FIELD);
-                    result.setFieldName(sKey);
-                    result.setOldField(value.getField());
-                    result.setNewField(valueCompare.getField());
-                    tableImpl.addResult(result);
-                }
+                if(!valueCompare.getField().getType().equals(value.getField().getType()))
+                    addResult(tableImpl, sKey, valueCompare.getField(), value.getField(), SVCompareResultType.CHANGE_FIELD);
             }
         }
 
@@ -195,15 +178,9 @@ public class SVSchemaManagerImpl implements SVSchemaManager{
             String sKey = entry.getKey();
             SVFieldCondition value = (SVFieldCondition)entry.getValue();
             // ######################################
-            // Case 1: Field isn't here anymore
+            // Case 4: Field isn't here anymore
             // ######################################
-            if(!schemaNEW.hasCondition(sKey)){
-                SVCompareResultImpl result = new SVCompareResultImpl();
-                result.setType(SVCompareResultType.REMOVE_FIELD);
-                result.setFieldName(sKey);
-                result.setOldField(value.getField());
-                tableImpl.addResult(result);
-            }
+            addResult(tableImpl, sKey, null, value.getField(), SVCompareResultType.REMOVE_FIELD);
         }
 
         listResults.add(tableImpl);
@@ -226,7 +203,23 @@ public class SVSchemaManagerImpl implements SVSchemaManager{
                     if(result.getFieldName().equals(sField) && result.getType() == SVCompareResultType.REMOVE_FIELD)
                         return true;
         return false;
+    }
 
+    /**
+     * Create and add a new result
+     * @param tableImpl
+     * @param sKey
+     * @param fieldNEW
+     * @param fieldOLD
+     * @param type
+     */
+    private void addResult(SVCompareResultTableImpl tableImpl, String sKey, JPField fieldNEW, JPField fieldOLD, SVCompareResultType type){
+        SVCompareResultImpl result = new SVCompareResultImpl();
+        result.setType(type);
+        result.setFieldName(sKey);
+        result.setOldField(fieldOLD);
+        result.setNewField(fieldNEW);
+        tableImpl.addResult(result);
     }
 
 }

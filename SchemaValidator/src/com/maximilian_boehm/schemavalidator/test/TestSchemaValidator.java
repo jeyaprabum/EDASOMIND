@@ -47,14 +47,15 @@ public class TestSchemaValidator {
     @org.junit.Test
     public void testNewField() throws Exception {
         SVSchemaManager manager = home.createSchemaManager();
+        // Add Schemata to Manager
         manager.addSchemaByFile(new File(sPath+"Test_Add_After.java" ), Calendar.getInstance());
         manager.addSchemaByFile(new File(sPath+"Test_Add_Before.java"), getCalendar(1));
-        for(SVCompareResultTable resultTable:manager.compareSchemata()){
-            for(SVCompareResult result:resultTable.getResults()){
-                Assert.assertEquals(SVCompareResultType.ADD_FIELD, result.getType());
-                Assert.assertEquals("ABC",result.getFieldName());
-            }
-        }
+        // Get first and only result
+        SVCompareResult result = assureOneResult(manager);
+
+        // Assure the right result
+        Assert.assertEquals(SVCompareResultType.ADD_FIELD, result.getType());
+        Assert.assertEquals("ABC",result.getFieldName());
     }
 
     /**
@@ -65,12 +66,10 @@ public class TestSchemaValidator {
         SVSchemaManager manager = home.createSchemaManager();
         manager.addSchemaByFile(new File(sPath+"Test_Delete_After.java" ), Calendar.getInstance());
         manager.addSchemaByFile(new File(sPath+"Test_Delete_Before.java"), getCalendar(1));
-        for(SVCompareResultTable resultTable:manager.compareSchemata()){
-            for(SVCompareResult result:resultTable.getResults()){
-                Assert.assertEquals(SVCompareResultType.REMOVE_FIELD, result.getType());
-                Assert.assertEquals("ABC", result.getFieldName());
-            }
-        }
+
+        SVCompareResult result = assureOneResult(manager);
+        Assert.assertEquals(SVCompareResultType.REMOVE_FIELD, result.getType());
+        Assert.assertEquals("ABC", result.getFieldName());
     }
 
     /**
@@ -81,12 +80,10 @@ public class TestSchemaValidator {
         SVSchemaManager manager = home.createSchemaManager();
         manager.addSchemaByFile(new File(sPath+"Test_Datatype_After.java" ), Calendar.getInstance());
         manager.addSchemaByFile(new File(sPath+"Test_Datatype_Before.java"), getCalendar(1));
-        for(SVCompareResultTable resultTable:manager.compareSchemata()){
-            for(SVCompareResult result:resultTable.getResults()){
-                Assert.assertEquals(SVCompareResultType.CHANGE_FIELD, result.getType());
-                Assert.assertEquals("ABC", result.getFieldName());
-            }
-        }
+
+        SVCompareResult result = assureOneResult(manager);
+        Assert.assertEquals(SVCompareResultType.CHANGE_FIELD, result.getType());
+        Assert.assertEquals("ABC", result.getFieldName());
     }
 
     /**
@@ -101,28 +98,68 @@ public class TestSchemaValidator {
 
         List<SVCompareResultTable> listResult = manager.compareSchemata();
 
-        Assert.assertEquals(2, listResult.size());
+        // 2 Results need to be there
+        Assert.assertEquals(listResult.size(), 2);
+        // Compare results
         Assert.assertThat(listResult.get(0).getResults(), equalTo(getResultList0()));
         Assert.assertThat(listResult.get(1).getResults(), equalTo(getResultList1()));
     }
 
+    /**
+     * Create result for comparison
+     * @return
+     */
     private List<SVCompareResult> getResultList1() {
         List<SVCompareResult> listResult = new ArrayList<SVCompareResult>();
         listResult.add(new SVCompareResultImpl(SVCompareResultType.REINTRODUCE, "ABC"));
         listResult.add(new SVCompareResultImpl(SVCompareResultType.ADD_FIELD, "ABC"));
         return listResult;
     }
+    /**
+     * Create result for comparison
+     * @return
+     */
     private List<SVCompareResult> getResultList0() {
         List<SVCompareResult> listResult = new ArrayList<SVCompareResult>();
         listResult.add(new SVCompareResultImpl(SVCompareResultType.REMOVE_FIELD, "ABC"));
         return listResult;
     }
 
+    /**
+     * Create Calendar decremented days by param
+     * @param nDayMinus
+     * @return
+     */
     private Calendar getCalendar(int nDayMinus){
+        // create new calendar (today, now)
         Calendar cal = Calendar.getInstance();
+        // iterate over param
         for (int i = 0; i < nDayMinus; i++)
+            // decrement by param
             cal.roll(Calendar.DAY_OF_MONTH, false);
         return cal;
+    }
+
+    /**
+     * @param manager
+     * @return
+     * @throws Exception
+     */
+    private SVCompareResult assureOneResult(SVSchemaManager manager) throws Exception{
+        // Compare Schemata
+        List<SVCompareResultTable> listResultTable = manager.compareSchemata();
+        // Just one result
+        Assert.assertEquals(listResultTable.size(), 1);
+        // Get first and only resulttable
+        SVCompareResultTable resultTable = listResultTable.get(0);
+
+        // results need to be there
+        Assert.assertEquals(resultTable.hasResults(), true);
+        // exactly one
+        Assert.assertEquals(resultTable.getResults().size(), 1);
+
+        // return result-list
+        return resultTable.getResults().get(0);
     }
 
 }

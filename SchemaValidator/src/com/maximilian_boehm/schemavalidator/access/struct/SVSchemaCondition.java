@@ -6,9 +6,5 @@ public interface SVSchemaCondition {
     @Override
     public boolean equals(Object obj);
 
-    public void setValue(Object o);
-    public Object getValue();
-
-
 
 }

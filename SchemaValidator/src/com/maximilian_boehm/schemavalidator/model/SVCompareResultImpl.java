@@ -6,18 +6,18 @@ import com.maximilian_boehm.schemavalidator.access.struct.SVCompareResultType;
 
 public class SVCompareResultImpl implements SVCompareResult{
 
-    public SVCompareResultImpl() {
-    }
+    private JPField oldField;
+    private JPField newField;
+    private String  sFieldName;
+    private SVCompareResultType type;
+
+    public SVCompareResultImpl() {}
 
     public SVCompareResultImpl(SVCompareResultType t, String s) {
         setFieldName(s);
         setType(t);
     }
 
-    private JPField oldField;
-    private JPField newField;
-    private SVCompareResultType type;
-    private String FieldName;
 
     public void setOldField(JPField oldField) {
         this.oldField = oldField;
@@ -32,7 +32,7 @@ public class SVCompareResultImpl implements SVCompareResult{
     }
 
     public void setFieldName(String fieldName) {
-        FieldName = fieldName;
+        sFieldName = fieldName;
     }
 
     @Override
@@ -52,7 +52,7 @@ public class SVCompareResultImpl implements SVCompareResult{
 
     @Override
     public String getFieldName() {
-        return FieldName;
+        return sFieldName;
     }
 
     @Override
