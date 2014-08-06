@@ -4,7 +4,7 @@
   <interface id="1" language="java" name="com.maximilian_boehm.gitaccess.access.struct.GTHistory" project="GitAccess" 
     file="/GitAccess/src/com/maximilian_boehm/gitaccess/access/struct/GTHistory.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="98" width="226" x="41" y="295"/>    
+    <position height="-1" width="-1" x="736" y="136"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -14,7 +14,7 @@
   <interface id="2" language="java" name="com.maximilian_boehm.gitaccess.access.struct.GTHistoryFile" 
     project="GitAccess" file="/GitAccess/src/com/maximilian_boehm/gitaccess/access/struct/GTHistoryFile.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="134" width="226" x="41" y="433"/>    
+    <position height="-1" width="-1" x="1070" y="136"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -24,7 +24,7 @@
   <class id="3" language="java" name="com.maximilian_boehm.gitaccess.access.GTAccessFactory" project="GitAccess" 
     file="/GitAccess/src/com/maximilian_boehm/gitaccess/access/GTAccessFactory.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="98" width="198" x="41" y="37"/>    
+    <position height="-1" width="-1" x="133" y="134"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -33,36 +33,25 @@
   </class>  
   <interface id="4" language="java" name="com.maximilian_boehm.gitaccess.access.GTHome" project="GitAccess" 
     file="/GitAccess/src/com/maximilian_boehm/gitaccess/access/GTHome.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="80" width="213" x="41" y="175"/>    
+    <position height="-1" width="-1" x="417" y="136"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="5" language="java" name="com.maximilian_boehm.javasourceparser.access.JPAccessFactory" 
-    project="JavaSourceParser" 
-    file="/JavaSourceParser/src/com/maximilian_boehm/javasourceparser/access/JPAccessFactory.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="98" width="234" x="1331" y="567"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="false" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="false" static="true"/>      
-      <operations public="true" package="true" protected="true" private="false" static="true"/>    
-    </display>  
-  </class>  
-  <dependency id="6">    
+  <dependency id="5">    
     <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="2"/>  
   </dependency>  
-  <dependency id="7">    
+  <dependency id="6">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="1"/>  
   </dependency>  
-  <association id="8">    
+  <association id="7">    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="9" name="home"/>      
-      <multiplicity id="10" minimum="0" maximum="1"/>    
+      <attribute id="8" name="home"/>      
+      <multiplicity id="9" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  

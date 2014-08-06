@@ -3,7 +3,7 @@
   associations="true" dependencies="true" nesting-relationships="true">  
   <interface id="1" language="java" name="com.maximilian_boehm.edasomind.access.EdasomindHome" project="EDASOMIND" 
     file="/EDASOMIND/src/com/maximilian_boehm/edasomind/access/EdasomindHome.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="120" y="200"/>    
+    <position height="-1" width="-1" x="402" y="76"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -13,7 +13,7 @@
   <enumeration id="2" language="java" name="com.maximilian_boehm.edasomind.access.struct.EdasomindSignificance" 
     project="EDASOMIND" file="/EDASOMIND/src/com/maximilian_boehm/edasomind/access/struct/EdasomindSignificance.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="119" y="623"/>    
+    <position height="-1" width="-1" x="376" y="227"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -23,7 +23,7 @@
   <interface id="3" language="java" name="com.maximilian_boehm.edasomind.access.struct.EdasomindResult" 
     project="EDASOMIND" file="/EDASOMIND/src/com/maximilian_boehm/edasomind/access/struct/EdasomindResult.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="127" y="449"/>    
+    <position height="-1" width="-1" x="675" y="227"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -33,7 +33,7 @@
   <interface id="4" language="java" name="com.maximilian_boehm.edasomind.access.struct.EdasomindResultList" 
     project="EDASOMIND" file="/EDASOMIND/src/com/maximilian_boehm/edasomind/access/struct/EdasomindResultList.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="119" y="311"/>    
+    <position height="-1" width="-1" x="677" y="70"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      

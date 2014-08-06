@@ -5,7 +5,7 @@
     project="SchemaValidator" 
     file="/SchemaValidator/src/com/maximilian_boehm/schemavalidator/access/struct/SVSchemaManager.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="116" width="306" x="41" y="295"/>    
+    <position height="-1" width="-1" x="495" y="244"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -16,7 +16,7 @@
     project="SchemaValidator" 
     file="/SchemaValidator/src/com/maximilian_boehm/schemavalidator/access/struct/SVCompareResultType.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="152" width="258" x="41" y="799"/>    
+    <position height="-1" width="-1" x="479" y="451"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -27,7 +27,7 @@
     project="SchemaValidator" 
     file="/SchemaValidator/src/com/maximilian_boehm/schemavalidator/access/struct/SVCompareResult.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="134" width="258" x="41" y="625"/>    
+    <position height="-1" width="-1" x="866" y="444"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -49,7 +49,7 @@
     project="SchemaValidator" 
     file="/SchemaValidator/src/com/maximilian_boehm/schemavalidator/access/struct/SVCompareResultTable.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="134" width="258" x="41" y="451"/>    
+    <position height="-1" width="-1" x="874" y="243"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -59,7 +59,7 @@
   <interface id="6" language="java" name="com.maximilian_boehm.schemavalidator.access.SVHome" project="SchemaValidator" 
     file="/SchemaValidator/src/com/maximilian_boehm/schemavalidator/access/SVHome.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="80" width="275" x="41" y="175"/>    
+    <position height="-1" width="-1" x="493" y="84"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      

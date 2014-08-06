@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 
 import com.maximilian_boehm.javasourceparser.access.JPAccessFactory;
@@ -89,39 +88,17 @@ public class SVSchemaManagerImpl implements SVSchemaManager{
         // Create new List for ResultTables
         List<SVCompareResultTable> listResults = new ArrayList<SVCompareResultTable>();
 
-        // Get Iterator from the Schema-List
-        ListIterator<SVSchema> it = listSchema.listIterator(listSchema.size());
-
         // ##################################################
         // ##################################################
         // Create Pairs of Schema for Comparison, e.g.
-        //    Schema 1 & Schema 2
+        // ...Schema 3 & Schema 4
         //    Schema 2 & Schema 3
-        //    Schema 3 & Schema 4
-        // And so on ...
-        // During this pairing, compare them against each other
+        //    Schema 1 & Schema 2
+        // During this pairing, compare them
         // ##################################################
         // ##################################################
-
-        // placeholder for prev. schema
-        SVSchema schemaprevious = null;
-        // as long, as there is a schema
-        while (it.hasPrevious()){
-            // set current schema
-            SVSchema schemaCurrent = it.previous();
-
-            // no previous schema yet?
-            if(schemaprevious==null)
-                // set previous schema to current
-                schemaprevious = schemaCurrent;
-            else {
-                // Already a previous schema set?
-                // set a pair to compare (previous & current
-                compare(schemaCurrent, schemaprevious, listResults);
-                // set previous schema to current
-                schemaprevious = schemaCurrent;
-            }
-        }
+        for (int i = (listSchema.size()-1); i != 0; i--)
+            compare(listSchema.get(i-1), listSchema.get(i), listResults);
 
         // return list of tables with results
         return listResults;
@@ -133,7 +110,7 @@ public class SVSchemaManagerImpl implements SVSchemaManager{
      * @param listResults
      */
     public void compare(SVSchema schemaNEW, SVSchema schemaOLD, List<SVCompareResultTable> listResults) {
-        //System.out.println("schema "+schemaOLD.getDate().getTime() +" vs. "+schemaNEW.getDate().getTime());
+        //        System.out.println("schema "+schemaOLD.getDate().getTime() +" vs. "+schemaNEW.getDate().getTime());
         SVCompareResultTableImpl tableImpl = new SVCompareResultTableImpl();
         tableImpl.setDateNewFile(schemaNEW.getDate());
         tableImpl.setDateOldFile(schemaOLD.getDate());
