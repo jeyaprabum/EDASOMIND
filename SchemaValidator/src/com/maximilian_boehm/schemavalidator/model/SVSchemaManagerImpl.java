@@ -124,6 +124,17 @@ public class SVSchemaManagerImpl implements SVSchemaManager{
             }
         }
 
+
+        // ##################################################
+        // ##################################################
+        // Step #2: Recognize reintroduce of attributes
+        // 1) Iterate backwards over all results
+        // 2) Remember all fields which has been removed
+        // 3) Compare newly added fields with previously removed fields
+        // 4) Match? Add this to the results (but afterwards because of concurrency issues)
+        // ##################################################
+        // ##################################################
+
         // list for storing previous deleted fields
         List<String> listPrevDeleted = new ArrayList<>();
 
