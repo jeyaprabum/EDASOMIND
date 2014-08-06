@@ -134,8 +134,8 @@ public class SVSchemaManagerImpl implements SVSchemaManager{
                 // Case 2: Field got added
                 // ######################################
                 addResult(tableImpl, sKey, null, value.getField(), SVCompareResultType.ADD_FIELD);
-
             }
+
             // ######################################
             // Case 3: Field exists, but maybe another data-type?
             // ######################################
@@ -156,7 +156,7 @@ public class SVSchemaManagerImpl implements SVSchemaManager{
             String sKey = entry.getKey();
             SVFieldCondition value = entry.getValue();
             // ######################################
-            // Case 4: Field isn't here anymore
+            // Case 4: Field was removed
             // ######################################
             addResult(tableImpl, sKey, null, value.getField(), SVCompareResultType.REMOVE_FIELD);
         }
