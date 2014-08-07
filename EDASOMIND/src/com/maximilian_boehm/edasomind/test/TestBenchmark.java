@@ -46,7 +46,7 @@ public class TestBenchmark {
         // Remember start time
         long lStartTime = System.currentTimeMillis();
         // do it 400 times
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 50; i++) {
             // measure time of each run
             long nCurrent = System.currentTimeMillis();
             // analyze that one file
