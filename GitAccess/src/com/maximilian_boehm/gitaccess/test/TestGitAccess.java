@@ -60,7 +60,7 @@ public class TestGitAccess {
             // The author needs to be set
             Assert.assertEquals("Maximilian Böhm", historyFile.getAuthor());
             // The comment is the counter and "-comment" appended
-            Assert.assertEquals(nStart+"-comment", historyFile.getComment());
+            Assert.assertEquals(nStart+"-comment", historyFile.getComment().replace("\n", ""));
             // The history is sorted by commit-time. so the time always needs to be smaller than the previous one
             Assert.assertTrue(historyFile.getCommitDate().getTimeInMillis() < cal.getTimeInMillis());
             // set the new date for comparing in next iteration
