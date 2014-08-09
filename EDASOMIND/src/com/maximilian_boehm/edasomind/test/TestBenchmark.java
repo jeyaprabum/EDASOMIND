@@ -2,6 +2,7 @@ package com.maximilian_boehm.edasomind.test;
 
 import java.io.File;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.maximilian_boehm.edasomind.access.EdasomindAccessFactory;
@@ -12,7 +13,22 @@ import com.maximilian_boehm.edasomind.access.EdasomindAccessFactory;
  */
 public class TestBenchmark {
 
-    private static final String PACKAGE_PREFIX = "/Users/Max/Documents/Programmierung/git/MBRepository/MongoTestCase/src/main/java/com/maximilian_boehm/hsregensburg/bachelor";
+    private static String PACKAGE_PREFIX;
+
+    /**
+     * @throws Exception
+     */
+    @Before
+    public void setUp() throws Exception {
+        // Get the test-file
+        PACKAGE_PREFIX = com.maximilian_boehm.hsregensburg.bachelor.TestSchemaValidator.class.getResource("locate.txt").getFile();
+
+        // Workaround: Get path to src-directory
+        PACKAGE_PREFIX = PACKAGE_PREFIX.replace("/target/classes/com/maximilian_boehm/hsregensburg/bachelor/locate.txt", "");
+        PACKAGE_PREFIX += "/src/main/java/com/maximilian_boehm/hsregensburg/bachelor";
+
+    }
+
 
     /**
      * @throws Exception
