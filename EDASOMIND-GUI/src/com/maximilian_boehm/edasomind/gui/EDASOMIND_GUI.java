@@ -112,7 +112,7 @@ public class EDASOMIND_GUI  {
             method.invoke(null, frame, true);
         } catch (Throwable t) {
             System.err.println("Full screen mode is not supported");
-            t.printStackTrace();
+            //t.printStackTrace();
         }
 
         //Display the window.
