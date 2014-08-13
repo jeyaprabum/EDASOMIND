@@ -7,11 +7,10 @@ import com.maximilian_boehm.gitaccess.model.GTHomeImpl;
  */
 public class GTAccessFactory {
 
-    // singleton
     private static GTHome home = null;
 
     /**
-     * @return Get GitAccess-Home
+     * @return GitAccess-Home
      */
     public static GTHome getHome(){
         if(home==null) home=new GTHomeImpl();

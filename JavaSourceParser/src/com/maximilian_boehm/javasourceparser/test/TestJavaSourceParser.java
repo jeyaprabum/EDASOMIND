@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
 
 import com.maximilian_boehm.javasourceparser.access.JPAccessFactory;
 import com.maximilian_boehm.javasourceparser.access.JPHome;
@@ -35,7 +36,6 @@ public class TestJavaSourceParser {
 
     /**
      * Retrieve Java-Source-File from Test-Data
-     * @throws Exception
      */
     @Before
     public void setUp() throws Exception {
@@ -51,10 +51,7 @@ public class TestJavaSourceParser {
         fJavaSourceFile = new File(sFile);
     }
 
-    /**
-     * @throws Exception
-     */
-    @org.junit.Test
+    @Test
     public void testJavaSourceParser() throws Exception {
         // Get home
         JPHome  jpHome  = JPAccessFactory.getHome();
@@ -103,9 +100,6 @@ public class TestJavaSourceParser {
 
     /**
      * Map a Annotation to the project specific JPAnnotation
-     * @param annotation
-     * @return
-     * @throws Exception
      */
     private JPAnnotation getAnnotationByReflectAnno(Annotation annotation) throws Exception{
         JPAnnotationImpl jpAnno = JPModelFactory.createJPAnnotation();
@@ -138,8 +132,6 @@ public class TestJavaSourceParser {
 
     /**
      * Map the fields from the reflect API to the JavaSourceParser API
-     * @return
-     * @throws Exception
      */
     private List<JPField> getFields4Clazz() throws Exception {
         // create new list
@@ -180,9 +172,8 @@ public class TestJavaSourceParser {
 
     /**
      * Print the list of fields to output
-     * @param listField
-     * @throws Exception
      */
+    @SuppressWarnings(value={"unused"})
     private void printFields(List<JPField> listField) throws Exception{
         // iterate over fields
         for(JPField field:listField){

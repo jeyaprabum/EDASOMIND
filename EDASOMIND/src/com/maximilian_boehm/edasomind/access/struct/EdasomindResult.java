@@ -13,20 +13,17 @@ public interface EdasomindResult {
     public EdasomindSignificance getSignificance();
 
     /**
-     * getCalenderTo & getCalendarFrom are the Dates between the change occoured
-     * @return
+     * @return get date before change occurred
      */
     public Calendar getCalendarFrom();
 
     /**
-     * getCalenderTo & getCalendarFrom are the Dates between the change occoured
-     * @return
+     * @return get date after change occurred
      */
     public Calendar getCalendarTo();
 
     /**
-     * The message what happened in this result
-     * @return
+     * @return message what happened in this result
      */
     public String getMessage();
 

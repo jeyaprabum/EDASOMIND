@@ -10,18 +10,13 @@ import com.maximilian_boehm.edasomind.access.struct.EdasomindSignificance;
  */
 public class EdasomindResultImpl implements EdasomindResult{
 
-    // members
     private EdasomindSignificance Significance;
     private Calendar CalendarFrom;
     private Calendar CalendarTo;
-    private String sMessage;
+    private String   sMessage;
 
     /**
      * Setting all data for testing
-     * @param sig
-     * @param calFrom
-     * @param calTo
-     * @param sMsg
      */
     public void setAllData(EdasomindSignificance sig, long calFrom, long calTo, String sMsg) {
         setSignificance(sig);
@@ -38,9 +33,6 @@ public class EdasomindResultImpl implements EdasomindResult{
         return Significance;
     }
 
-    /**
-     * @param significance
-     */
     public void setSignificance(EdasomindSignificance significance) {
         Significance = significance;
     }
@@ -53,9 +45,6 @@ public class EdasomindResultImpl implements EdasomindResult{
         return CalendarFrom;
     }
 
-    /**
-     * @param calendarFrom
-     */
     public void setCalendarFrom(Calendar calendarFrom) {
         CalendarFrom = calendarFrom;
     }
@@ -68,9 +57,6 @@ public class EdasomindResultImpl implements EdasomindResult{
         return CalendarTo;
     }
 
-    /**
-     * @param calenderTo
-     */
     public void setCalendarTo(Calendar calendarTo) {
         CalendarTo = calendarTo;
     }
@@ -83,9 +69,6 @@ public class EdasomindResultImpl implements EdasomindResult{
         return sMessage;
     }
 
-    /**
-     * @param message
-     */
     public void setMessage(String message) {
         sMessage = message;
     }

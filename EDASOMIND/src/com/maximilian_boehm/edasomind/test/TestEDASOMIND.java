@@ -19,11 +19,8 @@ import com.maximilian_boehm.edasomind.model.EdasomindResultListImpl;
  */
 public class TestEDASOMIND {
 
-
     private File fJavaSourceFile;
-    /**
-     * @throws Exception
-     */
+
     @Before
     public void setUp() throws Exception {
         // Get the test-file
@@ -37,8 +34,6 @@ public class TestEDASOMIND {
         fJavaSourceFile = new File(sFile);
     }
 
-
-
     @Test
     public void testProgram() throws Exception{
         // Retrieve result from analyzing
@@ -48,15 +43,14 @@ public class TestEDASOMIND {
     }
 
     /**
-     * Create static result
-     * @return
+     * @return a static result for comparing
      */
     public EdasomindResultList getExpectedResults(){
         EdasomindResultListImpl list = new EdasomindResultListImpl();
         list.addTestResult(EdasomindSignificance.NONE,   1405603193000L, 1405603208000L, "Added field DEF");
         list.addTestResult(EdasomindSignificance.NONE,   1405603208000L, 1405603229000L, "Added field GHI");
-        list.addTestResult(EdasomindSignificance.MIDDLE, 1405603229000L, 1405603238000L, "Removed field ABC");
-        list.addTestResult(EdasomindSignificance.MIDDLE, 1405603238000L, 1405603244000L, "Removed field DEF");
+        list.addTestResult(EdasomindSignificance.MEDIUM, 1405603229000L, 1405603238000L, "Removed field ABC");
+        list.addTestResult(EdasomindSignificance.MEDIUM, 1405603238000L, 1405603244000L, "Removed field DEF");
         list.addTestResult(EdasomindSignificance.HIGH,   1405603244000L, 1407225469000L, "Reintroduced field ABC");
         list.addTestResult(EdasomindSignificance.NONE,   1405603244000L, 1407225469000L, "Added field ABC");
         list.addTestResult(EdasomindSignificance.HIGH,   1405603244000L, 1407225469000L, "Reintroduced field DEF");

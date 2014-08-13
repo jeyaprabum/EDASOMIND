@@ -13,14 +13,10 @@ import com.maximilian_boehm.javasourceparser.model.meta.base.JPAnnotationHolderI
  */
 public class JPClassImpl extends JPAnnotationHolderImpl implements JPClass{
 
-    // members
     private String          sClassName;
     private String          sPackageName;
     private List<JPField>   listFields;
 
-    /**
-     * Constructor
-     */
     public JPClassImpl() {
         listFields = new ArrayList<JPField>();
     }
@@ -33,9 +29,6 @@ public class JPClassImpl extends JPAnnotationHolderImpl implements JPClass{
         return sClassName;
     }
 
-    /**
-     * @param className
-     */
     public void setClassName(String className) {
         sClassName = className;
     }
@@ -48,23 +41,14 @@ public class JPClassImpl extends JPAnnotationHolderImpl implements JPClass{
         return sPackageName;
     }
 
-    /**
-     * @param packageName
-     */
     public void setPackageName(String packageName) {
         sPackageName = packageName;
     }
 
-    /**
-     * @param field
-     */
     public void addField(JPField field){
         listFields.add(field);
     }
 
-    /**
-     * @param listFields
-     */
     public void setFields(List<JPField> listFields) {
         this.listFields = listFields;
     }

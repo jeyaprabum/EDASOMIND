@@ -32,14 +32,10 @@ import com.sun.tools.javac.tree.JCTree.JCVariableDecl;
  */
 public class JPSourceReader {
 
-    // members
     private final JavaCompiler compiler;
     private final StandardJavaFileManager fileManager;
     private final boolean bDebug = false;
 
-    /**
-     * Constructor
-     */
     public JPSourceReader() {
         compiler = ToolProvider.getSystemJavaCompiler();
         fileManager = compiler.getStandardFileManager(null, null, null);
@@ -47,10 +43,6 @@ public class JPSourceReader {
 
     /**
      * Parse Source File and extract relevant information
-     * @param f
-     * @param jpClass
-     * @return
-     * @throws Exception
      */
     public JPClass parseJavaSourceFile(File f, JPClassImpl jpClass) throws Exception {
         // get File Objects of given file
@@ -72,13 +64,9 @@ public class JPSourceReader {
      * Specifically implemented ClassVisitor
      */
     class ClassVisitor extends SimpleTreeVisitor<Void, Void> {
-        // member
+
         JPClassImpl jpClass;
 
-        /**
-         * Constructor
-         * @param jpClass
-         */
         public ClassVisitor(JPClassImpl jpClass) {
             this.jpClass = jpClass;
         }
@@ -160,8 +148,6 @@ public class JPSourceReader {
     }
     /**
      * Convert to JPAnnotation-List
-     * @param listAnnotation
-     * @return
      */
     private List<JPAnnotation> getAnnotations(List<? extends AnnotationTree> listAnnotation){
         // create new list
@@ -169,6 +155,10 @@ public class JPSourceReader {
         // iterate over annotations
         for(AnnotationTree ann:listAnnotation){
             String sType = ann.getAnnotationType().toString();
+
+            // Do not handle suppress warnings
+            if(sType.equals("SuppressWarnings"))
+                continue;
 
             // debug
             debug("Annotation-Type: "+sType);
@@ -203,10 +193,6 @@ public class JPSourceReader {
         return listAnno.isEmpty() ? null : listAnno;
     }
 
-    /**
-     * Debug
-     * @param o
-     */
     private void debug(Object o){
         if(bDebug){
             System.out.println(o);

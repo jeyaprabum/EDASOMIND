@@ -26,12 +26,10 @@ import com.maximilian_boehm.edasomind.gui.table.EDASOMINDTableModel;
  */
 public class EDASOMIND_GUI  {
 
-    // members
     DataHolder dh = new DataHolder();
 
     /**
      * Starting point for GUI
-     * @param args
      */
     public static void main(String[] args) {
         //Schedule a job for the event-dispatching thread:

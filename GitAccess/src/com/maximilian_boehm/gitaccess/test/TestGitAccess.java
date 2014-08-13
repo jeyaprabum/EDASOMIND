@@ -19,13 +19,11 @@ import com.maximilian_boehm.gitaccess.access.struct.GTHistoryFile;
  */
 public class TestGitAccess {
 
-    // member
     GTHistory history;
 
     /**
      * Setting up the environment
      * Get the history out from the classpath, workaround to get the src-path
-     * @throws Exception
      */
     @Before
     public void setUp() throws Exception {
@@ -43,7 +41,6 @@ public class TestGitAccess {
      * Retrieve all versions of a file
      * The file is a simple txt-file which content increments from 0 to 5
      * Thereby just compare if the retrieved integer is ok
-     * @throws Exception
      */
     @Test
     public void testGitAccess() throws Exception{
@@ -72,7 +69,6 @@ public class TestGitAccess {
     }
 
     /**
-     * @param f
      * @return content from a given file as an integer
      * @throws IOException
      */

@@ -2,7 +2,6 @@ package com.maximilian_boehm.gitaccess.model;
 
 /**
  * Factory for creating the Model-Classes
- *
  */
 public class GTModelFactory {
 

@@ -7,12 +7,10 @@ import com.maximilian_boehm.javasourceparser.model.JPHomeImpl;
  */
 public class JPAccessFactory {
 
-    // singleton-member
     private static JPHome home = null;
 
     /**
-     * Get Home of JavaSourceParser
-     * @return home
+     * @return home of JavaSourceParser
      */
     public static JPHome getHome() {
         if(home==null) home = new JPHomeImpl();

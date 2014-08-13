@@ -29,7 +29,6 @@ public class MGitHistory {
     /**
      * @param f, the most up2date file which is located in a git-repository
      * @return the history of the given file
-     * @throws Exception
      */
     public GTHistory getHistory(File f) throws Exception{
         if(!f.exists())
@@ -91,8 +90,7 @@ public class MGitHistory {
      * @param repository
      * @param sRelativePath2File
      * @param tree
-     * @return
-     * @throws Exception
+     * @return file from which represents one version in git
      */
     private File getFile(Repository repository, String sRelativePath2File, RevTree tree) throws Exception{
         // use the blob id to read the file's data

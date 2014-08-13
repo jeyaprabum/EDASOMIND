@@ -29,7 +29,6 @@ public class TestSchemaValidator {
     @Before
     public void setUp() throws Exception {
         // Get the test-file
-        //Employee.class.getResource("Employee.java").getFile();
         sPath = TestSchemaValidator.class.getResource("testdata/Locate.txt").getFile();
 
         // Workaround: Get path to src-directory

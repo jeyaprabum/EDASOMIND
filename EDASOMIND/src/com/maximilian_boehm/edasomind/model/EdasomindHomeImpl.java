@@ -21,7 +21,6 @@ import com.maximilian_boehm.schemavalidator.access.struct.SVSchemaManager;
 
 public class EdasomindHomeImpl implements EdasomindHome{
 
-    // members
     JPHome homeJP = JPAccessFactory.getHome();
     GTHome homeGT = GTAccessFactory.getHome();
 
@@ -78,7 +77,7 @@ public class EdasomindHomeImpl implements EdasomindHome{
 
                     break;
                 case REMOVE_FIELD:
-                    edasoResult.setSignificance(EdasomindSignificance.MIDDLE);
+                    edasoResult.setSignificance(EdasomindSignificance.MEDIUM);
                     edasoResult.setMessage("Removed field "+result.getFieldName());
 
                     break;

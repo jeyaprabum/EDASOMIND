@@ -2,6 +2,7 @@ package com.maximilian_boehm.hsregensburg.bachelor.benchmark;
 
 import com.google.code.morphia.annotations.Entity;
 
+@SuppressWarnings(value={"unused"})
 @Entity
 public class TestHighNumberVar {
 

@@ -17,54 +17,55 @@ import com.google.code.morphia.annotations.Reference;
 import com.google.code.morphia.annotations.Transient;
 import com.google.code.morphia.utils.IndexDirection;
 
+@SuppressWarnings(value={"unused"})
 @Entity(value="hotels", noClassnameStored=true)
 public class Employee {
 
 
-   public Employee(String firstName, String lastName, Key<Employee> manager, boolean salary) {
-      this.lastName = lastName;
-      this.manager = manager;
-      this.salary = salary;
-   }
+    public Employee(String firstName, String lastName, Key<Employee> manager, boolean salary) {
+        this.lastName = lastName;
+        this.manager = manager;
+        this.salary = salary;
+    }
 
-   public Employee() {}
+    public Employee() {}
 
-   @Id private ObjectId id;
+    @Id private ObjectId id;
 
-   @AlsoLoad("name")
-   String lastName;
-   
-   // only non-null values are stored
-   boolean salary = false; 
+    @AlsoLoad("name")
+    String lastName;
 
-   //references can be saved without automatic loading
-   Key<Employee> manager;
+    // only non-null values are stored
+    boolean salary = false;
 
-   //refs are stored**, and loaded automatically
-   @Reference List<Employee> underlings = new ArrayList<Employee>();
+    //references can be saved without automatic loading
+    Key<Employee> manager;
 
-   //fields can be renamed
-   @Property("started") Date startDate;
-   @Property("left") Date endDate;
+    //refs are stored**, and loaded automatically
+    @Reference List<Employee> underlings = new ArrayList<Employee>();
 
-   //fields can be indexed for better performance
-   @Indexed boolean active = false;
+    //fields can be renamed
+    @Property("started") Date startDate;
+    @Property("left") Date endDate;
 
-   //fields can loaded, but not saved
-   @NotSaved String readButNotStored;
+    //fields can be indexed for better performance
+    @Indexed boolean active = false;
 
-   @Indexed(value=IndexDirection.ASC, name="upc", unique=true, dropDups=true)
-   private String upcSymbol;
+    //fields can loaded, but not saved
+    @NotSaved String readButNotStored;
 
-   //fields can be ignored (no load/save)
-   @Transient int notStored;
+    @Indexed(value=IndexDirection.ASC, name="upc", unique=true, dropDups=true)
+    private String upcSymbol;
 
-   //not @Transient, will be ignored by Serialization/GWT for example.
-   transient boolean stored = true;
+    //fields can be ignored (no load/save)
+    @Transient int notStored;
 
-   @Embedded("AAAAAA")
-   public class Address {
-      private String City;
-   }
+    //not @Transient, will be ignored by Serialization/GWT for example.
+    transient boolean stored = true;
+
+    @Embedded("AAAAAA")
+    public class Address {
+        private String City;
+    }
 }
 

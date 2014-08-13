@@ -7,7 +7,6 @@ import com.maximilian_boehm.javasourceparser.access.struct.JPClass;
 
 public class JPHomeImpl implements JPHome{
 
-    // just one instance...
     private final JPSourceReader jsr = new JPSourceReader();
 
     /* (non-Javadoc)

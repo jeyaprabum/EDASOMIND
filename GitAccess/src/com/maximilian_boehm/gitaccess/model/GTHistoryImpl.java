@@ -12,7 +12,6 @@ import com.maximilian_boehm.gitaccess.access.struct.GTHistoryFile;
  */
 public class GTHistoryImpl implements GTHistory {
 
-    // members
     private File currentFile;
     private List<GTHistoryFile> listHistory;
 

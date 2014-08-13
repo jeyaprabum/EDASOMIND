@@ -8,13 +8,10 @@ import java.util.List;
  */
 public interface SVCompareResultTable {
 
-    /**
-     * @return
-     */
     public boolean hasResults();
 
     /**
-     * @return the results
+     * @return the results of a comparison
      */
     public List<SVCompareResult> getResults();
 

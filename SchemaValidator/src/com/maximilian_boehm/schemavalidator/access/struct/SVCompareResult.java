@@ -4,7 +4,6 @@ import com.maximilian_boehm.javasourceparser.access.struct.JPField;
 
 /**
  * One Result of a Comparison between several schemata
- *
  */
 public interface SVCompareResult {
 

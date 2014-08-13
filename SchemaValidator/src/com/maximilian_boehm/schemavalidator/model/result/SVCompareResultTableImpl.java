@@ -12,7 +12,6 @@ import com.maximilian_boehm.schemavalidator.access.struct.SVCompareResultTable;
  */
 public class SVCompareResultTableImpl implements SVCompareResultTable {
 
-    // members
     List<SVCompareResult> listResults = new ArrayList<SVCompareResult>();
     private Calendar DateOldFile;
     private Calendar DateNewFile;
@@ -33,9 +32,6 @@ public class SVCompareResultTableImpl implements SVCompareResultTable {
         return listResults;
     }
 
-    /**
-     * @param result
-     */
     public void addResult(SVCompareResult result){
         listResults.add(result);
     }
@@ -48,9 +44,6 @@ public class SVCompareResultTableImpl implements SVCompareResultTable {
         return DateOldFile;
     }
 
-    /**
-     * @param dateOldFile
-     */
     public void setDateOldFile(Calendar dateOldFile) {
         DateOldFile = dateOldFile;
     }
@@ -63,9 +56,6 @@ public class SVCompareResultTableImpl implements SVCompareResultTable {
         return DateNewFile;
     }
 
-    /**
-     * @param dateNewFile
-     */
     public void setDateNewFile(Calendar dateNewFile) {
         DateNewFile = dateNewFile;
     }

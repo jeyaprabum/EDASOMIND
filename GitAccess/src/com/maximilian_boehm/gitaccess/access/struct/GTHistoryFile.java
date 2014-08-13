@@ -10,7 +10,6 @@ public interface GTHistoryFile {
 
     /**
      * @return Get the file. The file is stored in the os-temp-directory
-     * @throws Exception
      */
     public File getFile() throws Exception;
 
@@ -18,6 +17,7 @@ public interface GTHistoryFile {
      * @return name of author
      */
     public String getAuthor();
+
     /**
      * @return comment entered by commit
      */

@@ -3,6 +3,7 @@ package com.maximilian_boehm.hsregensburg.bachelor.errorcases;
 import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.NotSaved;
 
+@SuppressWarnings(value={"unused"})
 @Entity
 public class ReintroduceAttribute {
 

@@ -4,6 +4,7 @@ import com.google.code.morphia.annotations.AlsoLoad;
 import com.google.code.morphia.annotations.NotSaved;
 import com.google.code.morphia.annotations.Transient;
 
+@SuppressWarnings(value={"unused"})
 public class TestBenchmark {
 
     @Transient

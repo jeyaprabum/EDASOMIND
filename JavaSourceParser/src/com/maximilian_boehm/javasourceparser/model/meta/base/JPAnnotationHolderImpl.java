@@ -10,7 +10,6 @@ import com.maximilian_boehm.javasourceparser.access.struct.base.JPAnnotation;
  */
 public class JPAnnotationHolderImpl {
 
-    // member
     private List<JPAnnotation> listAnnotations;
 
     /**
@@ -24,7 +23,6 @@ public class JPAnnotationHolderImpl {
 
     /**
      * Set a list of annotations
-     * @param listAnnotations
      */
     public void setAnnotations(List<JPAnnotation> listAnnotations) {
         this.listAnnotations = listAnnotations;
@@ -38,7 +36,7 @@ public class JPAnnotationHolderImpl {
     }
 
     /**
-     * @return
+     * @return true if there are annotations
      */
     public boolean hasAnnotations(){
         return getAnnotations()!=null;

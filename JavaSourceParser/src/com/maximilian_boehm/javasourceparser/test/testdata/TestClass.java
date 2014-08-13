@@ -15,43 +15,44 @@ import com.maximilian_boehm.javasourceparser.test.testdata.fake_annotations.Prop
 import com.maximilian_boehm.javasourceparser.test.testdata.fake_annotations.Reference;
 import com.maximilian_boehm.javasourceparser.test.testdata.fake_annotations.Transient;
 
+@SuppressWarnings(value={"unused"})
 @Entity(value="hotels", noClassnameStored=true)
 public class TestClass {
 
 
-   @Id private ObjectId id;
+    @Id private ObjectId id;
 
-   @AlsoLoad("name")
-   String lastName;
-   
-   // only non-null values are stored
-   boolean salary = false; 
+    @AlsoLoad("name")
+    String lastName;
 
-   //references can be saved without automatic loading
-   Key<TestClass> manager;
+    // only non-null values are stored
+    boolean salary = false;
 
-   //refs are stored**, and loaded automatically
-   @Reference List<TestClass> underlings = new ArrayList<TestClass>();
+    //references can be saved without automatic loading
+    Key<TestClass> manager;
 
-   //fields can be renamed
-   @Property("started") Date startDate;
-   @Property("left") Date endDate;
+    //refs are stored**, and loaded automatically
+    @Reference List<TestClass> underlings = new ArrayList<TestClass>();
 
-   //fields can be indexed for better performance
-   @Indexed boolean active = false;
+    //fields can be renamed
+    @Property("started") Date startDate;
+    @Property("left") Date endDate;
 
-   //fields can loaded, but not saved
-   @NotSaved String readButNotStored;
+    //fields can be indexed for better performance
+    @Indexed boolean active = false;
 
-   //fields can be ignored (no load/save)
-   @Transient int notStored;
+    //fields can loaded, but not saved
+    @NotSaved String readButNotStored;
 
-   //not @Transient, will be ignored by Serialization/GWT for example.
-   transient boolean stored = true;
+    //fields can be ignored (no load/save)
+    @Transient int notStored;
 
-   @Embedded("AAAAAA")
-   public class Address {
-      private String City;
-   }
+    //not @Transient, will be ignored by Serialization/GWT for example.
+    transient boolean stored = true;
+
+    @Embedded("AAAAAA")
+    public class Address {
+        private String City;
+    }
 }
 

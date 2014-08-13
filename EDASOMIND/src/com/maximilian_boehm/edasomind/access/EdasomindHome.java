@@ -12,9 +12,7 @@ public interface EdasomindHome {
      * a) Get previous versions from GIT (Provided thorugh GitAccess)
      * b) Analyze and extract information of java files (JavaSourceParser)
      * c) Extract information by comparing the previous results (SchemaValidator)
-     * @param f
-     * @return
-     * @throws Exception
+     * @param f which is a file to the java source file
      */
     public EdasomindResultList analyzeFile(File f) throws Exception;
 

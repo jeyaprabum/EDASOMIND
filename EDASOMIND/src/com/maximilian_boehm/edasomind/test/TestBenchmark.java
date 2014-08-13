@@ -30,33 +30,23 @@ public class TestBenchmark {
     }
 
 
-    /**
-     * @throws Exception
-     */
     @Test
     public void testBenchmarkRegular() throws Exception{
         runTestAndMeasureDuration(PACKAGE_PREFIX+"/TestBenchmark.java");
     }
 
-    /**
-     * @throws Exception
-     */
     @Test
     public void testBenchmarkManyFields() throws Exception{
         runTestAndMeasureDuration(PACKAGE_PREFIX+"/benchmark/TestHighNumberVar.java");
     }
 
-    /**
-     * @throws Exception
-     */
     @Test
     public void testBenchmarkManyCommits() throws Exception{
         runTestAndMeasureDuration(PACKAGE_PREFIX+"/benchmark/HighNumberCommit.java");
     }
 
     /**
-     * @param sFile
-     * @throws Exception
+     * @param sFile which is a String to the java-source-file
      */
     private void runTestAndMeasureDuration(String sFile) throws Exception{
         // Remember start time

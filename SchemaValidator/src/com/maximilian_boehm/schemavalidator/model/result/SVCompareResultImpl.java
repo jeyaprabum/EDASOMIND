@@ -9,50 +9,30 @@ import com.maximilian_boehm.schemavalidator.access.struct.SVCompareResultType;
  */
 public class SVCompareResultImpl implements SVCompareResult{
 
-    // members
     private JPField oldField;
     private JPField newField;
     private String  sFieldName;
     private SVCompareResultType type;
 
-    /**
-     * Constructor
-     */
     public SVCompareResultImpl() {}
 
-    /**
-     * @param t
-     * @param s
-     */
     public SVCompareResultImpl(SVCompareResultType t, String s) {
         setFieldName(s);
         setType(t);
     }
 
-    /**
-     * @param oldField
-     */
     public void setOldField(JPField oldField) {
         this.oldField = oldField;
     }
 
-    /**
-     * @param newField
-     */
     public void setNewField(JPField newField) {
         this.newField = newField;
     }
 
-    /**
-     * @param type
-     */
     public void setType(SVCompareResultType type) {
         this.type = type;
     }
 
-    /**
-     * @param fieldName
-     */
     public void setFieldName(String fieldName) {
         sFieldName = fieldName;
     }

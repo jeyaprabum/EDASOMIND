@@ -10,13 +10,9 @@ import com.maximilian_boehm.edasomind.access.struct.EdasomindSignificance;
 
 public class EDASOMINDTableCellRenderer extends DefaultTableCellRenderer{
 
-    // members
     private static final long serialVersionUID = 1L;
     private DataHolder dataholder = new DataHolder();
 
-    /**
-     * @param dh
-     */
     public EDASOMINDTableCellRenderer(DataHolder dh) {
         dataholder = dh;
     }
@@ -34,7 +30,7 @@ public class EDASOMINDTableCellRenderer extends DefaultTableCellRenderer{
             c.setForeground(Color.WHITE);
             c.setBackground(Color.RED);
 
-        } else if(dataholder.getResult().get(row).getSignificance() == EdasomindSignificance.MIDDLE){
+        } else if(dataholder.getResult().get(row).getSignificance() == EdasomindSignificance.MEDIUM){
             c.setForeground(Color.black);
             c.setBackground(Color.ORANGE);
 

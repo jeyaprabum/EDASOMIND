@@ -21,7 +21,6 @@ public interface JPClass extends JPAnnotationHolder{
 
     /**
      * @return all fields of a class.
-     * @throws Exception
      */
     public List<JPField> getFields() throws Exception;
 }

@@ -21,7 +21,6 @@ import com.maximilian_boehm.schemavalidator.model.schema.SVSchema;
 
 public class SVSchemaManagerImpl implements SVSchemaManager{
 
-    // member
     private final List<SVSchema> listSchema = new ArrayList<SVSchema>();
     private final boolean bDebug = false;
 
@@ -104,11 +103,6 @@ public class SVSchemaManagerImpl implements SVSchemaManager{
         return listResults;
     }
 
-    /**
-     * @param schemaNEW
-     * @param schemaOLD
-     * @param listResults
-     */
     public void compare(SVSchema schemaNEW, SVSchema schemaOLD, List<SVCompareResultTable> listResults) {
         //        System.out.println("schema "+schemaOLD.getDate().getTime() +" vs. "+schemaNEW.getDate().getTime());
         SVCompareResultTableImpl tableImpl = new SVCompareResultTableImpl();
@@ -166,9 +160,6 @@ public class SVSchemaManagerImpl implements SVSchemaManager{
 
     /**
      * Check if the field has been removed previously
-     * @param sField
-     * @param listResults
-     * @return
      */
     private boolean wasFieldPreviouslyRemoved(String sField, List<SVCompareResultTable> listResults) {
         // Iterate over all result-tables
@@ -185,11 +176,6 @@ public class SVSchemaManagerImpl implements SVSchemaManager{
 
     /**
      * Create and add a new result
-     * @param tableImpl
-     * @param sKey
-     * @param fieldNEW
-     * @param fieldOLD
-     * @param type
      */
     private void addResult(SVCompareResultTableImpl tableImpl, String sKey, JPField fieldNEW, JPField fieldOLD, SVCompareResultType type){
         SVCompareResultImpl result = new SVCompareResultImpl();

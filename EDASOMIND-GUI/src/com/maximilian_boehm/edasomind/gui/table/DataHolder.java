@@ -9,12 +9,11 @@ public class DataHolder {
 
     // List for all listener
     private final List<DataHolderListener> listListener = new ArrayList<DataHolderListener>();
-    // Save result
+    // Maintains result from analyzing
     private EdasomindResultList resultList = null;
 
     /**
-     * Set Result
-     * @param result
+     * Set Result from analyzing
      */
     public void setResult(EdasomindResultList result){
         resultList = result;
@@ -24,16 +23,14 @@ public class DataHolder {
     }
 
     /**
-     * get result
-     * @return
+     * @return result from analyzing
      */
     public EdasomindResultList getResult() {
         return resultList;
     }
 
     /**
-     * get number of results
-     * @return
+     * @return number of results
      */
     public int getResultRowCount() {
         return resultList==null ? 0 : resultList.size();
@@ -41,7 +38,7 @@ public class DataHolder {
 
     /**
      * Register a listener
-     * @param listener
+     * @param listener which implements the interface
      */
     public void registerListener(DataHolderListener listener){
         listListener.add(listener);

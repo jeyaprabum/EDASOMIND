@@ -9,7 +9,6 @@ public interface JPAnnotationHolder {
 
     /**
      * @return the annotations
-     * @throws Exception
      */
     public List<JPAnnotation> getAnnotations() throws Exception;
 

@@ -9,14 +9,10 @@ import com.maximilian_boehm.edasomind.access.struct.EdasomindResult;
 
 public class EDASOMINDTableModel extends AbstractTableModel implements DataHolderListener{
 
-    // members
     private static final long serialVersionUID = 1L;
     private final DataHolder dataholder;
     private final SimpleDateFormat fmt = new SimpleDateFormat();
 
-    /**
-     * @param dh
-     */
     public EDASOMINDTableModel(DataHolder dh) {
         dataholder = dh;
         dh.registerListener(this);
@@ -53,8 +49,8 @@ public class EDASOMINDTableModel extends AbstractTableModel implements DataHolde
     public String getColumnName(int column) {
         if     (column==0) return "Commit";
         else if(column==1) return "Commit";
-        else if(column==2) return "Priorität";
-        else if(column==3) return "Nachricht";
+        else if(column==2) return "Priority";
+        else if(column==3) return "Message";
         else new Throwable().printStackTrace();return null;
     }
 

@@ -16,7 +16,6 @@ public class EdasomindResultListImpl extends ArrayList<EdasomindResult> implemen
 
     /**
      * Create new result
-     * @return
      */
     public EdasomindResult createResult(){
         EdasomindResult result = new EdasomindResultImpl();
@@ -26,10 +25,6 @@ public class EdasomindResultListImpl extends ArrayList<EdasomindResult> implemen
 
     /**
      * Specific method to ease testing
-     * @param sig
-     * @param calFrom
-     * @param calTo
-     * @param sMsg
      */
     public void addTestResult(EdasomindSignificance sig, long calFrom, long calTo, String sMsg){
         EdasomindResultImpl result = new EdasomindResultImpl();

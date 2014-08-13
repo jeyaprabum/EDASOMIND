@@ -8,7 +8,6 @@ import com.maximilian_boehm.javasourceparser.model.meta.base.JPAnnotationHolderI
  */
 public class JPFieldImpl extends JPAnnotationHolderImpl implements JPField{
 
-    // members
     private String name;
     private String type;
 
@@ -20,9 +19,6 @@ public class JPFieldImpl extends JPAnnotationHolderImpl implements JPField{
         return name;
     }
 
-    /**
-     * @param name
-     */
     public void setName(String name) {
         this.name = name;
     }
@@ -35,9 +31,6 @@ public class JPFieldImpl extends JPAnnotationHolderImpl implements JPField{
         return type;
     }
 
-    /**
-     * @param type
-     */
     public void setType(String type) {
         this.type = type;
     }
@@ -51,10 +44,6 @@ public class JPFieldImpl extends JPAnnotationHolderImpl implements JPField{
         return this.getType().equals(field.getType()) && this.getName().equals(field.getName());
     }
 
-    /**
-     * @param obj
-     * @return
-     */
     public boolean nameEquals(Object obj) {
         JPField field = (JPField)obj;
         return this.getName().equals(field.getName());

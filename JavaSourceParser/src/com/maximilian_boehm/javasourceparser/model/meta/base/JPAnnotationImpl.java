@@ -10,7 +10,6 @@ import com.maximilian_boehm.javasourceparser.access.struct.base.JPAnnotation;
  */
 public class JPAnnotationImpl implements JPAnnotation{
 
-    // member
     private String type;
     private Map<String, String> mapAttributes;
 
@@ -22,17 +21,10 @@ public class JPAnnotationImpl implements JPAnnotation{
         return type;
     }
 
-    /**
-     * @param type
-     */
     public void setType(String type) {
         this.type = type;
     }
 
-    /**
-     * @param key
-     * @param value
-     */
     public void addAttribute(String key, String value){
         if(getAttributes()==null) mapAttributes = new HashMap<String, String>();
         mapAttributes.put(key, value);
@@ -46,9 +38,6 @@ public class JPAnnotationImpl implements JPAnnotation{
         return mapAttributes;
     }
 
-    /**
-     * @param mapAttributes
-     */
     public void setAttributes(Map<String, String> mapAttributes) {
         this.mapAttributes = mapAttributes;
     }

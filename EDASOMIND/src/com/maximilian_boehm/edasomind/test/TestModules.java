@@ -11,7 +11,6 @@ import com.maximilian_boehm.schemavalidator.test.TestSchemaValidator;
 
 /**
  * Class for Testing the Modules
- *
  */
 @RunWith(Suite.class)
 @SuiteClasses({
