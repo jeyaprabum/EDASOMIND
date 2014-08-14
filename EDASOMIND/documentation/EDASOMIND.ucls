@@ -3,8 +3,8 @@
   associations="true" dependencies="true" nesting-relationships="true">  
   <interface id="1" language="java" name="com.maximilian_boehm.edasomind.access.EdasomindHome" project="EDASOMIND" 
     file="/EDASOMIND/src/com/maximilian_boehm/edasomind/access/EdasomindHome.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="402" y="76"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+    <position height="98" width="236" x="245" y="22"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
@@ -13,7 +13,7 @@
   <enumeration id="2" language="java" name="com.maximilian_boehm.edasomind.access.struct.EdasomindSignificance" 
     project="EDASOMIND" file="/EDASOMIND/src/com/maximilian_boehm/edasomind/access/struct/EdasomindSignificance.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="376" y="227"/>    
+    <position height="-1" width="-1" x="362" y="210"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -23,8 +23,8 @@
   <interface id="3" language="java" name="com.maximilian_boehm.edasomind.access.struct.EdasomindResult" 
     project="EDASOMIND" file="/EDASOMIND/src/com/maximilian_boehm/edasomind/access/struct/EdasomindResult.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="675" y="227"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+    <position height="134" width="266" x="511" y="141"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
@@ -33,8 +33,8 @@
   <interface id="4" language="java" name="com.maximilian_boehm.edasomind.access.struct.EdasomindResultList" 
     project="EDASOMIND" file="/EDASOMIND/src/com/maximilian_boehm/edasomind/access/struct/EdasomindResultList.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="677" y="70"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+    <position height="97" width="267" x="510" y="21"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
@@ -50,25 +50,29 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <dependency id="6">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="4"/>  
-  </dependency>  
-  <association id="7">    
+  <association id="6">    
     <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="8" name="home"/>      
-      <multiplicity id="9" minimum="0" maximum="1"/>    
+      <attribute id="7" name="home">        
+        <position height="18" width="39" x="975" y="56"/>      
+      </attribute>      
+      <multiplicity id="8" minimum="0" maximum="1">        
+        <position height="16" width="25" x="994" y="96"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="1" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="10">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="3"/>  
+  <dependency id="9">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="4"/>  
   </dependency>  
-  <dependency id="11">    
+  <dependency id="10">    
     <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="11">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="3"/>  
   </dependency>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     accessors="true" visibility="true">    
