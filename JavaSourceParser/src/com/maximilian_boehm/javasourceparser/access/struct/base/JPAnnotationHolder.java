@@ -16,4 +16,9 @@ public interface JPAnnotationHolder {
      * @return true if this holder has one or more annotations
      */
     public boolean hasAnnotations();
+
+    /**
+     * @return true if the field has an annotation which name matches with given string
+     */
+    public boolean hasAnnotation(String sAnnotation);
 }
