@@ -114,7 +114,7 @@ public class SVSchemaManagerImpl implements SVSchemaManager{
             // Get Key
             String sKey = entry.getKey();
             // Get Condition
-            SVFieldCondition value = entry.getValue();
+            SVFieldCondition condNEW = entry.getValue();
 
             // Field not present in old schema?
             if(!schemaOLD.hasCondition(sKey)){
@@ -127,17 +127,22 @@ public class SVSchemaManagerImpl implements SVSchemaManager{
                 // ######################################
                 // Case 2: Field got added
                 // ######################################
-                addResult(tableImpl, sKey, null, value.getField(), SVCompareResultType.ADD_FIELD);
+                addResult(tableImpl, sKey, null, condNEW.getField(), SVCompareResultType.ADD_FIELD);
             }
 
-            // ######################################
-            // Case 3: Field exists, but maybe another data-type?
-            // ######################################
             else {
-                SVFieldCondition valueCompare =  schemaOLD.getCondition(sKey);
-                // Is it another data-type?
-                if(!valueCompare.getField().getType().equals(value.getField().getType()))
-                    addResult(tableImpl, sKey, valueCompare.getField(), value.getField(), SVCompareResultType.CHANGE_FIELD);
+                SVFieldCondition condOLD =  schemaOLD.getCondition(sKey);
+                // ######################################
+                // Case 3: Field exists, but maybe another data-type?
+                // ######################################
+                if(!condOLD.getField().getType().equals(condNEW.getField().getType()))
+                    addResult(tableImpl, sKey, condOLD.getField(), condNEW.getField(), SVCompareResultType.CHANGE_FIELD);
+
+                // ######################################
+                // Case 4: Field got NotSaved but this was later removed!
+                // ######################################
+                if(condOLD.getField().hasAnnotation("NotSaved") && !condNEW.getField().hasAnnotation("NotSaved"))
+                    addResult(tableImpl, sKey, null, null, SVCompareResultType.REINTRODUCE);
             }
         }
 
@@ -150,7 +155,7 @@ public class SVSchemaManagerImpl implements SVSchemaManager{
             String sKey = entry.getKey();
             SVFieldCondition value = entry.getValue();
             // ######################################
-            // Case 4: Field was removed
+            // Case 5: Field was removed
             // ######################################
             addResult(tableImpl, sKey, null, value.getField(), SVCompareResultType.REMOVE_FIELD);
         }

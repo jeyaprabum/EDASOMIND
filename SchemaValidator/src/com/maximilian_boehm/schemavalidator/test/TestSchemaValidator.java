@@ -75,6 +75,20 @@ public class TestSchemaValidator {
      * @throws Exception
      */
     @org.junit.Test
+    public void testNotSaved() throws Exception {
+        SVSchemaManager manager = home.createSchemaManager();
+        manager.addSchemaByFile(new File(sPath+"Test_NotSaved_After.java" ), Calendar.getInstance());
+        manager.addSchemaByFile(new File(sPath+"Test_NotSaved_Before.java"), getCalendar(1));
+
+        SVCompareResult result = assureOneResult(manager);
+        Assert.assertEquals(SVCompareResultType.REINTRODUCE, result.getType());
+        Assert.assertEquals("ABC", result.getFieldName());
+    }
+
+    /**
+     * @throws Exception
+     */
+    @org.junit.Test
     public void testChangeDatatype() throws Exception {
         SVSchemaManager manager = home.createSchemaManager();
         manager.addSchemaByFile(new File(sPath+"Test_Datatype_After.java" ), Calendar.getInstance());
