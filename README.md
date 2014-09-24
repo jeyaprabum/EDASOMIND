@@ -28,6 +28,7 @@ I recommend to use a separate workspace!
 
 ## Usage
 There are several entry points
+
 1. EDASOMIND_GUI.java starts the gui
 2. EdasomindHome.java gives a way to start a check programmatically
 3. TestAll.java is the initial point for all tests 
