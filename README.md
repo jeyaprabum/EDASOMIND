@@ -19,11 +19,11 @@ I recommend to use a separate workspace!
 * Java > Installed JRE > Add > Path to JDK instead JRE (e.g.: C:\Program Files\Java\jdk1.8.0_11). It's important otherwise the program can't make use of the internal compiler
 
 ### Checkout-process
-1) File > Import
-2) Git > Projects from Git > Next
-3) Clone URI > Next
-4) URI: https://github.com/maxboehm/EDASOMIND.git > Next
-5) Finish
+1. File > Import
+2. Git > Projects from Git > Next
+3. Clone URI > Next
+4. URI: https://github.com/maxboehm/EDASOMIND.git > Next
+5. Finish
 
 
 ## Usage
