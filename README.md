@@ -32,3 +32,5 @@ There are several entry points
 1. EDASOMIND_GUI.java starts the gui
 2. EdasomindHome.java gives a way to start a check programmatically
 3. TestAll.java is the initial point for all tests 
+
+Check my [blog](https://www.maximilian-boehm.com/hp2117/Error-Detection-For-Agile-Schema-Evolution-With-Object-Mappers-In-NoSQL-Databases.htm) for further information to EDASOMIND!
